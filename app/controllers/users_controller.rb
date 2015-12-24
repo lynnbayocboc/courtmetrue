@@ -8,6 +8,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    redirect_to profile_path unless @user
+
     unless current_user.admin?
       unless @user == current_user
         redirect_to :back, :alert => "Access denied."

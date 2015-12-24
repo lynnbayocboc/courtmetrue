@@ -38,6 +38,14 @@ class ProfilesController < ApplicationController
     render_wizard
   end
 
+  def myprofile
+    if user_signed_in?
+      @photos = @user.profile.profile_photos
+    else 
+      redirect_to root_path, alert: "You need to sign in first"
+    end
+  end
+
   def update
     @profile.update(profile_params)
     render_wizard @profile

@@ -48,6 +48,22 @@ $url_0: url(http://subtlepatterns.com/patterns/geometry2.png);
       background-size: 30%;
     }
   }
+  .clear {
+    clear: both;
+  }
+  .tbl-attr {
+    color: $color_fuscous_gray_approx;
+  }
+  .profile-pic {
+    float: left;
+    margin-right: 15px;
+    margin-top: 15px;
+  }
+  .textright {
+    width: 100%;
+    display: block;
+    text-align: right;
+  }
   .btnNext {
     float: right;
   }
