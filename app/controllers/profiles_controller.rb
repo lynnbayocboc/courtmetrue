@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
   steps :basic_info, :personal_info, :aditional_info, :profile_photos
 
   before_action :get_user
-  before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  before_action :set_profile, only: [:show, :first_steps, :edit, :update, :destroy]
 
   def finish_wizard_path
     wizard_path(:profile_photos)
@@ -36,6 +36,14 @@ class ProfilesController < ApplicationController
       end
     end
     render_wizard
+  end
+
+  def myprofile
+    if user_signed_in?
+      @photos = @user.profile.profile_photos
+    else 
+      redirect_to root_path, alert: "You need to sign in first"
+    end
   end
 
   def update

@@ -1,0 +1,141 @@
+<div class="userProfile">
+  <section style="background:#efefe9;">
+    <div class="container">
+      <div class="row">
+      	<span class="textright"><%= link_to "Edit my profile", profile_path(:basic_info) %></span>
+     		<div class="col-md-12">
+          <% unless @photos.empty? %>
+            <% @photos.each do |photo| %>
+              <%= image_tag photo.photo(:thumb), class: 'profile-pic' %>
+            <% end %>
+            <div class="clear"></div>
+          <% else %>
+						<%= image_tag "nopicture.png", class: 'profile-pic' %>
+          <% end %>
+    		</div>
+
+    		<div class="col-md-12">
+    			<h2 style="text-align: center; color: #337AB7;"><%= @user.profile.profile_heading %></h2>
+          <% if @user.profile.male? %>
+            <p>
+              <strong>Expectations</strong>
+              <br>
+              <%= @user.profile.expectations %>
+            </p>
+          <% else %>
+            <% @user.profile.profile_courtship_preferences.each do |cp| %>
+              <%= cp.name %>
+            <% end %>
+          <% end %>
+    		</div>      		
+    		
+    		<div class="col-md-6">      			
+      		<h3><%= @user.profile.name %></h2>
+      		<table class="table">
+		        <tbody>
+		          <tr>
+		          	<td><span class="tbl-attr">Age</span></td>
+		          	<td><%= @user.profile.age %></td>
+		          </tr>
+		          <tr>
+		          	<td><span class="tbl-attr">Country</span></td>
+		          	<td><%= @user.profile.country %></td>
+		          </tr>
+		          <tr>
+		          	<td><span class="tbl-attr">State</span></td>
+		          	<td><%= @user.profile.state %></td>
+		          </tr>
+		          <tr>
+		          	<td><span class="tbl-attr">City</span></td>
+		          	<td><%= @user.profile.city %></td>
+		          </tr>
+		          <tr>
+		          	<td><span class="tbl-attr">Gender</span></td>
+		          	<td><%= @user.profile.gender %></td>
+		          </tr>
+		          <tr>
+		          	<td><span class="tbl-attr">Status</span></td>
+		          	<td><%= @user.profile.status %></td>
+		          </tr>
+		          <tr>
+		          	<td><span class="tbl-attr">Religion</span></td>
+		          	<td><%= @user.profile.religion %></td>
+		          </tr>
+		        </tbody>
+	      	</table>
+    		</div>
+
+    		<div class="col-md-6">
+    			<h3>Personal</h3>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td><span class="tbl-attr">Ethnicity</span></td>
+                <td><%= @user.profile.ethnicity %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Education</span></td>
+                <td><%= @user.profile.education %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Occupation</span></td>
+                <td><%= @user.profile.occupation %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Income</span></td>
+                <td><%= @user.profile.income %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Height</span></td>
+                <td><%= @user.profile.height %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Weight</span></td>
+                <td><%= @user.profile.weight %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Bodytype</span></td>
+                <td><%= @user.profile.bodytype %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Income</span></td>
+                <td><%= @user.profile.income %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Smoker</span></td>
+                <td><%= @user.profile.smoker %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Drinker</span></td>
+                <td><%= @user.profile.drinker %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Have Children</span></td>
+                <td><%= @user.profile.religion %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Want Children</span></td>
+                <td><%= @user.profile.wantkids %></td>
+              </tr>
+            </tbody>
+          </table>
+    		</div>
+
+    		<div class="col-md-12">
+    			<h2>Aditional</h2>
+          <p>
+            <strong>About yourself</strong>
+            <br>
+            <%= @user.profile.selfbio %>
+          </p>
+          <p>
+            <strong>Your ideal partner</strong>
+            <br>
+            <%= @user.profile.ideal %>
+          </p>
+    		</div>
+      	
+		  </div>
+	  </div>
+	</section>
+</div>
