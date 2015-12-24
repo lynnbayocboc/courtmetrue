@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
   steps :basic_info, :personal_info, :aditional_info, :profile_photos
 
   before_action :get_user
-  before_action :set_profile, only: [:show, :first_steps, :edit, :update, :destroy]
+  before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
   def finish_wizard_path
     wizard_path(:profile_photos)
