@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :admin_only, :except => :show
+  before_action :admin_only, :except => [:show,:public_profile]
 
   def index
     @users = User.all
@@ -30,6 +30,12 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     user.destroy
     redirect_to users_path, :notice => "User deleted."
+  end
+
+  def public_profile
+    @user = User.find(params[:id])
+    @photos = @user.profile.profile_photos
+    render template: "/profiles/myprofile"
   end
 
   private

@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   end
   post 'contact', to: 'contacts#process_form'
   get 'myprofile'   => 'profiles#myprofile', as: 'myprofile'
+  get 'view-profile/:id'   => 'users#public_profile', as: 'public_profile'
   mount Upmin::Engine => '/admin'
 end
