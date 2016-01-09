@@ -2,7 +2,13 @@
   <section style="background:#efefe9;">
     <div class="container">
       <div class="row">
-      	<span class="textright"><%= link_to "Edit my profile", profile_path(:basic_info) %></span>
+      	<span class="textright">
+          <% if @user == current_user %>
+            <%= link_to "Edit my profile", profile_path(:basic_info) %>
+          <% else %>
+            <%= link_to "Mark as Favorite", profile_path(:basic_info) %>
+          <% end %>
+        </span>
      		<div class="col-md-12">
           <% unless @photos.empty? %>
             <% @photos.each do |photo| %>
