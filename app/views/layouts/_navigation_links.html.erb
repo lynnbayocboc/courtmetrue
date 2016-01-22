@@ -2,13 +2,13 @@
 <ul class="nav navbar-nav navbar-left">
   <% if user_signed_in? %>
       <li>
-          <%= link_to 'Search', user_path(current_user) %>
+          <%= link_to 'Search', interests_path %>
       </li>
       <li>
           <%= link_to 'Messages', root_path %>
       </li>
       <li>
-          <%= link_to 'Interests', user_path(current_user) %>
+          <%= link_to 'Interests', interests_path %>
       </li>
       <li>
           <%= link_to 'Active Users', root_path %>

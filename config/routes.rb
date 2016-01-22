@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :interests, only: [:index]
   root 'visitors#index'
   devise_for :users, :controllers => { registrations: 'registrations', sessions: 'sessions' }
   resources :users
