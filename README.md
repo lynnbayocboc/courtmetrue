@@ -1,7 +1,7 @@
 CourtMeTrue
 ================
 
-Web application for [courtmetrue.com/](http://www.courtmetrue.com/).
+Web application for [courtmetrue.com](http://www.courtmetrue.com/).
 
 Versions
 -------------
@@ -15,6 +15,7 @@ Installing
 ---------------
 
 Use `$rake db:seed` to create an admin user with username and password from the *config/secrets.yml* file.
+
 Use `$rake dummy:add_users` to create 30 fake users.
 
 
