@@ -11,12 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105180326) do
+ActiveRecord::Schema.define(version: 20160123095513) do
 
   create_table "courtship_preferences", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "favourites", force: :cascade do |t|
+    t.integer  "from_user_id"
+    t.integer  "to_user_id"
+    t.boolean  "is_favourite"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "profile_courtship_preferences", force: :cascade do |t|
@@ -38,6 +46,13 @@ ActiveRecord::Schema.define(version: 20160105180326) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.boolean  "is_profile_pic"
+  end
+
+  create_table "profile_views", force: :cascade do |t|
+    t.integer  "from_user_id"
+    t.integer  "to_user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "profiles", force: :cascade do |t|

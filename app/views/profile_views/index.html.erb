@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Profile Views</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>From user</th>
+      <th>To user</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @profile_views.each do |profile_view| %>
+      <tr>
+        <td><%= profile_view.from_user_id %></td>
+        <td><%= profile_view.to_user_id %></td>
+        <td><%= link_to 'Show', profile_view %></td>
+        <td><%= link_to 'Edit', edit_profile_view_path(profile_view) %></td>
+        <td><%= link_to 'Destroy', profile_view, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Profile view', new_profile_view_path %>

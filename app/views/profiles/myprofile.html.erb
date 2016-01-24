@@ -6,7 +6,13 @@
           <% if @user == current_user %>
             <%= link_to "Edit my profile", profile_path(:basic_info) %>
           <% else %>
-            <%= link_to "Mark as Favorite", profile_path(:basic_info) %>
+            <div id="favourite">
+              <% if @is_favourite == 1 %>
+                <%= link_to "Mark as UnFavorite", mark_as_favourite_path(params[:id],:is_favourite => false),:remote=> true  %>
+              <% else %>
+                <%= link_to "Mark as Favorite", mark_as_favourite_path(params[:id],:is_favourite => true),:remote=> true  %>
+              <% end %>
+            </div>  
           <% end %>
         </span>
      		<div class="col-md-12">
@@ -145,3 +151,4 @@
 	  </div>
 	</section>
 </div>
+

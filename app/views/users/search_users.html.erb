@@ -1,0 +1,88 @@
+<div class="searchUsers">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <%= form_tag search_users_users_path,:method=>:get ,class: "search-form" do %>
+          <div id="custom-search-input">
+            <div class="input-group col-md-12">
+              <input type="text" class="search-query form-control" placeholder="Search" name="search" value="<%= @search_name ? @search_name : ""  %>">
+              <span class="input-group-btn">
+                <button class="btn btn-danger" type="submit">
+                  <span class=" glyphicon glyphicon-search"></span>
+                </button>
+              </span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row">
+      <% if @users %>
+        <% @users.each do |user| %>
+          <div class="col-xs-6 col-sm-4 col-md-3">
+            <div class="thumbnail">
+              <div class="caption">
+                <h4>
+                  <%= user.profile ? user.profile.name : "" %>
+                </h4>
+                <p>
+                  <%= user.profile ? user.profile.full_address : "" %>
+                </p>
+                <p>
+                  <a href="<%= public_profile_path(user) %>" class="label label-danger">
+                    View
+                  </a>
+                </p>
+              </div>
+              <% unless user.profile_photos.active_profile_pic.blank? %>
+                <%= link_to image_tag(user.profile_photos.active_profile_pic.photo.url(:thumb)), public_profile_path(user) %>
+              <% else %>
+                <%= link_to public_profile_path(user) do %>
+                  <img src="/assets/nopicture.png">
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<style type="text/css">
+  .searchUsers {
+    margin-top: 20px;
+  }
+  .searchUsers .search-form {
+    margin-bottom: 20px;
+  }
+  .searchUsers .thumbnail {
+    position:relative;
+    overflow:hidden;
+  }
+  .searchUsers .caption {
+    position:absolute;
+    top:-100%;
+    right:0;
+    background:rgba(66, 139, 202, 0.75);
+    width: 100%;
+    height: 100%;
+    padding: 20%;
+    text-align: center;
+    color: #fff !important;
+    z-index: 2;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .searchUsers .label.label-danger {
+    font-size: 15px;
+    color: #fff;
+  }
+  .searchUsers .thumbnail:hover .caption {
+    top: 0%;
+  }
+</style>

@@ -1,93 +1,157 @@
-<!-- Page Content -->
-<div class="container">
-
-    <!-- Page Heading -->
+<div class="interests">
+  <div class="container">
     <div class="row">
-        <div class="col-lg-12">
-         <!-- Nav tabs -->
-          <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#viewed" aria-controls="viewed" role="tab" data-toggle="tab">Who Viewed Me</a></li>
-            <li role="presentation"><a href="#favorited" aria-controls="favorited" role="tab" data-toggle="tab">Who Favorited Me</a></li>
-            <li role="presentation"><a href="#favorites" aria-controls="favorites" role="tab" data-toggle="tab">My Favorites</a></li>
-          </ul>
-        </div>
-    </div>
-    <!-- /.row -->
-
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="viewed">
-      <div class="row">
-        <div class="col-md-3 portfolio-item">
-            <a href="#">
-                <img src="http://lorempixel.com/150/125/people/10" alt="">
+      <div class="col-lg-12">
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active">
+            <a href="#viewed" aria-controls="viewed" role="tab" data-toggle="tab">
+              Who Viewed Me
             </a>
-            <div class="caption">
-                <p>
-                  Amira
-                  <br/>
-                  Bali
-                </p>
+          </li>
+          <li role="presentation">
+            <a href="#favorited" aria-controls="favorited" role="tab" data-toggle="tab">
+              Who Favorited Me
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="#favorites" aria-controls="favorites" role="tab" data-toggle="tab">
+              My Favorites
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="viewed">
+        <div class="row">
+
+          <% @who_viewed_me_users.each do |user| %>
+            <div class="col-xs-6 col-sm-4 col-md-3">
+              <div class="thumbnail">
+                <div class="caption">
+                  <h4>
+                    <%= user.profile ? user.profile.name : "" %>
+                  </h4>
+                  <p>
+                    <%= user.profile ? user.profile.full_address : "" %>
+                  </p>
+                  <p>
+                    <a href="<%= public_profile_path(user) %>" class="label label-danger">
+                      View
+                    </a>
+                  </p>
+                </div>
+                <% unless user.profile_photos.active_profile_pic.blank? %>
+                  <%= link_to image_tag(user.profile_photos.active_profile_pic.photo.url(:thumb)), public_profile_path(user) %>
+                <% else %>
+                  <%= link_to public_profile_path(user) do %>
+                    <img src="/assets/nopicture.png">
+                  <% end %>
+                <% end %>
+              </div>
             </div>
-        </div>
-        <div class="col-md-3 portfolio-item">
-        </div>
-        <div class="col-md-3 portfolio-item">
-        </div>
-        <div class="col-md-3 portfolio-item">
+          <% end %>
+
         </div>
       </div>
-      <!-- /.row -->
-    </div>
-
-    <div role="tabpanel" class="tab-pane" id="favorited">
-      <div class="row">
-          <div class="col-md-3 portfolio-item">
-              <a href="#">
-                  <img src="http://lorempixel.com/150/125/people/8" alt="">
-              </a>
+      <div role="tabpanel" class="tab-pane" id="favorited">
+        <% @who_favourited_me_users.each do |user| %>
+          <div class="col-xs-6 col-sm-4 col-md-3">
+            <div class="thumbnail">
               <div class="caption">
-                  <p>
-                    Samuel
-                    <br/>
-                    Manila
-                  </p>
+                <h4>
+                  <%= user.profile ? user.profile.name : "" %>
+                </h4>
+                <p>
+                  <%= user.profile ? user.profile.full_address : "" %>
+                </p>
+                <p>
+                  <a href="<%= public_profile_path(user) %>" class="label label-danger">
+                    View
+                  </a>
+                </p>
               </div>
+              <% unless user.profile_photos.active_profile_pic.blank? %>
+                <%= link_to image_tag(user.profile_photos.active_profile_pic.photo.url(:thumb)), public_profile_path(user) %>
+              <% else %>
+                <%= link_to public_profile_path(user) do %>
+                  <img src="/assets/nopicture.png">
+                <% end %>
+              <% end %>
+            </div>
           </div>
-          <div class="col-md-3 portfolio-item">
-          </div>
-          <div class="col-md-3 portfolio-item">
-          </div>
-          <div class="col-md-3 portfolio-item">
-          </div>
+        <% end %>
       </div>
-      <!-- /.row -->
-    </div>
-
-    <div role="tabpanel" class="tab-pane" id="favorites">
-      <div class="row">
-          <div class="col-md-3 portfolio-item">
-              <a href="#">
-                  <img src="http://lorempixel.com/150/125/people/8" alt="">
-              </a>
+      <div role="tabpanel" class="tab-pane" id="favorites">
+        <% @my_favourites_users.each do |user| %>
+          <div class="col-xs-6 col-sm-4 col-md-3">
+            <div class="thumbnail">
               <div class="caption">
-                  <p>
-                    Joshua
-                    <br/>
-                    New York
-                  </p>
+                <h4>
+                  <%= user.profile ? user.profile.name : "" %>
+                </h4>
+                <p>
+                  <%= user.profile ? user.profile.full_address : "" %>
+                </p>
+                <p>
+                  <a href="<%= public_profile_path(user) %>" class="label label-danger">
+                    View
+                  </a>
+                </p>
               </div>
+              <% unless user.profile_photos.active_profile_pic.blank? %>
+                <%= link_to image_tag(user.profile_photos.active_profile_pic.photo.url(:thumb)), public_profile_path(user) %>
+              <% else %>
+                <%= link_to public_profile_path(user) do %>
+                  <img src="/assets/nopicture.png">
+                <% end %>
+              <% end %>
+            </div>
           </div>
-          <div class="col-md-3 portfolio-item">
-          </div>
-          <div class="col-md-3 portfolio-item">
-          </div>
-          <div class="col-md-3 portfolio-item">
-          </div>
+        <% end %>
       </div>
-      <!-- /.row -->
     </div>
-
   </div>
-
 </div>
-<!-- /.container -->
+<style type="text/css">
+  .interests {
+    margin-top: 20px;
+    background: #fff;
+    padding: 20px 0;
+  }
+  .interests .search-form {
+    margin-bottom: 20px;
+  }
+  #favorited, #favorites, #viewed {
+    margin-top: 20px;
+  }
+  .interests .thumbnail {
+    position:relative;
+    overflow:hidden;
+  }
+  .interests .caption {
+    position: absolute;
+    top: -100%;
+    right: 0;
+    background: rgba(66, 139, 202, 0.75);
+    width: 100%;
+    height: 100%;
+    padding: 20%;
+    text-align: center;
+    color: #fff !important;
+    z-index: 2;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+  }
+  .interests .label.label-danger {
+    font-size: 15px;
+    color: #fff;
+  }
+  .interests .thumbnail:hover .caption {
+    top:0%;
+  }
+</style>

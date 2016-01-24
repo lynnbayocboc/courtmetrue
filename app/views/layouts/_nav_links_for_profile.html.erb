@@ -2,7 +2,7 @@
 <ul class="nav navbar-nav navbar-left">
   <% if user_signed_in? %>
       <li>
-          <%= link_to 'Search', user_path(current_user) %>
+          <%= link_to 'Search', search_users_users_path %>
       </li>
       <li>
           <%= link_to 'Messages', root_path %>

@@ -15,5 +15,4 @@ class User < ActiveRecord::Base
     
   has_one :profile
   has_many :profile_photos, through: :profile
-
 end

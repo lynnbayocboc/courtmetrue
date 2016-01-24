@@ -1,0 +1,6 @@
+
+$("#favourite").html('<% if @is_favourite == 1 %>'+
+                     '<%= link_to "Mark as UnFavorite", mark_as_favourite_path(@favourite.to_user_id,:is_favourite => false),:remote=> true  %>'+
+                     '<% else %>'+
+                     '<%= link_to "Mark as Favorite", mark_as_favourite_path(@favourite.to_user_id,:is_favourite => true),:remote=> true  %>'+
+                     '<% end %>')

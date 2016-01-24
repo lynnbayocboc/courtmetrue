@@ -70,4 +70,12 @@ class Profile < ActiveRecord::Base
   def address
     "#{city} #{country}"
   end
+
+  def full_address
+    the_address = ""
+    the_address += "#{self.city}, " if !self.city.blank?
+    the_address += "#{self.state}, " if !self.state.blank?
+    the_address += self.country if !self.country.blank?
+    the_address
+  end
 end
