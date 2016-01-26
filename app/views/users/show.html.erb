@@ -1,157 +1,147 @@
-<div class="interests">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active">
-            <a href="#viewed" aria-controls="viewed" role="tab" data-toggle="tab">
-              Who Viewed Me
-            </a>
-          </li>
-          <li role="presentation">
-            <a href="#favorited" aria-controls="favorited" role="tab" data-toggle="tab">
-              Who Favorited Me
-            </a>
-          </li>
-          <li role="presentation">
-            <a href="#favorites" aria-controls="favorites" role="tab" data-toggle="tab">
-              My Favorites
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
+<div class="userProfile">
+  <section style="background:#efefe9;">
+    <div class="container">
 
-    <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="viewed">
-        <div class="row">
-
-          <% @who_viewed_me_users.each do |user| %>
-            <div class="col-xs-6 col-sm-4 col-md-3">
-              <div class="thumbnail">
-                <div class="caption">
-                  <h4>
-                    <%= user.profile ? user.profile.name : "" %>
-                  </h4>
-                  <p>
-                    <%= user.profile ? user.profile.full_address : "" %>
-                  </p>
-                  <p>
-                    <a href="<%= public_profile_path(user) %>" class="label label-danger">
-                      View
-                    </a>
-                  </p>
-                </div>
-                <% unless user.profile_photos.active_profile_pic.blank? %>
-                  <%= link_to image_tag(user.profile_photos.active_profile_pic.photo.url(:thumb)), public_profile_path(user) %>
-                <% else %>
-                  <%= link_to public_profile_path(user) do %>
-                    <img src="/assets/nopicture.png">
-                  <% end %>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
-
+      <div class="row">
+        <div class="col-md-2">
+          <%= link_to "Send Message", @user, class: 'btn btn-block btn-primary' %>
         </div>
       </div>
-      <div role="tabpanel" class="tab-pane" id="favorited">
-        <% @who_favourited_me_users.each do |user| %>
-          <div class="col-xs-6 col-sm-4 col-md-3">
-            <div class="thumbnail">
-              <div class="caption">
-                <h4>
-                  <%= user.profile ? user.profile.name : "" %>
-                </h4>
-                <p>
-                  <%= user.profile ? user.profile.full_address : "" %>
-                </p>
-                <p>
-                  <a href="<%= public_profile_path(user) %>" class="label label-danger">
-                    View
-                  </a>
-                </p>
-              </div>
-              <% unless user.profile_photos.active_profile_pic.blank? %>
-                <%= link_to image_tag(user.profile_photos.active_profile_pic.photo.url(:thumb)), public_profile_path(user) %>
-              <% else %>
-                <%= link_to public_profile_path(user) do %>
-                  <img src="/assets/nopicture.png">
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-      <div role="tabpanel" class="tab-pane" id="favorites">
-        <% @my_favourites_users.each do |user| %>
-          <div class="col-xs-6 col-sm-4 col-md-3">
-            <div class="thumbnail">
-              <div class="caption">
-                <h4>
-                  <%= user.profile ? user.profile.name : "" %>
-                </h4>
-                <p>
-                  <%= user.profile ? user.profile.full_address : "" %>
-                </p>
-                <p>
-                  <a href="<%= public_profile_path(user) %>" class="label label-danger">
-                    View
-                  </a>
-                </p>
-              </div>
-              <% unless user.profile_photos.active_profile_pic.blank? %>
-                <%= link_to image_tag(user.profile_photos.active_profile_pic.photo.url(:thumb)), public_profile_path(user) %>
-              <% else %>
-                <%= link_to public_profile_path(user) do %>
-                  <img src="/assets/nopicture.png">
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
+
+      <div class="row">
+        <div class="col-md-12">
+          <% unless @photos.empty? %>
+            <% @photos.each do |photo| %>
+              <%= image_tag photo.photo(:thumb), class: 'profile-pic' %>
+            <% end %>
+            <div class="clear"></div>
+          <% else %>
+            <%= image_tag "nopicture.png", class: 'profile-pic' %>
+          <% end %>
+        </div>
+
+        <div class="col-md-12">
+          <h2 style="text-align: center; color: #337AB7;"><%= @user.profile.profile_heading %></h2>
+          <% if @user.profile.male? %>
+            <p>
+              <strong>Expectations</strong>
+              <br>
+              <%= @user.profile.expectations %>
+            </p>
+          <% else %>
+            <% @user.profile.profile_courtship_preferences.each do |cp| %>
+              <%= cp.name %>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="col-md-6">
+          <h3><%= @user.profile.name %></h2>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td><span class="tbl-attr">Age</span></td>
+                <td><%= @user.profile.age %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Country</span></td>
+                <td><%= @user.profile.country %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">State</span></td>
+                <td><%= @user.profile.state %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">City</span></td>
+                <td><%= @user.profile.city %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Gender</span></td>
+                <td><%= @user.profile.gender %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Status</span></td>
+                <td><%= @user.profile.status %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Religion</span></td>
+                <td><%= @user.profile.religion %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-md-6">
+          <h3>Personal</h3>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td><span class="tbl-attr">Ethnicity</span></td>
+                <td><%= @user.profile.ethnicity %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Education</span></td>
+                <td><%= @user.profile.education %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Occupation</span></td>
+                <td><%= @user.profile.occupation %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Income</span></td>
+                <td><%= @user.profile.income %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Height</span></td>
+                <td><%= @user.profile.height %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Weight</span></td>
+                <td><%= @user.profile.weight %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Bodytype</span></td>
+                <td><%= @user.profile.bodytype %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Income</span></td>
+                <td><%= @user.profile.income %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Smoker</span></td>
+                <td><%= @user.profile.smoker %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Drinker</span></td>
+                <td><%= @user.profile.drinker %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Have Children</span></td>
+                <td><%= @user.profile.religion %></td>
+              </tr>
+              <tr>
+                <td><span class="tbl-attr">Want Children</span></td>
+                <td><%= @user.profile.wantkids %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-md-12">
+          <h2>Aditional</h2>
+          <p>
+            <strong>About yourself</strong>
+            <br>
+            <%= @user.profile.selfbio %>
+          </p>
+          <p>
+            <strong>Your ideal partner</strong>
+            <br>
+            <%= @user.profile.ideal %>
+          </p>
+        </div>
+
       </div>
     </div>
-  </div>
+  </section>
 </div>
-<style type="text/css">
-  .interests {
-    margin-top: 20px;
-    background: #fff;
-    padding: 20px 0;
-  }
-  .interests .search-form {
-    margin-bottom: 20px;
-  }
-  #favorited, #favorites, #viewed {
-    margin-top: 20px;
-  }
-  .interests .thumbnail {
-    position:relative;
-    overflow:hidden;
-  }
-  .interests .caption {
-    position: absolute;
-    top: -100%;
-    right: 0;
-    background: rgba(66, 139, 202, 0.75);
-    width: 100%;
-    height: 100%;
-    padding: 20%;
-    text-align: center;
-    color: #fff !important;
-    z-index: 2;
-    -webkit-transition: all 0.5s ease-in-out;
-    -moz-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    -ms-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-  }
-  .interests .label.label-danger {
-    font-size: 15px;
-    color: #fff;
-  }
-  .interests .thumbnail:hover .caption {
-    top:0%;
-  }
-</style>

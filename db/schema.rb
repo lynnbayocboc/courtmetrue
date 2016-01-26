@@ -27,6 +27,11 @@ ActiveRecord::Schema.define(version: 20160123095513) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "interests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "profile_courtship_preferences", force: :cascade do |t|
     t.integer  "profile_id"
     t.integer  "courtship_preference_id"

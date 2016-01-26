@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :profile_views
   root 'visitors#index'
+  resources :profile_views
+  resources :interests, only: [:index]
   devise_for :users, :controllers => { registrations: 'registrations', sessions: 'sessions' }
   resources :users do 
     collection do 
