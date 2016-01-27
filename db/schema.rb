@@ -53,6 +53,8 @@ ActiveRecord::Schema.define(version: 20160123095513) do
     t.boolean  "is_profile_pic"
   end
 
+  add_index "profile_photos", ["profile_id"], name: "index_profile_photos_on_profile_id"
+
   create_table "profile_views", force: :cascade do |t|
     t.integer  "from_user_id"
     t.integer  "to_user_id"
@@ -94,26 +96,6 @@ ActiveRecord::Schema.define(version: 20160123095513) do
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
-
-  create_table "taggings", force: :cascade do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context",       limit: 128
-    t.datetime "created_at"
-  end
-
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
-
-  create_table "tags", force: :cascade do |t|
-    t.string  "name"
-    t.integer "taggings_count", default: 0
-  end
-
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
