@@ -16,6 +16,8 @@ Installing
 
 Use `$rake db:seed` to create an admin user with username and password from the *config/secrets.yml* file.
 
-Use `$rake dummy:add_users` to create 30 fake users.
+Use `$rake db:reset` to empty and reset the database with one admin user.
+
+Use `$rake dummy:add_users` to create some fake users.
 
 
