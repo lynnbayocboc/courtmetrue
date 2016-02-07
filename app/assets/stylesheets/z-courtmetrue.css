@@ -58,45 +58,76 @@
 
 }
 .dropdown {
-    width:100px;
-    background-color: #ddd;
+  width:100px;
+  background-color: #ddd;
 }
 .dropdown-menu>li>a {
-    color:#428bca;
+  color:#428bca;
 }
 .dropdown ul.dropdown-menu {
-    border-radius:4px;
-    box-shadow:none;
-    margin-top:20px;
-    width:300px;
+  border-radius:4px;
+  box-shadow:none;
+  margin-top:20px;
+  width:300px;
 }
 .dropdown ul.dropdown-menu:before {
-    content: "";
-    border-bottom: 10px solid #fff;
-    border-right: 10px solid transparent;
-    border-left: 10px solid transparent;
-    position: absolute;
-    top: -10px;
-    right: 16px;
-    z-index: 10;
+  content: "";
+  border-bottom: 10px solid #fff;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  position: absolute;
+  top: -10px;
+  right: 16px;
+  z-index: 10;
 }
 .dropdown ul.dropdown-menu:after {
-    content: "";
-    border-bottom: 12px solid #ccc;
-    border-right: 12px solid transparent;
-    border-left: 12px solid transparent;
-    position: absolute;
-    top: -12px;
-    right: 14px;
-    z-index: 9;
+  content: "";
+  border-bottom: 12px solid #ccc;
+  border-right: 12px solid transparent;
+  border-left: 12px solid transparent;
+  position: absolute;
+  top: -12px;
+  right: 14px;
+  z-index: 9;
 }
 
 /* avatar image in navbar */
 
 .profile-image {
-    position: relative;
-    top: -5px;
-    float: left;
-    left: -5px;
-    height: 30px !important;;
+  position: relative;
+  top: -5px;
+  float: left;
+  left: -5px;
+  height: 30px !important;;
+}
+
+/* Search users CSS */
+.m-t-0 {
+  margin-top: 0;
+}
+.p-r-0 {
+  padding-right: 0;
+}
+.p-l-0 {
+  padding-left: 0;
+}
+.searchUsers .panel-default {
+  border-radius: 0;
+}
+.lv-filterData h3 sup {
+  font-size: 12px;
+  font-weight: 600;
+}
+.lv-filterData i.userOnline {
+  color: green;
+  background: green;
+}
+.lv-filterData a i.glyphicon-envelope,
+.lv-filterData a i.glyphicon-heart {
+  font-size: 20px;
+}
+.lv-filterData a.sendUserMessage:hover,
+.lv-filterData a.likeUserFav:hover {
+  background: #fff;
+  color: #000;
 }

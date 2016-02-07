@@ -290,6 +290,7 @@ DEPENDENCIES
   rails (= 4.2.5)
   rails_12factor
   rails_layout
+  ransack
   rspec-rails
   sass-rails (~> 5.0)
   selenium-webdriver

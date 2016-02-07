@@ -1,51 +1,98 @@
 <div class="searchUsers">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <%= form_tag search_users_users_path,:method=>:get ,class: "search-form" do %>
-          <div id="custom-search-input">
-            <div class="input-group col-md-12">
-              <input type="text" class="search-query form-control" placeholder="Search" name="search" value="<%= @search_name ? @search_name : ""  %>">
-              <span class="input-group-btn">
-                <button class="btn btn-danger" type="submit">
-                  <span class=" glyphicon glyphicon-search"></span>
-                </button>
-              </span>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="row">
-      <% if @users %>
-        <% @users.each do |user| %>
-          <div class="col-xs-6 col-sm-4 col-md-3">
-            <div class="thumbnail">
-              <div class="caption">
-                <h4>
-                  <%= user.profile ? user.profile.name : "" %>
-                </h4>
-                <p>
-                  <%= user.profile ? user.profile.full_address : "" %>
-                </p>
-                <p>
-                  <a href="<%= public_profile_path(user) %>" class="label label-danger">
-                    View
-                  </a>
-                </p>
-              </div>
-              <% unless user.profile_photos.active_profile_pic.blank? %>
-                <%= link_to image_tag(user.profile_photos.active_profile_pic.photo.url(:thumb)), public_profile_path(user) %>
+  <div class="container-fluid">
+    <div class="col-sm-2">
+      <h2>Search</h2>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <%= search_form_for @search, url: search_users_users_path, :method=>:get, class: "search-form" do |f| %>
+            <div class="form-group">
+              <label>I am a</label>
+              <br>
+              <% if current_user.profile.finish_basic_info? %>
+                <span class="form-control"><%= current_user.profile.gender %></span>
               <% else %>
-                <%= link_to public_profile_path(user) do %>
-                  <img src="/assets/nopicture.png">
-                <% end %>
+                <%= select_tag 'i_am', options_for_select(User.gender_types.keys.map { |x| x.capitalize }, selected: params[:i_am]), :class => "form-control" %>
               <% end %>
             </div>
-          </div>
-        <% end %>
-      <% end %>
+            <div class="form-group">
+              <label>Seeking a</label>
+              <br>
+              <%= f.select :gender_eq, User.gender_types.keys.map { |x| x.capitalize }, { :include_blank => 'Any' }, :class => "form-control" %>
+            </div>
+            <div class="form-group">
+              <label>From</label>
+              <br>
+              <%= f.country_select :country_eq, { :include_blank => 'Any Country' }, :class => "form-control" %>
+            </div>
+            <div class="form-group">
+              <label>Age</label>
+              <br>
+              <%= f.text_field :age_gteq, class: "minAge form-control" %>
+              To
+              <%= f.text_field :age_lteq, class: "maxAge form-control" %>
+            </div>
+            <div class="form-group">
+              <input type="submit" value="Submit" class="btn btn-primary btn-block">
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div class="col-sm-10">
+      <div class="row">
+        <div class="col-md-10 p-l-0">
+          <h2><%= @total_online_user_count %> Memeber Online</h2>
+        </div>
+        <div class="col-md-2 p-r-0">
+          <select class="form-control" style="margin-top: 20px; float: right;">
+            <option value="">
+              Sort By
+            </option>
+            <option value="">
+              Most recent active
+            </option>
+            <option value="">
+              Newest Members
+            </option>
+            <option value="">
+              Oldest Members
+            </option>
+          </select>
+        </div>
+        <div class="col-xs-12">
+          <% @profiles.each do |profile| %>
+            <div class="row lv-filterData">
+              <div class="col-md-2">                
+                <% if !profile.profile_photos.active_profile_pic.blank? %>
+                  <%= image_tag profile.profile_photos.active_profile_pic.photo.url(:active_photo) %>
+                <% else %>
+                  <%= image_tag "missing.jpg" %>
+                <% end %>
+              </div>
+              <div class="col-md-9">
+                <h3 class="m-t-0">
+                  <%= link_to profile.name, user_path(profile.user) %> (<%= profile.age %>)
+                  <sup><i class="glyphicon glyphicon-unchecked <%= profile.user.online? ? 'userOnline' : '' %>"></i> <%= profile.user.online? ? 'Online' : "#{time_ago_in_words(profile.user.updated_at)} ago"  %></sup>
+                </h3>
+                <h4><small><%= profile.country %> / <%= profile.state %> / <%= profile.city %></small></h4>
+                <h5>
+                  My Expectation : <p><%= profile.expectations %></p>
+                </h5>
+              </div>
+              <div class="col-md-1" style="padding-top: 30px;">
+                <a href="javascript:;" title="" class="sendUserMessage">
+                  <i class="glyphicon glyphicon-envelope"></i>
+                </a>
+                <a href="javascript:;" title="" class="likeUserFav">
+                  <i class="glyphicon glyphicon-heart"></i>
+                </a>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -84,5 +131,23 @@
   }
   .searchUsers .thumbnail:hover .caption {
     top: 0%;
+  }
+  main {
+    background: #fff;
+  }
+  .searchUsers .minAge, .maxAge {
+    width: 50px;
+    display: inline-block;
+  }
+  .searchUsers .minAge {
+    margin-right: 15px;
+  }
+  .searchUsers .maxAge {
+    margin-left: 15px;
+  }
+  .searchUsers .lv-filterData {
+    border: 1px solid #ddd;
+    padding: 10px 0;
+    margin-bottom: 5px;
   }
 </style>

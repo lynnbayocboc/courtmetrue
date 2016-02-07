@@ -37,15 +37,15 @@
                     <%= user.profile ? user.profile.full_address : "" %>
                   </p>
                   <p>
-                    <a href="<%= public_profile_path(user) %>" class="label label-danger">
+                    <a href="<%= user_path(user) %>" class="label label-danger">
                       View
                     </a>
                   </p>
                 </div>
                 <% unless user.profile_photos.active_profile_pic.blank? %>
-                  <%= link_to image_tag(user.profile_photos.active_profile_pic.photo.url(:thumb)), public_profile_path(user) %>
+                  <%= link_to image_tag(user.profile_photos.active_profile_pic.photo.url(:thumb)), user_path(user) %>
                 <% else %>
-                  <%= link_to public_profile_path(user) do %>
+                  <%= link_to user_path(user) do %>
                     <img src="/assets/nopicture.png">
                   <% end %>
                 <% end %>
@@ -67,15 +67,15 @@
                   <%= user.profile ? user.profile.full_address : "" %>
                 </p>
                 <p>
-                  <a href="<%= public_profile_path(user) %>" class="label label-danger">
+                  <a href="<%= user_path(user) %>" class="label label-danger">
                     View
                   </a>
                 </p>
               </div>
               <% unless user.profile_photos.active_profile_pic.blank? %>
-                <%= link_to image_tag(user.profile_photos.active_profile_pic.photo.url(:thumb)), public_profile_path(user) %>
+                <%= link_to image_tag(user.profile_photos.active_profile_pic.photo.url(:thumb)), user_path(user) %>
               <% else %>
-                <%= link_to public_profile_path(user) do %>
+                <%= link_to user_path(user) do %>
                   <img src="/assets/nopicture.png">
                 <% end %>
               <% end %>
@@ -95,15 +95,15 @@
                   <%= user.profile ? user.profile.full_address : "" %>
                 </p>
                 <p>
-                  <a href="<%= public_profile_path(user) %>" class="label label-danger">
+                  <a href="<%= user_path(user) %>" class="label label-danger">
                     View
                   </a>
                 </p>
               </div>
               <% unless user.profile_photos.active_profile_pic.blank? %>
-                <%= link_to image_tag(user.profile_photos.active_profile_pic.photo.url(:thumb)), public_profile_path(user) %>
+                <%= link_to image_tag(user.profile_photos.active_profile_pic.photo.url(:thumb)), user_path(user) %>
               <% else %>
-                <%= link_to public_profile_path(user) do %>
+                <%= link_to user_path(user) do %>
                   <img src="/assets/nopicture.png">
                 <% end %>
               <% end %>

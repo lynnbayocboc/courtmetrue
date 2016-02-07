@@ -6,6 +6,19 @@
         <div class="col-md-2">
           <%= link_to "Send Message", @user, class: 'btn btn-block btn-primary' %>
         </div>
+        <div class="col-md-10 text-right">
+          <% if @user == current_user %>
+            <%= link_to "Edit my profile", profile_path(:basic_info) %>
+          <% else %>
+            <div id="favourite">
+              <% if @is_favourite == 1 %>
+                <%= link_to "Mark as UnFavorite", mark_as_favourite_path(params[:id],:is_favourite => false),:remote=> true  %>
+              <% else %>
+                <%= link_to "Mark as Favorite", mark_as_favourite_path(params[:id],:is_favourite => true),:remote=> true  %>
+              <% end %>
+            </div>  
+          <% end %>
+        </div>
       </div>
 
       <div class="row">

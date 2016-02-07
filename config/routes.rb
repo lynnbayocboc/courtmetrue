@@ -20,7 +20,6 @@ Rails.application.routes.draw do
 
   post 'contact', to: 'contacts#process_form'
   get 'myprofile'   => 'profiles#myprofile', as: 'myprofile'
-  get 'view-profile/:id'   => 'users#public_profile', as: 'public_profile'
   # get ":id/set-as-favorite" => "taggable#set_as_favorite", as: :set_as_favorite
   mount Upmin::Engine => '/admin'
 end
