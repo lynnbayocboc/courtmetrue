@@ -53,8 +53,6 @@ ActiveRecord::Schema.define(version: 20160123095513) do
     t.boolean  "is_profile_pic"
   end
 
-  add_index "profile_photos", ["profile_id"], name: "index_profile_photos_on_profile_id"
-
   create_table "profile_views", force: :cascade do |t|
     t.integer  "from_user_id"
     t.integer  "to_user_id"
