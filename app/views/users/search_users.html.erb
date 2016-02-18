@@ -24,6 +24,13 @@
               <br>
               <%= f.country_select :country_eq, { :include_blank => 'Any Country' }, :class => "form-control" %>
             </div>
+            <% if current_user.profile.gender.downcase == "male" %>
+              <div class="form-group">
+                <label>Courtship Preference</label>
+                <br>
+                <%= f.select :courtship_preferences_name_cont, @courtship_preferences.map { |x| x.name.capitalize }, { :include_blank => 'Any' }, :class => "form-control" %>
+              </div>
+            <% end %>
             <div class="form-group">
               <label>Age</label>
               <br>
@@ -140,10 +147,10 @@
     display: inline-block;
   }
   .searchUsers .minAge {
-    margin-right: 15px;
+    margin-right: 5px;
   }
   .searchUsers .maxAge {
-    margin-left: 15px;
+    margin-left: 5px;
   }
   .searchUsers .lv-filterData {
     border: 1px solid #ddd;
