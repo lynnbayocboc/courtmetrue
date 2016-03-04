@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  acts_as_messageable
+
   enum role: [:user, :vip, :admin]
   enum gender_types: [:male, :female]
   after_initialize :set_default_role, :if => :new_record?
@@ -22,4 +24,8 @@ class User < ActiveRecord::Base
     
   has_one :profile
   has_many :profile_photos, through: :profile
+
+  def mailboxer_email(object)
+    nil
+  end
 end

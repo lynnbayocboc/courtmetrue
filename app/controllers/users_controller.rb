@@ -52,7 +52,7 @@ class UsersController < ApplicationController
               end
     
     @courtship_preferences = CourtshipPreference.all if current_user.profile.gender.downcase == "male"
-    @profiles = @search.result
+    @profiles = @search.result - [current_user.profile]
     # @total_online_user_count = User.total_online_users
     @total_online_user_count = @profiles.count
   end

@@ -89,9 +89,9 @@
                 </h5>
               </div>
               <div class="col-md-1" style="padding-top: 30px;">
-                <a href="javascript:;" title="" class="sendUserMessage">
+                <%= link_to new_user_conversation_path(profile.user), class: "sendUserMessage" do %>
                   <i class="glyphicon glyphicon-envelope"></i>
-                </a>
+                <% end %>
                 <a href="javascript:;" title="" class="likeUserFav">
                   <i class="glyphicon glyphicon-heart"></i>
                 </a>
