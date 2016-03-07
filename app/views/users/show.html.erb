@@ -43,7 +43,7 @@
             </p>
           <% else %>
             <% @user.profile.profile_courtship_preferences.each do |cp| %>
-              <%= cp.name %>
+              <%= cp.profile.name %>
             <% end %>
           <% end %>
         </div>

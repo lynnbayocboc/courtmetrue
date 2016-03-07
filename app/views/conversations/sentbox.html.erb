@@ -55,7 +55,6 @@
       <div class="tab-pane fade in active" id="home">
         <div class="list-group">
           <% @conversations.each do |conversation| %>
-            <% profile = conversation_with_user_profile(conversation) %>
             <a href="<%= conversation_path(conversation) %>" class="list-group-item">
               <div class="checkbox">
                 <label>
@@ -64,9 +63,11 @@
               </div>
               <!-- <span class="glyphicon glyphicon-star-empty"></span> -->
               <span class="name" style="min-width: 120px; display: inline-block;">
-                <%= profile.name %>
+                <%= conversation.receipts.first.receiver.profile.name %>
               </span>
-              <span class=""><%= conversation.messages.last.body %></span>
+              <span class="">
+              <%= conversation.messages.last.body %>
+              </span>
               <span class="badge"><%= conversation.updated_at.strftime("%H:%M %p") %></span>
               <span class="pull-right">
                 <span class="glyphicon glyphicon-paperclip"></span>

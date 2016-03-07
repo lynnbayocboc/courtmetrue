@@ -27,15 +27,11 @@ $color_fuscous_gray_approx: #555;
 		margin-right: 5px;
 	}
 }
-.panel-body {
-	overflow-y: scroll;
-	height: 250px;
-}
 ::-webkit-scrollbar-track {
 	background-color: $color_wild_sand_approx;
 }
 ::-webkit-scrollbar {
-	width: 12px;
+	width: 5px;
 	background-color: $color_wild_sand_approx;
 }
 ::-webkit-scrollbar-thumb {

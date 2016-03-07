@@ -22,9 +22,11 @@ Rails.application.routes.draw do
   post 'contact', to: 'contacts#process_form'
   get 'myprofile'   => 'profiles#myprofile', as: 'myprofile'
 
-  resources :conversations, except: [:new, :create] do
+  resources :conversations, except: [:index, :new, :create] do
     resources :messages
   end
+  get '/sentbox' => 'conversations#sentbox'
+  get '/inbox' => 'conversations#index'
   # resources :messages, except: [:new, :create]
   # get ":id/set-as-favorite" => "taggable#set_as_favorite", as: :set_as_favorite
   mount Upmin::Engine => '/admin'
