@@ -7,6 +7,10 @@ class ConversationsController < ApplicationController
 		@conversations = current_user.mailbox.sentbox
 	end
 
+	def trash
+		@conversations = current_user.mailbox.trash
+	end
+
 	def show
 		@conversation = current_user.mailbox.conversations.find(params[:id])
 
@@ -28,5 +32,9 @@ class ConversationsController < ApplicationController
 		params[:subject] = "sent_to_#{recipient.id}"
 		receipt = current_user.send_message(recipient, params[:body], params[:subject])
 		redirect_to conversation_path(receipt.conversation)
+	end
+
+	def destroy_multiple_messages
+		
 	end
 end

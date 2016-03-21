@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   end
   get '/sentbox' => 'conversations#sentbox'
   get '/inbox' => 'conversations#index'
+  get '/trash' => 'conversations#trash'
+  delete '/destroy_multiple_messages' => 'conversations#destroy_multiple_messages'
   # resources :messages, except: [:new, :create]
   # get ":id/set-as-favorite" => "taggable#set_as_favorite", as: :set_as_favorite
   mount Upmin::Engine => '/admin'
