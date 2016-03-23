@@ -1,0 +1,100 @@
+<div class="container-fluid m-t-20">
+  <div class="row">
+    <div class="col-sm-3 col-md-2">
+    </div>
+    <div class="col-sm-9 col-md-10">
+      <div class="btn-group">
+        <button type="button" class="btn btn-default">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox">
+            </label>
+          </div>
+        </button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">All</a></li>
+          <li><a href="#">None</a></li>
+          <li><a href="#">Read</a></li>
+          <li><a href="#">Unread</a></li>
+          <li><a href="#">Starred</a></li>
+          <li><a href="#">Unstarred</a></li>
+        </ul>
+      </div>
+      <div class="pull-right">
+        <span class="text-muted"><b>1</b>–<b>50</b> of <b>160</b></span>
+        <div class="btn-group btn-group-sm">
+          <button type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </button>
+          <button type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <%= render "layouts/message_sidebar" %>
+    <div class="col-sm-9 col-md-10">
+      <div class="tab-pane fade in active" id="home">
+        <div class="list-group">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              
+              <div class="table-container">
+                <table class="table table-filter">
+                  <% if !@conversations.blank? %>
+                  <tbody>
+                    <% @conversations.each do |conversation| %>
+                      <% profile = conversation_with_user_profile(conversation) %>
+                      <!-- <tr data-status="pagado" class="selected"> -->
+                      <tr data-status="pagado">
+                        <td>
+                          <div class="ckbox">
+                            <input type="checkbox" id="checkbox4" checked>
+                            <label for="checkbox4"></label>
+                          </div>
+                        </td>
+                        <td>
+                          <a href="javascript:;" class="star star-checked">
+                            <i class="glyphicon glyphicon-star"></i>
+                          </a>
+                        </td>
+                        <td>
+                          <div class="media">
+                            <a href="#" class="pull-left">
+                              <img src="<%= profile.profile_photos.active_profile_pic.photo.url %>" class="media-photo">
+                            </a>
+                            <div class="media-body">
+                              <span class="media-meta pull-right"><%= conversation.updated_at.strftime("%H:%M %p") %></span>
+                              <h4 class="title">
+                                <%= link_to profile.name, conversation_path(conversation) %>
+                                <!-- <span class="pull-right pagado">(Pagado)</span> -->
+                              </h4>
+                              <p class="summary"><%= conversation.messages.last.body %></p>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    <% end %>
+                    
+                  </tbody>
+                  <% else %>
+                    <div class="text-center">
+                      No messages
+                    </div>
+                  <% end %>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

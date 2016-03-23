@@ -1,0 +1,20 @@
+<div class="col-sm-3 col-md-2">
+  <ul class="nav nav-pills nav-stacked">
+    <li class="<%= active_class(inbox_path) %>">
+      <a href="<%= inbox_path %>">
+        <span class="badge pull-right">
+          <%= current_user.unread_inbox_count %>
+        </span> Inbox
+      </a>
+    </li>
+    <li class="<%= active_class(sentbox_path) %>">
+      <a href="<%= sentbox_path %>"><span class="badge pull-right">
+          <%= current_user.unread_inbox_count %>
+        </span> Sent</a>
+    </li>
+    <!-- <li><a href="#"><span class="badge pull-right">3</span>Saved</a></li> -->
+    <li class="<%= active_class(trash_path) %>">
+      <a href="<%= trash_path %>">Deleted</a>
+    </li>
+  </ul>
+</div>

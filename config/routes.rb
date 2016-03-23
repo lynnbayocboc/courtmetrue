@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :interests, only: [:index]
   devise_for :users, :controllers => { registrations: 'registrations', sessions: 'sessions' }
   resources :users do 
+    resources :conversations, only: [:new, :create]
     collection do 
       get "search_users"
     end
@@ -20,6 +21,15 @@ Rails.application.routes.draw do
 
   post 'contact', to: 'contacts#process_form'
   get 'myprofile'   => 'profiles#myprofile', as: 'myprofile'
+
+  resources :conversations, except: [:index, :new, :create] do
+    resources :messages
+  end
+  get '/sentbox' => 'conversations#sentbox'
+  get '/inbox' => 'conversations#index'
+  get '/trash' => 'conversations#trash'
+  delete '/destroy_multiple_messages' => 'conversations#destroy_multiple_messages'
+  # resources :messages, except: [:new, :create]
   # get ":id/set-as-favorite" => "taggable#set_as_favorite", as: :set_as_favorite
   mount Upmin::Engine => '/admin'
 end
