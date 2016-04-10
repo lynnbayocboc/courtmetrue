@@ -8,9 +8,7 @@
       </a>
     </li>
     <li class="<%= active_class(sentbox_path) %>">
-      <a href="<%= sentbox_path %>"><span class="badge pull-right">
-          <%= current_user.unread_inbox_count %>
-        </span> Sent</a>
+      <a href="<%= sentbox_path %>">Sent</a>
     </li>
     <!-- <li><a href="#"><span class="badge pull-right">3</span>Saved</a></li> -->
     <li class="<%= active_class(trash_path) %>">
