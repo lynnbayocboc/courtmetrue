@@ -37,8 +37,8 @@
             <div class="panel-body">
               
               <div class="table-container">
+                <% if !@conversations.blank? %>
                 <table class="table table-filter">
-                  <% if !@conversations.blank? %>
                   <tbody>
                     <% @conversations.each do |conversation| %>
                       <% profile = conversation_with_user_profile(conversation) %>
@@ -49,11 +49,6 @@
                             <input type="checkbox" id="checkbox4" checked>
                             <label for="checkbox4"></label>
                           </div>
-                        </td>
-                        <td>
-                          <a href="javascript:;" class="star star-checked">
-                            <i class="glyphicon glyphicon-star"></i>
-                          </a>
                         </td>
                         <td>
                           <div class="media">
@@ -72,14 +67,13 @@
                         </td>
                       </tr>
                     <% end %>
-                    
                   </tbody>
-                  <% else %>
-                    <div class="text-center">
-                      No messages
-                    </div>
-                  <% end %>
                 </table>
+                <% else %>
+                  <div class="text-center no-messages">
+                    No messages
+                  </div>
+                <% end %>
               </div>
             </div>
           </div>

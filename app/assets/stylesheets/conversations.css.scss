@@ -55,7 +55,9 @@ $font_0: Glyphicons Halflings;
 }
 
 
-
+.table-container .no-messages {
+	font-size: 25px;
+}
 
 .table-filter {
 	background-color: $white;
@@ -75,7 +77,8 @@ $font_0: Glyphicons Halflings;
 		}
 	}
 	.media-photo {
-		width: 35px;
+		width: 80px;
+		height: 60px;
 	}
 	.media-meta {
 		font-size: 11px;

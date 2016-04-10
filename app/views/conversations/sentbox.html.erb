@@ -11,18 +11,6 @@
             </label>
           </div>
         </button>
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-          <span class="caret"></span>
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li><a href="#">All</a></li>
-          <li><a href="#">None</a></li>
-          <li><a href="#">Read</a></li>
-          <li><a href="#">Unread</a></li>
-          <li><a href="#">Starred</a></li>
-          <li><a href="#">Unstarred</a></li>
-        </ul>
       </div>
       <div class="pull-right">
         <span class="text-muted"><b>1</b>–<b>50</b> of <b>160</b></span>
@@ -47,8 +35,8 @@
             <div class="panel-body">
               
               <div class="table-container">
+                <% if !@conversations.blank? %>
                 <table class="table table-filter">
-                  <% if !@conversations.blank? %>
                   <tbody>
                     <% @conversations.each do |conversation| %>
                       <% profile = conversation_with_user_profile(conversation) %>
@@ -59,11 +47,6 @@
                             <input type="checkbox" id="checkbox4" checked>
                             <label for="checkbox4"></label>
                           </div>
-                        </td>
-                        <td>
-                          <a href="javascript:;" class="star star-checked">
-                            <i class="glyphicon glyphicon-star"></i>
-                          </a>
                         </td>
                         <td>
                           <div class="media">
@@ -82,14 +65,13 @@
                         </td>
                       </tr>
                     <% end %>
-                    
                   </tbody>
-                  <% else %>
-                    <div class="text-center">
-                      No messages
-                    </div>
-                  <% end %>
                 </table>
+                <% else %>
+                  <div class="text-center no-messages">
+                    No messages
+                  </div>
+                <% end %>
               </div>
             </div>
           </div>
