@@ -1,6 +1,6 @@
 class ConversationsController < ApplicationController
   def index
-    @conversations = current_user.mailbox.inbox.page(params[:page]).per(20)
+    @conversations = current_user.mailbox.inbox.page(5).per(20)
   end
 
   def sentbox

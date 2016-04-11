@@ -304,6 +304,7 @@ DEPENDENCIES
   high_voltage
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
   launchy
   letter_opener
   mailboxer!

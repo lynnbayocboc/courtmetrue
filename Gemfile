@@ -50,3 +50,4 @@ gem 'paperclip'
 gem 'acts-as-taggable-on', '~> 3.4'
 gem 'ransack'
 gem 'mailboxer', github: "mailboxer/mailboxer"
+gem 'kaminari'
