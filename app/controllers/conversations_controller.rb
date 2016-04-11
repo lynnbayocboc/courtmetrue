@@ -39,6 +39,7 @@ class ConversationsController < ApplicationController
   end
 
   def destroy_multiple_messages
-    
+    @conversations = current_user.mailbox.conversations.destroy(params[:conversation_ids])
+    redirect_to :back
   end
 end

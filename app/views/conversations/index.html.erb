@@ -8,7 +8,10 @@
         <button type="submit" class="btn btn-default">
           <div class="checkbox">
             <label>
-              <input type="checkbox">
+              <input type="checkbox" id="selectAll">
+              <button type="submit" class="btn btn-default">
+                Delete selected
+              </button>
             </label>
           </div>
         </button>
@@ -46,8 +49,8 @@
                       <tr data-status="pagado">
                         <td>
                           <div class="ckbox">
-                            <input type="checkbox" id="checkbox4" checked>
-                            <label for="checkbox4"></label>
+                            <%= check_box_tag "conversation_ids[]", conversation.id, false, :id => "conversation_#{conversation.id}", class: "conversationChk" %>
+                            <label for="conversation_<%= conversation.id %>"></label>
                           </div>
                         </td>
                         <td>
