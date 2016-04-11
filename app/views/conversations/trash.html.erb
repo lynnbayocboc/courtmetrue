@@ -1,17 +1,23 @@
 <div class="container-fluid m-t-20">
+  <%= form_tag destroy_multiple_messages_path, method: :delete do %>
   <div class="row">
     <div class="col-sm-3 col-md-2">
     </div>
     <div class="col-sm-9 col-md-10">
+      <% if !@conversations.blank? %>
       <div class="btn-group">
         <button type="button" class="btn btn-default">
           <div class="checkbox">
             <label>
-              <input type="checkbox">
+              <input type="checkbox" id="selectAll">
+              <button type="submit" class="btn btn-default">
+                Delete selected
+              </button>
             </label>
           </div>
         </button>
       </div>
+      <% end %>
       <!-- <div class="pull-right">
         <span class="text-muted"><b>1</b>–<b>50</b> of <b>160</b></span>
         <div class="btn-group btn-group-sm">
@@ -31,43 +37,58 @@
     <div class="col-sm-9 col-md-10">
       <div class="tab-pane fade in active" id="home">
         <div class="list-group">
-          <% @conversations.each do |conversation| %>
-            <a href="<%= conversation_path(conversation) %>" class="list-group-item">
-              <div class="checkbox">
-                <label>
-                  <%= check_box_tag "conversations[]", conversation.id %>
-                </label>
+          
+          <div class="panel panel-default">
+            <div class="panel-body">
+              
+              <div class="table-container">
+                <% if !@conversations.blank? %>
+                <table class="table table-filter">
+                  <tbody>
+                    <% @conversations.each do |conversation| %>
+                      <% profile = conversation_with_user_profile(conversation) %>
+                      <!-- <tr data-status="pagado" class="selected"> -->
+                      <tr data-status="pagado">
+                        <td>
+                          <div class="ckbox">
+                            <%= check_box_tag "conversation_ids[]", conversation.id, false, :id => "conversation_#{conversation.id}", class: "conversationChk" %>
+                            <label for="conversation_<%= conversation.id %>"></label>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="media">
+                            <a href="#" class="pull-left">
+                              <img src="<%= profile.profile_photos.active_profile_pic.photo.url %>" class="media-photo">
+                            </a>
+                            <div class="media-body">
+                              <span class="media-meta pull-right"><%= conversation.updated_at.strftime("%H:%M %p") %></span>
+                              <h4 class="title">
+                                <%= link_to profile.name, conversation_path(conversation) %>
+                                <!-- <span class="pull-right pagado">(Pagado)</span> -->
+                              </h4>
+                              <p class="summary"><%= conversation.messages.last.body %></p>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+                <div class="text-center">
+                  <%= paginate @conversations %>
+                </div>
+                <% else %>
+                  <div class="text-center no-messages">
+                    No messages
+                  </div>
+                <% end %>
               </div>
-              <!-- <span class="glyphicon glyphicon-star-empty"></span> -->
-              <span class="name" style="min-width: 120px; display: inline-block;">
-                <%= conversation.receipts.first.receiver.profile.name %>
-              </span>
-              <span class="">
-              <%= conversation.messages.last.body %>
-              </span>
-              <span class="badge"><%= conversation.updated_at.strftime("%H:%M %p") %></span>
-              <span class="pull-right">
-                <span class="glyphicon glyphicon-paperclip"></span>
-              </span>
-            </a>
-          <% end %>
-          <!-- <a href="#" class="list-group-item read">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox">
-              </label>
             </div>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="name" style="min-width: 120px;display: inline-block;">Jane Patel</span>
-            <span class="">This is big title</span>
-            <span class="text-muted" style="font-size: 11px;">- Hi hello how r u ?</span>
-            <span class="badge">11:30 PM</span>
-            <span class="pull-right">
-              <span class="glyphicon glyphicon-paperclip"></span>
-            </span>
-          </a> -->
+          </div>
         </div>
       </div>
     </div>
+    
   </div>
+  <% end %>
 </div>

@@ -1,14 +1,14 @@
 class ConversationsController < ApplicationController
   def index
-    @conversations = current_user.mailbox.inbox.page(5).per(20)
+    @conversations = current_user.mailbox.inbox.page(params[:page]).per(5)
   end
 
   def sentbox
-    @conversations = current_user.mailbox.sentbox.page(params[:page]).per(20)
+    @conversations = current_user.mailbox.sentbox.page(params[:page]).per(5)
   end
 
   def trash
-    @conversations = current_user.mailbox.trash.page(params[:page]).per(20)
+    @conversations = current_user.mailbox.trash.page(params[:page]).per(5)
   end
 
   def show
@@ -39,7 +39,12 @@ class ConversationsController < ApplicationController
   end
 
   def destroy_multiple_messages
-    @conversations = current_user.mailbox.conversations.destroy(params[:conversation_ids])
+    # @conversations = current_user.mailbox.conversations.destroy(params[:conversation_ids])
+    @conversations = current_user.mailbox.conversations.find(params[:conversation_ids])
+    @conversations.each do |conversation|
+      conversation.mark_as_deleted current_user
+      puts "==== #{conversation.inspect}"
+    end
     redirect_to :back
   end
 end

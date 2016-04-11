@@ -14,11 +14,11 @@
                 <%= select_tag 'i_am', options_for_select(User.gender_types.keys.map { |x| x.capitalize }, selected: params[:i_am]), :class => "form-control" %>
               <% end %>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label>Seeking a</label>
               <br>
               <%= f.select :gender_eq, User.gender_types.keys.map { |x| x.capitalize }, { :include_blank => 'Any' }, :class => "form-control" %>
-            </div>
+            </div> -->
             <div class="form-group">
               <label>From</label>
               <br>

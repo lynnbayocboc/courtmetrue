@@ -4,8 +4,9 @@
     <div class="col-sm-3 col-md-2">
     </div>
     <div class="col-sm-9 col-md-10">
+      <% if !@conversations.blank? %>
       <div class="btn-group">
-        <button type="submit" class="btn btn-default">
+        <button type="button" class="btn btn-default">
           <div class="checkbox">
             <label>
               <input type="checkbox" id="selectAll">
@@ -16,6 +17,7 @@
           </div>
         </button>
       </div>
+      <% end %>
       <!-- <div class="pull-right">
         <span class="text-muted"><b>1</b>–<b>50</b> of <b>160</b></span>
         <div class="btn-group btn-group-sm">
@@ -72,6 +74,9 @@
                     <% end %>
                   </tbody>
                 </table>
+                <div class="text-center">
+                  <%= paginate @conversations %>
+                </div>
                 <% else %>
                   <div class="text-center no-messages">
                     No messages

@@ -45,10 +45,12 @@ class UsersController < ApplicationController
   end
 
   def search_users
+    search_gender_val = ["Female", "Male"] - [current_user.profile.gender]
+
     @search = if params[:courtship_preferences_name_cont]
-                Profile.joins(:courtship_preferences).ransack(params[:q])
+                Profile.where(gender: search_gender_val).joins(:courtship_preferences).ransack(params[:q])
               else
-                Profile.ransack(params[:q])
+                Profile.where(gender: search_gender_val).ransack(params[:q])
               end
     
     @courtship_preferences = CourtshipPreference.all if current_user.profile.gender.downcase == "male"
