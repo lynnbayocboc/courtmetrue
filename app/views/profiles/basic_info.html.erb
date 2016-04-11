@@ -15,8 +15,8 @@
 	          	<fieldset>
 	              <div class="tab-pane fade in active" id="home">
 	                <%= f.input :name, autofocus: true, placeholder: "Name" %>
-	                <%= f.input :age, placeholder: "Your age", as: :string %>
-	                
+	              
+
 	                <%= f.input :dob,
 	                        start_year: Date.today.year - 90,
 	                        end_year: Date.today.year - 12,
@@ -27,12 +27,12 @@
 	                <%= f.input :country %>
 	                <%= f.input :state, label: 'State/Province' %>
 	                <%= f.input :city %>
-	                
-	                <%= f.input :gender, 
-	                            collection: [[:Male, "Male"], [:Female, "Female"]], 
-	                            label_method: :last, 
+
+	                <%= f.input :gender,
+	                            collection: [[:Male, "Male"], [:Female, "Female"]],
+	                            label_method: :last,
 	                            value_method: :first,
-	                            as: :radio_buttons, 
+	                            as: :radio_buttons,
 	                            item_wrapper_class: 'radio-inline' %>
 	                <%= f.input :status, label: 'Marital status' , collection: [:Single, :Divorce, :Widow], as: :radio_buttons, :item_wrapper_class => 'radio-inline' %>
 	                <%= f.input :religion, collection: [:Protestant, :Hindu, :Bhudist, :Catholic, :Islam, :Other] %>
