@@ -2,27 +2,33 @@
 <ul class="nav navbar-nav navbar-left">
   <% if user_signed_in? %>
       <li>
-          <%= link_to 'Search', search_users_users_path %>
+        <%= link_to search_users_users_path do %>
+          <i class="glyphicon glyphicon-search"></i> Search
+        <% end %>
+
       </li>
       <li>
-          <%= link_to 'Messages', inbox_path %>
+        <%= link_to inbox_path do %> 
+          <i class="glyphicon glyphicon-comment"></i> Messages
+        <% end %>
       </li>
       <li>
-          <%= link_to 'Interests', interests_path %>
+        <%= link_to interests_path do %> 
+          <i class="glyphicon glyphicon-heart-empty"></i> Interests
+        <% end %>
       </li>
       <li>
           <%= link_to 'Active Users', root_path %>
       </li>
     <% else %>
       <li>
-          <%= link_to 'How It Works', page_path('howitworks') %>
+        <%= link_to 'How It Works', page_path('howitworks') %>
       </li>
       <li>
-          <%= link_to 'About Us', page_path('about') %>
+        <%= link_to 'About Us', page_path('about') %>
       </li>
-
       <li>
-          <%= link_to 'What is courtship', page_path('whatsacourtship') %>
+        <%= link_to 'What is courtship', page_path('whatsacourtship') %>
       </li>
     <% end %>
 </ul>

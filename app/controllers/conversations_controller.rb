@@ -30,7 +30,9 @@ class ConversationsController < ApplicationController
   def create
     recipient = User.find(params[:user_id])
     params[:subject] = "sent_to_#{recipient.id}"
-    MessageMailer.notify_user_about_message(recipient).deliver_later
+    if recipient.enable_message_notification == true
+      MessageMailer.notify_user_about_message(recipient,current_user).deliver_later
+    end  
     receipt = current_user.send_message(recipient, params[:body], params[:subject])
     if receipt.conversation.from_user.blank? && receipt.conversation.to_user.blank?
       receipt.conversation.update(from_user: current_user.id, to_user: recipient.id)

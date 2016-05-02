@@ -2,10 +2,14 @@
 <ul class="nav navbar-nav navbar-left">
   <% if user_signed_in? %>
       <li>
-          <%= link_to 'Search', search_users_users_path %>
+        <%= link_to search_users_users_path do %>
+          <i class="glyphicon glyphicon-search"></i> Search
+        <% end %>
       </li>
       <li>
-          <%= link_to 'Messages', root_path %>
+          <i class="fa fa-comment-o">
+            <%= link_to 'Messages', root_path %>
+          </i>
       </li>
       <li>
           <%= link_to 'Interests', user_path(current_user) %>

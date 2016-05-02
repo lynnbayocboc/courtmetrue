@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :admin_only, :except => [:show, :search_users]
+  before_action :admin_only, :except => [:show, :search_users, :update_setting]
+  before_action :set_user, only: [:update, :update_setting]
 
   def index
     @users = User.all
@@ -19,7 +20,11 @@ class UsersController < ApplicationController
     end
     profile_view =ProfileView.where(:from_user_id=>current_user.id , :to_user_id => @user.id).first
     if profile_view.blank?
+
       profile_view = ProfileView.create(:from_user_id=>current_user.id , :to_user_id => @user.id)
+      if @user.enable_viewed_by_notification == true
+        FavouriteMailer.view_by_notification(current_user, @user).deliver_later
+      end  
     end
 
     if @user.admin?
@@ -30,12 +35,20 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update_attributes(secure_params)
-      redirect_to users_path, :notice => "User updated."
+      redirect_to users_path, :notice => "User updated."  
     else
       redirect_to users_path, :alert => "Unable to update user."
     end
+  end
+
+  def update_setting
+    notice =  if @user.update_attributes(secure_params)
+                "User updated."  
+              else
+                "Unable to update user."
+              end
+    redirect_to :back, :notice => notice
   end
 
   def destroy
@@ -61,6 +74,10 @@ class UsersController < ApplicationController
 
   private
 
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   def admin_only
     unless current_user.admin?
       redirect_to :back, :alert => "Access denied."
@@ -68,6 +85,6 @@ class UsersController < ApplicationController
   end
 
   def secure_params
-    params.require(:user).permit(:role)
+    params.require(:user).permit(:role, :enable_message_notification, :enable_favourite_notification, :enable_viewed_by_notification)
   end
 end

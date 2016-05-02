@@ -1,7 +1,7 @@
 <ul class="nav navbar-nav navbar-right">
     <% if user_signed_in? %>
       <li>
-        <a href="javascript:;">
+        <a href="<%=inbox_path %>">
           <i class="glyphicon glyphicon-envelope"></i>
           <% if current_user.unread_inbox_count > 0 %>
             <span class="badge badge-notify"><%= current_user.unread_inbox_count %></span>

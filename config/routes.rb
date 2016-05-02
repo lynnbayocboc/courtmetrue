@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     collection do 
       get "search_users"
     end
+    member do
+      put "update_setting"
+    end
   end
   resources :courtship_preferences
   resources :profiles
