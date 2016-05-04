@@ -14,6 +14,7 @@
       <%= render 'layouts/navigation' %>
     </header>
     <main role="main">
+      <%= render 'layouts/incomplete_profile_notification' if user_signed_in? %>
       <%= render 'layouts/messages' %>
       <%= yield %>
     </main>

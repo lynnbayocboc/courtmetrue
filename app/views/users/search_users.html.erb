@@ -24,7 +24,7 @@
               <br>
               <%= f.country_select :country_eq, { :include_blank => 'Any Country' }, :class => "form-control" %>
             </div>
-            <% if current_user.profile.gender.downcase == "male" %>
+            <% if !current_user.profile.gender.blank? && current_user.profile.gender.downcase == "male" %>
               <div class="form-group">
                 <label>Courtship Preference</label>
                 <br>

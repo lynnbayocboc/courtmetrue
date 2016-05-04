@@ -65,8 +65,7 @@ class UsersController < ApplicationController
               else
                 Profile.where(gender: search_gender_val).ransack(params[:q])
               end
-    
-    @courtship_preferences = CourtshipPreference.all if current_user.profile.gender.downcase == "male"
+    @courtship_preferences = CourtshipPreference.all if !current_user.profile.gender.blank? && current_user.profile.gender.downcase == "male"
     @profiles = @search.result - [current_user.profile]
     # @total_online_user_count = User.total_online_users
     @total_online_user_count = @profiles.count

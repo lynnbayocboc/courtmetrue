@@ -19,7 +19,7 @@ class MessagesController < ApplicationController
     recipient = User.find(@conversation.to_user)
     receipt = current_user.reply_to_conversation(@conversation, params[:body])
     if recipient.enable_message_notification == true
-      MessageMailer.notify_user_about_message(recipient,current_user).deliver_later
+      MessageMailer.notify_user_about_message(recipient, current_user).deliver
     end  
     redirect_to conversation_path(receipt.conversation)
   end

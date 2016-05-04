@@ -20,6 +20,8 @@
 	                <%= f.input :occupation %>
 	                <%= f.input :household, label: 'Living Situation' , collection: [:Alone, :Housemates, :family] %>
 	                <%= f.input :height %>
+	                <%= f.input :weight %>
+	                <%= f.input :income %>
 	                <%= f.input :bodytype, label: 'Body Type' , collection: [:Slim, :Petite, :Athletic, :Medium, :Overweight] %>
 	                <%= f.input :smoker, label: 'Do you smoke?', collection: [:Yes, :No] %>
 	                <%= f.input :drinker, label: 'Do you drink?', collection: [:"Not At All", :"Occasional Drinker", :"Heavy Drinker"] %>

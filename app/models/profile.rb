@@ -16,7 +16,7 @@ class Profile < ActiveRecord::Base
   end
 
   def finish_basic_info?
-    if  self.name.blank? || self.age.blank? || self.dob.blank? ||
+    if  self.name.blank? || self.dob.blank? ||
         self.country.blank? || self.state.blank? || self.city.blank? ||
         self.gender.blank? || self.status.blank? || self.religion.blank? ||
         self.language.blank? || self.tandc.blank?
@@ -53,6 +53,10 @@ class Profile < ActiveRecord::Base
 
   def has_uploaded_5_pics?
     self.profile_photos.count < 6
+  end
+
+  def has_atleast_1_pic?
+    self.profile_photos.count < 1
   end
 
   def first_photo?
