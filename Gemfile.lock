@@ -111,6 +111,7 @@ GEM
     diff-lcs (1.2.5)
     enum_help (0.0.14)
     erubis (2.7.0)
+    excon (0.49.0)
     execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -148,6 +149,14 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    mandrill-api (1.0.53)
+      excon (>= 0.16.0, < 1.0)
+      json (>= 1.7.7, < 2.0)
+    mandrill_mailer (1.4.0)
+      actionpack
+      activejob
+      activesupport
+      mandrill-api (~> 1.0.9)
     mime-types (2.99)
     mimemagic (0.3.0)
     mini_portile2 (2.0.0)
@@ -308,6 +317,7 @@ DEPENDENCIES
   launchy
   letter_opener
   mailboxer!
+  mandrill_mailer
   paperclip
   pg
   quiet_assets
