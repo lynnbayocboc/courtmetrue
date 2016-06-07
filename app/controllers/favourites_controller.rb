@@ -5,7 +5,7 @@ class FavouritesController < ApplicationController
 
   def mark_as_favourite 
     @to_user = User.find(params[:to_user_id])
-  	@favourite = Favourite.where(:from_user_id => @user.id , :to_user_id => params[:to_user_id]).first
+    @favourite = Favourite.where(:from_user_id => @user.id , :to_user_id => params[:to_user_id]).first
     if @favourite.blank?
       if @to_user.enable_favourite_notification == true
         FavouriteMailer.set_as_favourite_notification_email(@user, @to_user).deliver
@@ -18,7 +18,7 @@ class FavouritesController < ApplicationController
     if @favourite.is_favourite == true 
       @is_favourite = 1  
     else 
-    	@is_favourite = 0
+      @is_favourite = 0
     end  
   end
 

@@ -26,3 +26,20 @@
 .nav .glyphicon.glyphicon-envelope {
 	font-size: 20px;
 }
+.profile_icons a {
+	font-size: 20px;
+  padding: 5px;
+  margin: 5px;
+  color: #999;
+}
+.profile_icons a:hover {
+  color: #337AB7;
+}
+
+.active {
+	color: red;
+}
+
+.inactive {
+	color: #999;
+}

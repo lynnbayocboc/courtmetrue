@@ -1,0 +1,5 @@
+$("#has_block").html('<% if @has_block == 1 %>'+
+                     '<%= link_to raw('<i class="glyphicon glyphicon-ban-circle active"></i>'), block_user_path(@user, :has_block => false), title: "Block user",:remote=> true  %>'+
+                     '<% else %>'+
+                     '<%= link_to raw('<i class="glyphicon glyphicon-ban-circle inactive"></i>'), block_user_path(@user, :has_block => true), title: "Block user",:remote=> true  %>'+
+                     '<% end %>')

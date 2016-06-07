@@ -1,35 +1,41 @@
 <%# add navigation links to this file %>
 <ul class="nav navbar-nav navbar-left">
   <% if user_signed_in? %>
-      <li>
-        <%= link_to search_users_users_path do %>
-          <i class="glyphicon glyphicon-search"></i> Search
+    <% if user_has_filled_full_profile? %>
+    <li>
+      <%= link_to search_users_users_path do %>
+        <i class="glyphicon glyphicon-search"></i> Search
+      <% end %>
+    </li>
+    <li>
+      <%= link_to inbox_path do %> 
+        <i class="glyphicon glyphicon-comment"></i> Messages
+        <% if current_user.unread_inbox_count > 0 %>
+          <span class="badge badge-notify"><%= current_user.unread_inbox_count %></span>
         <% end %>
-
-      </li>
-      <li>
-        <%= link_to inbox_path do %> 
-          <i class="glyphicon glyphicon-comment"></i> Messages
-        <% end %>
-      </li>
-      <li>
-        <%= link_to interests_path do %> 
-          <i class="glyphicon glyphicon-heart-empty"></i> Interests
-        <% end %>
-      </li>
-      <li>
-          <%= link_to 'Active Users', root_path %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to 'How It Works', page_path('howitworks') %>
-      </li>
-      <li>
-        <%= link_to 'About Us', page_path('about') %>
-      </li>
-      <li>
-        <%= link_to 'What is courtship', page_path('whatsacourtship') %>
-      </li>
+      <% end %>
     <% end %>
+    </li>
+    <% if user_has_filled_full_profile? %>
+    <li>
+      <%= link_to interests_path do %> 
+        <i class="glyphicon glyphicon-heart-empty"></i> Interests
+      <% end %>
+    </li>
+    <% end %>
+    <!-- <li> -->
+      <%#= link_to 'Active Users', root_path %>
+    <!-- </li> -->
+  <% else %>
+    <li>
+      <%= link_to 'How It Works', page_path('howitworks') %>
+    </li>
+    <li>
+      <%= link_to 'About Us', page_path('about') %>
+    </li>
+    <li>
+      <%= link_to 'What is courtship', page_path('whatsacourtship') %>
+    </li>
+  <% end %>
 </ul>
 <%= render 'layouts/navbar_right' %>

@@ -12,12 +12,28 @@ class UsersController < ApplicationController
     redirect_to profile_path unless @user
     @photos = @user.profile.profile_photos
 
-    favourite = Favourite.where(:from_user_id => current_user.id , :to_user_id => @user.id,:is_favourite => true).first
+    favourite = Favourite.where(:from_user_id => current_user.id , :to_user_id => @user.id, :is_favourite => true).first
+    has_block = UserAction.where(:from_user_id => current_user.id, :to_user_id => @user.id, :has_block => true).first
+    report_spam = UserAction.where(:from_user_id => current_user.id, :to_user_id => @user.id, :has_report_spam => true).first
+
     if favourite
       @is_favourite = 1
     else
       @is_favourite = 0
     end
+
+    if has_block
+      @has_block = 1
+    else
+      @has_block = 0
+    end
+
+    if report_spam
+      @report_spam = 1
+    else
+      @report_spam = 0
+    end
+
     profile_view =ProfileView.where(:from_user_id=>current_user.id , :to_user_id => @user.id).first
     if profile_view.blank?
 
@@ -59,7 +75,9 @@ class UsersController < ApplicationController
 
   def search_users
     search_gender_val = ["Female", "Male"] - [current_user.profile.gender]
-
+    # if params[:active_users] && params[:active_users].downcase == "yes"
+      
+    # end
     @search = if params[:courtship_preferences_name_cont]
                 Profile.where(gender: search_gender_val).joins(:courtship_preferences).ransack(params[:q])
               else

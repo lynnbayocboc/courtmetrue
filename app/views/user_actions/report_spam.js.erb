@@ -1,0 +1,5 @@
+$("#report_spam").html('<% if @report_spam == 1 %>'+
+                     '<%= link_to raw('<i class="glyphicon glyphicon-warning-sign active"></i>'), report_spam_path(@user, has_report_spam: false), title: "Report spam", :remote=> true  %>'+
+                     '<% else %>'+
+                     '<%= link_to raw('<i class="glyphicon glyphicon-warning-sign inactive"></i>'), report_spam_path(@user, has_report_spam: true), title: "Report spam",:remote=> true  %>'+
+                     '<% end %>')

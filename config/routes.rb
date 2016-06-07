@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   end
   
   get 'mark_as_favorite/:to_user_id' => 'favourites#mark_as_favourite', as:'mark_as_favourite'
+  get 'report_spam/:to_user_id' => 'user_actions#report_spam', as:'report_spam'
+  get 'block/:to_user_id' => 'user_actions#block_user', as:'block_user'
 
   post 'contact', to: 'contacts#process_form'
   get 'myprofile'   => 'profiles#myprofile', as: 'myprofile'

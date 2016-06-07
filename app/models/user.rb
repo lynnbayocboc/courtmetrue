@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   scope :recent_active, -> {where("last_sign_in_at >= ?", 1.week.ago)}
   scope :except_user, ->(user_id) {where("id != ? ", user_id)}
   scope :total_online_users, -> { where("updated_at > ? ", 10.minutes.ago).count }
-  
+
   def online?
     self.updated_at > 10.minutes.ago
   end

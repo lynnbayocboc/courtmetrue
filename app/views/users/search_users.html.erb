@@ -24,6 +24,12 @@
               <br>
               <%= f.country_select :country_eq, { :include_blank => 'Any Country' }, :class => "form-control" %>
             </div>
+
+            <div class="form-group">
+              <label>Active Members</label>
+              <br>
+              <%= select_tag("active_users", options_for_select([[:Yes,:Yes],[:No, :No]], selected: params[:active_users]),{ class: "form-control", include_blank: true } ) %>
+            </div>
             <% if !current_user.profile.gender.blank? && current_user.profile.gender.downcase == "male" %>
               <div class="form-group">
                 <label>Courtship Preference</label>
@@ -32,12 +38,78 @@
               </div>
             <% end %>
             <div class="form-group">
+              <label>Body Type</label>
+              <br>
+              <%= f.select :bodytype_cont, [:Slim, :Petite, :Athletic, :Medium, :Overweight], { :include_blank => 'Any' }, :class => "form-control" %>
+            </div>
+
+
+            <div class="form-group">
+              <label>Ethnicity</label>
+              <br>
+              <%= f.select :ethnicity_cont, [:Asian, :Caucasian, :Hispanic, :Arabs, :Persians, :Other], { :include_blank => 'Any' }, :class => "form-control" %>
+            </div>
+
+            <div class="form-group">
               <label>Age</label>
               <br>
               <%= f.text_field :age_gteq, class: "minAge form-control" %>
               To
               <%= f.text_field :age_lteq, class: "maxAge form-control" %>
             </div>
+
+            <div class="form-group">
+              <label>Height</label>
+              <br>
+              <%= f.text_field :height_gteq, class: "minAge form-control" %>
+              To
+              <%= f.text_field :height_lteq, class: "maxAge form-control" %>
+            </div>
+
+            <div class="form-group">
+              <label>Weight</label>
+              <br>
+              <%= f.text_field :weight_gteq, class: "minAge form-control" %>
+              To
+              <%= f.text_field :weight_lteq, class: "maxAge form-control" %>
+            </div>
+
+            <div class="form-group">
+              <label>Smoking</label>
+              <br>
+              <%= f.select :smoker_cont, [:Yes, :No], { :include_blank => 'Any' }, :class => "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <label>Drinking</label>
+              <br>
+              <%= f.select :drinker_cont, [:"Not At All", :"Occasional Drinker", :"Heavy Drinker"], { :include_blank => 'Any' }, :class => "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <label>Marital status</label>
+              <br>
+              <%= f.select :status_cont, [:Single, :Divorce, :Widow], { :include_blank => 'Any' }, :class => "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <label>Want Children?</label>
+              <br>
+              <%= f.select :wantkids_cont, [:Yes, :No, :Maybe], { :include_blank => 'Any' }, :class => "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <label>Wants Children?</label>
+              <br>
+              <%= f.select :religion_cont, [:Protestant, :Hindu, :Bhudist, :Catholic, :Islam, :Other], { :include_blank => 'Any' }, :class => "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <label>Education</label>
+              <br>
+              <%= f.select :education_cont, [:"Graduates", :"Bachelors Degree", :"Vocational", :"High School"], { :include_blank => 'Any' }, :class => "form-control" %>
+            </div>
+
             <div class="form-group">
               <input type="submit" value="Submit" class="btn btn-primary btn-block">
             </div>
@@ -80,7 +152,7 @@
               </div>
               <div class="col-md-9">
                 <h3 class="m-t-0">
-                  <%= link_to profile.name, user_path(profile.user) %> (<%= profile.age %>)
+                  <%= link_to profile.name, user_path(profile.user) %> <%= profile.age.blank? ? '' : "(profile.age)" %>
                   <sup><i class="glyphicon glyphicon-unchecked <%= profile.user.online? ? 'userOnline' : '' %>"></i> <%= profile.user.online? ? 'Online' : "#{time_ago_in_words(profile.user.updated_at)} ago"  %></sup>
                 </h3>
                 <h4><small><%= profile.country %> / <%= profile.state %> / <%= profile.city %></small></h4>

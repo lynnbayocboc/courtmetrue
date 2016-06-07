@@ -2,22 +2,30 @@
   <section style="background:#efefe9;">
     <div class="container">
 
-      <div class="row">
-        <div class="col-md-2">
-          <%= link_to "Send Message", @user, class: 'btn btn-block btn-primary' %>
-        </div>
-        <div class="col-md-10 text-right">
+      <div class="row profile_icons">
+        <div class="col-md-4">
+          <%= link_to new_user_conversation_path(@user), class: "sendUserMessage" do %>
+            <i class="glyphicon glyphicon-envelope"></i>
+          <% end %>
           <% if @user == current_user %>
             <%= link_to "Edit my profile", profile_path(:basic_info) %>
           <% else %>
-            <div id="favourite">
-              <% if @is_favourite == 1 %>
-                <%= link_to "Mark as UnFavorite", mark_as_favourite_path(params[:id],:is_favourite => false),:remote=> true  %>
-              <% else %>
-                <%= link_to "Mark as Favorite", mark_as_favourite_path(params[:id],:is_favourite => true),:remote=> true  %>
-              <% end %>
-            </div>  
+            <span id="favourite">
+              <%= link_to raw("<i class='glyphicon #{@is_favourite == 1 ? 'glyphicon-heart' : 'glyphicon-heart-empty'}'></i>"), mark_as_favourite_path(params[:id], :is_favourite => @is_favourite == 1 ? false : true), title: "Unfavorite user", :remote=> true  %>
+            </span>  
           <% end %>
+
+          <span id="has_block">
+            <%= link_to block_user_path(@user, :has_block => @has_block == 1 ? false : true), title: "Block user", remote: true do %>
+              <i class="glyphicon glyphicon-ban-circle <%= @has_block == 1 ? 'active' : 'inactive' %>"></i>
+            <% end %>
+          </span>
+
+          <span id="report_spam">
+            <%= link_to report_spam_path(@user, has_report_spam: @report_spam == 1 ? false : true), title: "Report spam", remote: true do %>
+              <i class="glyphicon glyphicon-warning-sign <%= @report_spam == 1 ? 'active' : 'inactive' %>"></i>
+            <% end %>
+          </span>
         </div>
       </div>
 

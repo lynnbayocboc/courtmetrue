@@ -11,4 +11,18 @@ module ApplicationHelper
               end
     return profile
   end
+
+  def user_has_filled_full_profile?
+    if  !current_user.profile.finish_basic_info? ||
+        !current_user.profile.finish_personal_info? ||
+        !current_user.profile.finish_additional_info?
+        return false
+    else
+        return true
+    end
+  end
+
+  def profile_has_not_atleast_1_pic?
+    current_user.profile.has_atleast_1_pic?
+  end
 end
