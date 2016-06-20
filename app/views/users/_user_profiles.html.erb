@@ -1,0 +1,35 @@
+<% if @profiles.blank? %>
+  <div class="text-center" style="margin-top: 100px;">
+    <h4>Sorry No results for your search</h4>
+  </div>
+<% else %>
+  <% @profiles.each do |profile| %>
+    <div class="row lv-filterData">
+      <div class="col-md-2">
+        <% if !profile.profile_photos.active_profile_pic.blank? %>
+          <%= image_tag profile.profile_photos.active_profile_pic.photo.url(:active_photo) %>
+        <% else %>
+          <%= image_tag "missing.jpg" %>
+        <% end %>
+      </div>
+      <div class="col-md-9">
+        <h3 class="m-t-0">
+          <%= link_to profile.name, user_path(profile.user) %> <%= profile.age.blank? ? '' : "(profile.age)" %>
+          <sup><i class="glyphicon glyphicon-unchecked <%= profile.user.online? ? 'userOnline' : '' %>"></i> <%= profile.user.online? ? 'Online' : "#{time_ago_in_words(profile.user.updated_at)} ago"  %></sup>
+        </h3>
+        <h4><small><%= profile.country %> / <%= profile.state %> / <%= profile.city %></small></h4>
+        <h5>
+          My Expectation : <p><%= profile.expectations %></p>
+        </h5>
+      </div>
+      <div class="col-md-1" style="padding-top: 30px;">
+        <%= link_to new_user_conversation_path(profile.user), class: "sendUserMessage" do %>
+          <i class="glyphicon glyphicon-envelope"></i>
+        <% end %>
+        <a href="javascript:;" title="" class="likeUserFav">
+          <i class="glyphicon glyphicon-heart"></i>
+        </a>
+      </div>
+    </div>
+  <% end %>
+<% end %>

@@ -16,27 +16,12 @@ class UsersController < ApplicationController
     has_block = UserAction.where(:from_user_id => current_user.id, :to_user_id => @user.id, :has_block => true).first
     report_spam = UserAction.where(:from_user_id => current_user.id, :to_user_id => @user.id, :has_report_spam => true).first
 
-    if favourite
-      @is_favourite = 1
-    else
-      @is_favourite = 0
-    end
-
-    if has_block
-      @has_block = 1
-    else
-      @has_block = 0
-    end
-
-    if report_spam
-      @report_spam = 1
-    else
-      @report_spam = 0
-    end
+    @is_favourite = favourite ? 1 : 0
+    @has_block = has_block ? 1 : 0
+    @report_spam = report_spam ? 1 : 0
 
     profile_view =ProfileView.where(:from_user_id=>current_user.id , :to_user_id => @user.id).first
     if profile_view.blank?
-
       profile_view = ProfileView.create(:from_user_id=>current_user.id , :to_user_id => @user.id)
       if @user.enable_viewed_by_notification == true
         FavouriteMailer.view_by_notification(current_user, @user).deliver_later
@@ -75,13 +60,18 @@ class UsersController < ApplicationController
 
   def search_users
     search_gender_val = ["Female", "Male"] - [current_user.profile.gender]
-    # if params[:active_users] && params[:active_users].downcase == "yes"
-      
-    # end
-    @search = if params[:courtship_preferences_name_cont]
-                Profile.where(gender: search_gender_val).joins(:courtship_preferences).ransack(params[:q])
+    @search = if params[:sort_by] == "recent_active"
+                Profile.joins(:user).where("last_sign_in_at >= ?", 1.week.ago).where(gender: search_gender_val).ransack(params[:q])
+              elsif params[:sort_by] == "newest_members"
+                Profile.joins(:user).where("users.created_at <= ?", 3.week.ago).where(gender: search_gender_val).ransack(params[:q])
+              elsif params[:sort_by] == "oldest_members"
+                Profile.joins(:user).where("users.created_at >= ?", 3.months.ago).where(gender: search_gender_val).ransack(params[:q])
               else
-                Profile.where(gender: search_gender_val).ransack(params[:q])
+                if params[:courtship_preferences_name_cont]
+                  Profile.where(gender: search_gender_val).joins(:courtship_preferences).ransack(params[:q])
+                else
+                  Profile.where(gender: search_gender_val).ransack(params[:q])
+                end
               end
     @courtship_preferences = CourtshipPreference.all if !current_user.profile.gender.blank? && current_user.profile.gender.downcase == "male"
     @profiles = @search.result - [current_user.profile]

@@ -122,54 +122,26 @@
     <div class="col-sm-10">
       <div class="row">
         <div class="col-md-10 p-l-0">
-          <h2><%= @total_online_user_count %> Members Online</h2>
+          <h2><span class="online-users-count"><%= @total_online_user_count %></span> Members Online</h2>
         </div>
         <div class="col-md-2 p-r-0">
-          <select class="form-control" style="margin-top: 20px; float: right;">
+          <select class="form-control" id="sort_by_users" style="margin-top: 20px; float: right;"  data-url="<%= search_users_users_path %>">
             <option value="">
               Sort By
             </option>
-            <option value="">
+            <option value="recent_active">
               Most recent active
             </option>
-            <option value="">
+            <option value="newest_members">
               Newest Members
             </option>
-            <option value="">
+            <option value="oldest_members">
               Oldest Members
             </option>
           </select>
         </div>
-        <div class="col-xs-12">
-          <% @profiles.each do |profile| %>
-            <div class="row lv-filterData">
-              <div class="col-md-2">
-                <% if !profile.profile_photos.active_profile_pic.blank? %>
-                  <%= image_tag profile.profile_photos.active_profile_pic.photo.url(:active_photo) %>
-                <% else %>
-                  <%= image_tag "missing.jpg" %>
-                <% end %>
-              </div>
-              <div class="col-md-9">
-                <h3 class="m-t-0">
-                  <%= link_to profile.name, user_path(profile.user) %> <%= profile.age.blank? ? '' : "(profile.age)" %>
-                  <sup><i class="glyphicon glyphicon-unchecked <%= profile.user.online? ? 'userOnline' : '' %>"></i> <%= profile.user.online? ? 'Online' : "#{time_ago_in_words(profile.user.updated_at)} ago"  %></sup>
-                </h3>
-                <h4><small><%= profile.country %> / <%= profile.state %> / <%= profile.city %></small></h4>
-                <h5>
-                  My Expectation : <p><%= profile.expectations %></p>
-                </h5>
-              </div>
-              <div class="col-md-1" style="padding-top: 30px;">
-                <%= link_to new_user_conversation_path(profile.user), class: "sendUserMessage" do %>
-                  <i class="glyphicon glyphicon-envelope"></i>
-                <% end %>
-                <a href="javascript:;" title="" class="likeUserFav">
-                  <i class="glyphicon glyphicon-heart"></i>
-                </a>
-              </div>
-            </div>
-          <% end %>
+        <div class="col-xs-12" id="users-profile">
+          <%= render "user_profiles" %>
         </div>
       </div>
     </div>

@@ -14,3 +14,9 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require_tree .
+
+$(document).on("change", "#sort_by_users", function function_name(argument) {
+	var sortBy = $(this).val();
+	var url = $(this).data('url');
+	$.ajax({url: url, type: 'GET', dataType: 'script', data: { sort_by: sortBy }});
+});
