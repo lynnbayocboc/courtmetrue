@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   acts_as_messageable
 
   enum role: [:user, :vip, :admin]
@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-    
+
   has_one :profile
   has_many :profile_photos, through: :profile
 

@@ -1,2 +1,2 @@
-class Favourite < ActiveRecord::Base
+class Favourite < ApplicationRecord
 end

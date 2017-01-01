@@ -1,2 +1,2 @@
-class ProfileView < ActiveRecord::Base
+class ProfileView < ApplicationRecord
 end

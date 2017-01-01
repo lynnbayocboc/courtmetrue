@@ -1,2 +1,2 @@
-class UserAction < ActiveRecord::Base
+class UserAction < ApplicationRecord
 end
