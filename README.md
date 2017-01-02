@@ -8,8 +8,8 @@ Versions
 
 This application requires:
 
-- Ruby 2.2.2
-- Rails 4.2.4
+- Ruby 2.4.0
+- Rails 5.0.1
 
 Installing
 ---------------
