@@ -13,9 +13,12 @@
   						<%= image_tag "nopicture.png", class: 'profile-pic' %>
             <% end %>
           <% end %>
+          	<%= image_tag "nopicture.png", class: 'profile-pic' %>
     		</div>
 
     		<div class="col-md-12">
+    		  <br>
+    		  <%= link_to "Edit Profile", edit_profile_path(current_user), class: "btn btn-primary" %>
     			<h2 style="text-align: center; color: #337AB7;"><%= current_user.profile.profile_heading %></h2>
           <% if current_user.profile.male? %>
             <p>
