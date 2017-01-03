@@ -1,0 +1,80 @@
+<%= simple_form_for @profile do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name, :class => "form-control" %>
+  </div>
+  
+  <div>
+    <%= f.label "Date of Birth" %>
+    <%= f.date_field :birthday, placeholder: "YYYY-MM-DD", value: (f.object.dob || Date.today.to_s(:db)), :class => "form-control" %>
+  </div>
+  
+  <div>
+    <%= f.input :country , style: "all:revert;"%>
+  </div>
+    
+  <div>
+    <%= f.label :state %>
+    <%= f.text_field :state, :class => "form-control" %>
+  </div>
+  
+  <div>
+    <%= f.label :city %>
+    <%= f.text_field :city, :class => "form-control" %>
+  </div>
+  
+  <div>
+         <%= f.input :gender,
+              collection: [[:Male, "Male"], [:Female, "Female"]],
+              label_method: :last,
+              value_method: :first,
+              as: :radio_buttons,
+              item_wrapper_class: 'radio-inline', 
+              :class => "form-control" %>
+  </div>
+  
+  <div>
+     <%= f.input :status, label: 'Marital status' , collection: [:Single, :Divorce, :Widow], as: :radio_buttons, :item_wrapper_class => 'radio-inline' %>
+  </div>
+  
+  <div>
+      <%= f.input :religion, collection: [:Protestant, :Hindu, :Bhudist, :Catholic, :Islam, :Other] %>
+  </div>
+  
+  <div>
+    <%= f.input :language, collection: [:English, :Tagalog, :Spanish, :Chinese, :German, :French] %>
+  </div>
+  
+  
+  <%= f.input :ethnicity, collection: [:Asian, :Caucasian, :Hispanic, :Arabs, :Persians, :Other] %>
+  <%= f.input :education, label: 'Education', collection: [:"Graduates", :"Bachelors Degree", :"Vocational", :"High School"] %>
+  <%= f.input :occupation %>
+  <%= f.input :household, label: 'Living Situation' , collection: [:Alone, :Housemates, :family] %>
+  <%= f.input :height %>
+  <%= f.input :weight %>
+  <%# f.input :income %>
+  <%= f.input :bodytype, label: 'Body Type' , collection: [:Slim, :Petite, :Athletic, :Medium, :Overweight] %>
+  <%= f.input :smoker, label: 'Do you smoke?', collection: [:Yes, :No] %>
+  <%= f.input :drinker, label: 'Do you drink?', collection: [:"Not At All", :"Occasional Drinker", :"Heavy Drinker"] %>
+  <%= f.input :children, label: 'Do you have children?', collection: [:Yes, :No] %>
+  <%= f.input :wantkids, label: 'Do you want to have a children?', collection: [:Yes, :No, :Maybe] %>
+
+  
+  <%= f.input :profile_heading, label: 'Your Profile Heading' %>
+    <% if @profile.male? %>
+      <%= f.input :expectations, label: 'Tell us your expectations' %>
+    <% else %>
+      <label class="select optional control-label" for="profile_smoker">
+        Courtship Preferences
+      </label>
+      <br/>
+    <% if CourtshipPreference.all.empty? %>
+      <p>None found. Contact support.</p>
+    <% end %>
+    <%= collection_check_boxes(:profile, :courtship_preference_ids, CourtshipPreference.all, :id, :name) %>
+  <% end %>
+  <%= f.input :selfbio, label: 'Tell something about your self', as: :text %>
+  <%= f.input :ideal, label: 'Describe you ideal partner', as: :text %>
+
+  <%= f.button :submit %>
+<% end %>

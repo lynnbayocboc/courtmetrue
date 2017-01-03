@@ -1,7 +1,7 @@
 <%# add navigation links to this file %>
 <ul class="nav navbar-nav navbar-left">
-  <% if user_signed_in? %>
-    <% if user_has_filled_full_profile? %>
+  <% if current_user %>
+    <%# if user_has_filled_full_profile? %>
     <li>
       <%= link_to search_users_users_path do %>
         <i class="glyphicon glyphicon-search"></i> Search
@@ -14,15 +14,15 @@
           <span class="badge badge-notify"><%= current_user.unread_inbox_count %></span>
         <% end %>
       <% end %>
-    <% end %>
+    <%# end %>
     </li>
-    <% if user_has_filled_full_profile? %>
+    <%# if user_has_filled_full_profile? %>
     <li>
       <%= link_to interests_path do %> 
         <i class="glyphicon glyphicon-heart-empty"></i> Interests
       <% end %>
     </li>
-    <% end %>
+    <%# end %>
     <!-- <li> -->
       <%#= link_to 'Active Users', root_path %>
     <!-- </li> -->

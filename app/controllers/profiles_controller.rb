@@ -1,60 +1,56 @@
 class ProfilesController < ApplicationController
-  include Wicked::Wizard
-  steps :basic_info, :personal_info, :aditional_info, :profile_photos
+  # include Wicked::Wizard
+  # steps :basic_info, :personal_info, :aditional_info, :profile_photos
 
   before_action :get_user
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
-  def finish_wizard_path
-    wizard_path(:profile_photos)
+  # def finish_wizard_path
+  #   wizard_path(:profile_photos)
+  # end
+  
+  def new
+    @profile = Profile.new
+  end
+
+  def create
+    # @user = User.profile.new(user_params)
+    @profile = current_user.build_profile(profile_params)
+    byebug
+     respond_to do |format|
+      if @profile.save
+        format.html { redirect_to @profile, notice: 'User was successfully created.' }
+        format.json { render :show, status: :created, location: @user }
+      else
+        format.html { render :new }
+        format.json { render json: @profile.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  def edit
   end
 
   def show
-    @current_step = params[:id]
-
-    unless @profile
-      @profile = @user.build_profile
-      @profile.save
-    end
-
-    unless !@profile.has_uploaded_5_pics?
-      @profile.profile_photos.new
-    end
-
-    if @current_step == "personal_info"
-      if !@profile.finish_basic_info?
-        redirect_to wizard_path(:basic_info), alert: "Please fill all basic information"
-        return
-      end
-    elsif @current_step == "aditional_info"
-      if !@profile.finish_personal_info?
-        redirect_to wizard_path(:personal_info), alert: "Please fill all personal information"
-        return
-      end
-    elsif @current_step == "profile_photos"
-      if !@profile.finish_additional_info?
-        redirect_to wizard_path(:aditional_info), alert: "Please fill all additional information"
-        return
-      end
-    end
-    render_wizard
   end
 
   def myprofile
     if user_signed_in?
-      @photos = @user.profile.profile_photos
+      @photos = current_user.profile
     else 
       redirect_to root_path, alert: "You need to sign in first"
     end
   end
 
   def update
-    unless @profile.has_uploaded_5_pics?
-      render_wizard @profile
-      flash[:alert] = "You can not upload more than 5 photos"
-    else
-      @profile.update(profile_params)
-      render_wizard @profile
+     respond_to do |format|
+      if current_user.profile.update(profile_params)
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { render :show, status: :ok, location: @user }
+      else
+        format.html { render :edit }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 

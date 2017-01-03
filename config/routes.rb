@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
   resources :courtship_preferences
-  resources :profiles
+  resources :profiles, :path => "profile"
   resources :profile_photos do
     member do
       get "set-as-profile-picture" => "profile_photos#set_as_profile_picture"

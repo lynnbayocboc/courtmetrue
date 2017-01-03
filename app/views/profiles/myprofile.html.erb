@@ -3,62 +3,64 @@
     <div class="container">
       <div class="row">
       	<div class="col-md-12">
-          <% unless @photos.empty? %>
-            <% @photos.each do |photo| %>
-              <%= image_tag photo.photo(:thumb), class: 'profile-pic' %>
+      	 <% if false %>
+            <% unless @photos.empty? %>
+              <% @photos.each do |photo| %>
+                <%= image_tag photo.photo(:thumb), class: 'profile-pic' %>
+              <% end %>
+              <div class="clear"></div>
+            <% else %>
+  						<%= image_tag "nopicture.png", class: 'profile-pic' %>
             <% end %>
-            <div class="clear"></div>
-          <% else %>
-						<%= image_tag "nopicture.png", class: 'profile-pic' %>
           <% end %>
     		</div>
 
     		<div class="col-md-12">
-    			<h2 style="text-align: center; color: #337AB7;"><%= @user.profile.profile_heading %></h2>
-          <% if @user.profile.male? %>
+    			<h2 style="text-align: center; color: #337AB7;"><%= current_user.profile.profile_heading %></h2>
+          <% if current_user.profile.male? %>
             <p>
               <strong>Expectations</strong>
               <br>
-              <%= @user.profile.expectations %>
+              <%= current_user.profile.expectations %>
             </p>
           <% else %>
-            <% @user.profile.profile_courtship_preferences.each do |cp| %>
+            <% current_user.profile.profile_courtship_preferences.each do |cp| %>
               <%= cp.name %>
             <% end %>
           <% end %>
     		</div>      		
     		
     		<div class="col-md-6">      			
-      		<h3><%= @user.profile.name %></h2>
+      		<h3><%= current_user.profile.name %></h2>
       		<table class="table">
 		        <tbody>
 		          <tr>
 		          	<td><span class="tbl-attr">Age</span></td>
-		          	<td><%= @user.profile.age %></td>
+		          	<td><%= current_user.profile.age %></td>
 		          </tr>
 		          <tr>
 		          	<td><span class="tbl-attr">Country</span></td>
-		          	<td><%= @user.profile.country %></td>
+		          	<td><%= current_user.profile.country %></td>
 		          </tr>
 		          <tr>
 		          	<td><span class="tbl-attr">State</span></td>
-		          	<td><%= @user.profile.state %></td>
+		          	<td><%= current_user.profile.state %></td>
 		          </tr>
 		          <tr>
 		          	<td><span class="tbl-attr">City</span></td>
-		          	<td><%= @user.profile.city %></td>
+		          	<td><%= current_user.profile.city %></td>
 		          </tr>
 		          <tr>
 		          	<td><span class="tbl-attr">Gender</span></td>
-		          	<td><%= @user.profile.gender %></td>
+		          	<td><%= current_user.profile.gender %></td>
 		          </tr>
 		          <tr>
 		          	<td><span class="tbl-attr">Status</span></td>
-		          	<td><%= @user.profile.status %></td>
+		          	<td><%= current_user.profile.status %></td>
 		          </tr>
 		          <tr>
 		          	<td><span class="tbl-attr">Religion</span></td>
-		          	<td><%= @user.profile.religion %></td>
+		          	<td><%= current_user.profile.religion %></td>
 		          </tr>
 		        </tbody>
 	      	</table>
@@ -70,51 +72,51 @@
             <tbody>
               <tr>
                 <td><span class="tbl-attr">Ethnicity</span></td>
-                <td><%= @user.profile.ethnicity %></td>
+                <td><%= current_user.profile.ethnicity %></td>
               </tr>
               <tr>
                 <td><span class="tbl-attr">Education</span></td>
-                <td><%= @user.profile.education %></td>
+                <td><%= current_user.profile.education %></td>
               </tr>
               <tr>
                 <td><span class="tbl-attr">Occupation</span></td>
-                <td><%= @user.profile.occupation %></td>
+                <td><%= current_user.profile.occupation %></td>
               </tr>
               <tr>
                 <td><span class="tbl-attr">Income</span></td>
-                <td><%= @user.profile.income %></td>
+                <td><%= current_user.profile.income %></td>
               </tr>
               <tr>
                 <td><span class="tbl-attr">Height</span></td>
-                <td><%= @user.profile.height %></td>
+                <td><%= current_user.profile.height %></td>
               </tr>
               <tr>
                 <td><span class="tbl-attr">Weight</span></td>
-                <td><%= @user.profile.weight %></td>
+                <td><%= current_user.profile.weight %></td>
               </tr>
               <tr>
                 <td><span class="tbl-attr">Bodytype</span></td>
-                <td><%= @user.profile.bodytype %></td>
+                <td><%= current_user.profile.bodytype %></td>
               </tr>
               <tr>
                 <td><span class="tbl-attr">Income</span></td>
-                <td><%= @user.profile.income %></td>
+                <td><%= current_user.profile.income %></td>
               </tr>
               <tr>
                 <td><span class="tbl-attr">Smoker</span></td>
-                <td><%= @user.profile.smoker %></td>
+                <td><%= current_user.profile.smoker %></td>
               </tr>
               <tr>
                 <td><span class="tbl-attr">Drinker</span></td>
-                <td><%= @user.profile.drinker %></td>
+                <td><%= current_user.profile.drinker %></td>
               </tr>
               <tr>
                 <td><span class="tbl-attr">Have Children</span></td>
-                <td><%= @user.profile.religion %></td>
+                <td><%= current_user.profile.religion %></td>
               </tr>
               <tr>
                 <td><span class="tbl-attr">Want Children</span></td>
-                <td><%= @user.profile.wantkids %></td>
+                <td><%= current_user.profile.wantkids %></td>
               </tr>
             </tbody>
           </table>
@@ -125,12 +127,12 @@
           <p>
             <strong>About yourself</strong>
             <br>
-            <%= @user.profile.selfbio %>
+            <%= current_user.profile.selfbio %>
           </p>
           <p>
             <strong>Your ideal partner</strong>
             <br>
-            <%= @user.profile.ideal %>
+            <%= current_user.profile.ideal %>
           </p>
     		</div>
       	

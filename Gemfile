@@ -47,7 +47,7 @@ group :test do
   gem 'selenium-webdriver'
 end
 gem 'faker'
-gem 'wicked'
+# gem 'wicked'
 gem 'paperclip'
 gem 'acts-as-taggable-on', '~> 4.0'
 gem 'ransack'
