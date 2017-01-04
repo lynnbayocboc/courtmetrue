@@ -150,6 +150,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
+    mini_magick (4.6.0)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
     money (6.7.1)
@@ -307,6 +308,7 @@ DEPENDENCIES
   bootstrap-sass
   byebug
   capybara
+  carrierwave
   coffee-rails (~> 4.2)
   country_select
   database_cleaner
@@ -322,6 +324,7 @@ DEPENDENCIES
   letter_opener
   listen (~> 3.0.5)
   mailboxer!
+  mini_magick
   paperclip
   pg
   pry

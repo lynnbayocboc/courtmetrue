@@ -6,7 +6,12 @@ class Profile < ApplicationRecord
   has_many :courtship_preferences, through: :profile_courtship_preferences
 
   accepts_nested_attributes_for :profile_photos, :allow_destroy => true, :reject_if => :all_blank
-
+  
+  mount_uploader :first_photo, PhotoUploader
+  mount_uploader :second_photo, PhotoUploader
+  mount_uploader :third_photo, PhotoUploader
+  mount_uploader :fourth_photo, PhotoUploader
+  mount_uploader :fifth_photo, PhotoUploader
   def male?
     self.gender == "Male"
   end

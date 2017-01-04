@@ -16,7 +16,6 @@ class ProfilesController < ApplicationController
   def create
     # @user = User.profile.new(user_params)
     @profile = current_user.build_profile(profile_params)
-    byebug
      respond_to do |format|
       if @profile.save
         format.html { redirect_to @profile, notice: 'User was successfully created.' }
@@ -64,7 +63,7 @@ class ProfilesController < ApplicationController
     end
 
     def profile_params
-      params.require(:profile).permit(:age, :name, :dob, :country, :state, :city,
+      params.require(:profile).permit(:first_photo, :age, :name, :dob, :country, :state, :city,
                                       :religion, :language, :ethnicity, :occupation, :income, :household,
                                       :height, :weight, :bodytype, :smoker, :drinker, :children, :wantkids,
                                       :selfbio, :ideal, :tandc,

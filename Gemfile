@@ -55,3 +55,6 @@ gem 'mailboxer', github: "mailboxer/mailboxer"
 gem 'kaminari'
 # gem 'mandrill_mailer' # fails because dependent on json-1.8.3
 gem 'pry'
+
+gem 'carrierwave'
+gem 'mini_magick'

@@ -13,7 +13,7 @@
   						<%= image_tag "nopicture.png", class: 'profile-pic' %>
             <% end %>
           <% end %>
-          	<%= image_tag "nopicture.png", class: 'profile-pic' %>
+          	<%= image_tag current_user.profile.first_photo, class: 'profile-pic' %>
     		</div>
 
     		<div class="col-md-12">

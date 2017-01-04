@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516135432) do
+ActiveRecord::Schema.define(version: 20170104131333) do
 
   create_table "courtship_preferences", force: :cascade do |t|
     t.string   "name"
@@ -144,6 +144,11 @@ ActiveRecord::Schema.define(version: 20160516135432) do
     t.text     "expectations"
     t.string   "profile_heading"
     t.string   "education"
+    t.string   "first_photo"
+    t.string   "second_photo"
+    t.string   "third_photo"
+    t.string   "fourth_photo"
+    t.string   "fifth_photo"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 

@@ -1,4 +1,48 @@
 <%= simple_form_for @profile do |f| %>
+
+
+<div class="form-group">
+  <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail hidden"/> <br/>
+  <span class="btn btn-default btn-file">
+    Profile Picture<%= f.file_field :first_photo, id: "first_photo" %>
+  </span>
+  <%= f.hidden_field :first_photo_cache %>
+</div>
+
+<div class="form-group">
+  <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail hidden"/> <br/>
+  <span class="btn btn-default btn-file">
+    Second Photo<%= f.file_field :second_photo, id: "second_photo" %>
+  </span>
+  <%= f.hidden_field :second_photo_cache %>
+</div>
+
+<div class="form-group">
+  <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail hidden"/> <br/>
+  <span class="btn btn-default btn-file">
+    Third Photo<%= f.file_field :third_photo, id: "third_photo" %>
+  </span>
+  <%= f.hidden_field :third_photo_cache %>
+</div>
+
+<div class="form-group">
+  <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail hidden"/> <br/>
+  <span class="btn btn-default btn-file">
+    Fourth Photo<%= f.file_field :fourth_photo, id: "fourth_photo" %>
+  </span>
+  <%= f.hidden_field :fourth_photo_cache %>
+</div>
+
+
+
+<div class="form-group">
+  <img id="img_prev" width=300 height=300 src="#" alt="your image" class="img-thumbnail hidden"/> <br/>
+  <span class="btn btn-default btn-file">
+    VALID ID PHOTO<%= f.file_field :fifth_photo, id: "fifth_photo" %>
+  </span>
+  <%= f.hidden_field :fifth_photo_cache %>
+</div>
+
   <div>
     <%= f.label :name %>
     <%= f.text_field :name, :class => "form-control" %>
