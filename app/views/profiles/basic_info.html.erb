@@ -35,16 +35,19 @@
 	                            item_wrapper_class: 'radio-inline' %>
 	                <%= f.input :status, label: 'Marital status' , collection: [:Single, :Divorce, :Widow], as: :radio_buttons, :item_wrapper_class => 'radio-inline' %>
 	                <%= f.input :religion, collection: [:Protestant, :Hindu, :Bhudist, :Catholic, :Islam, :Other] %>
-	                <%= f.input :language, collection: [:English, :Tagalog, :Spanish, :Chinese, :German, :French] %>
+	                <%# f.input :language, collection: [:English, :Tagalog, :Spanish, :Chinese, :German, :French] %>
+	                <%= f.label "Language"%>
+	                <%= f.select :language, options_for_select(languages), {}, {class: 'form-control'}  %>
 	   
                    
                      <%= f.input :ethnicity, collection: [:Asian, :Caucasian, :Hispanic, :Arabs, :Persians, :Other] %>
-	                <%= f.input :education, label: 'Education', collection: [:"Graduates", :"Bachelors Degree", :"Vocational", :"High School"] %>
+	                <%= f.input :education, label: 'Education', collection: [:"Graduate Degree", :"Bachelors Degree", :"Vocational", :"High School"] %>
 
 	                <%= f.input :occupation %>
 	                <%= f.input :household, label: 'Living Situation' , collection: [:Alone, :Housemates, :family] %>
-	                <%= f.input :height %>
-	                <%= f.input :weight %>
+	                <%= f.input :height, input_html: { type: 'number', min: '1', max: '200', value: f.object.height || '1' }, :label => "Height(in centimeters)" %>
+	                <%= f.input :weight, input_html: { type: 'number', min: '1', max: '200', value: f.object.weight || '1' }, :label => "Weight(in kilograms)"%>
+	               
 	                <%= f.input :bodytype, label: 'Body Type' , collection: [:Slim, :Petite, :Athletic, :Medium, :Overweight] %>
 	                <%= f.input :smoker, label: 'Do you smoke?', collection: [:Yes, :No] %>
 	                <%= f.input :drinker, label: 'Do you drink?', collection: [:"Not At All", :"Occasional Drinker", :"Heavy Drinker"] %>

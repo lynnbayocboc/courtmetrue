@@ -3,10 +3,10 @@ class ProfilePhoto < ApplicationRecord
                     :processors => [:watermark],
                      styles: {
                               :medium => {
-                                :geometry       => "300x300>",
-                                :watermark_path => "#{Rails.root}/public/images/watermark.png",
-                                :position => "Center"
-                                         },
+                              :geometry       => "220x220>",
+                              :watermark_path => "#{Rails.root}/public/images/watermark.png",
+                              :position => "Center"
+                              },
                                 thumb: "171x180#",
                                 active_photo: "149x149#",
                                 conversation_thumb: "50x50#"
