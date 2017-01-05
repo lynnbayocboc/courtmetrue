@@ -52,9 +52,10 @@
 	                <%= f.input :smoker, label: 'Do you smoke?', collection: [:Yes, :No] %>
 	                <%= f.input :drinker, label: 'Do you drink?', collection: [:"Not At All", :"Occasional Drinker", :"Heavy Drinker"] %>
 	                <%= f.input :children, label: 'Do you have children?', collection: [:Yes, :No] %>
+	             
 	                <%= f.input :wantkids, label: 'Do you want to have a children?', collection: [:Yes, :No, :Maybe] %>
-	                
-	                
+	                <%= f.input :experience_with_courtship, label: 'Do you have courtship experience?', collection: [:"New to Courtship", :"Experienced with Courtship"] %>
+	                <%= f.input :religious_values, label: "Religious Values", collection: [:'Choice of spiritual', :"Religious", :"Not Religious"] %>
 	                 <%= f.input :profile_heading, label: 'Your Profile Heading' %>
                   <% if @profile.male? %>
                     <%= f.input :expectations, label: 'Tell us your expectations' %>

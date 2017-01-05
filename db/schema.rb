@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516135432) do
+ActiveRecord::Schema.define(version: 20170105141954) do
 
   create_table "courtship_preferences", force: :cascade do |t|
     t.string   "name"
@@ -33,13 +32,12 @@ ActiveRecord::Schema.define(version: 20160516135432) do
   end
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
-    t.integer "unsubscriber_id"
     t.string  "unsubscriber_type"
+    t.integer "unsubscriber_id"
     t.integer "conversation_id"
+    t.index ["conversation_id"], name: "index_mailboxer_conversation_opt_outs_on_conversation_id"
+    t.index ["unsubscriber_id", "unsubscriber_type"], name: "index_mailboxer_conversation_opt_outs_on_unsubscriber_id_type"
   end
-
-  add_index "mailboxer_conversation_opt_outs", ["conversation_id"], name: "index_mailboxer_conversation_opt_outs_on_conversation_id"
-  add_index "mailboxer_conversation_opt_outs", ["unsubscriber_id", "unsubscriber_type"], name: "index_mailboxer_conversation_opt_outs_on_unsubscriber_id_type"
 
   create_table "mailboxer_conversations", force: :cascade do |t|
     t.string   "subject",    default: ""
@@ -53,28 +51,27 @@ ActiveRecord::Schema.define(version: 20160516135432) do
     t.string   "type"
     t.text     "body"
     t.string   "subject",              default: ""
-    t.integer  "sender_id"
     t.string   "sender_type"
+    t.integer  "sender_id"
     t.integer  "conversation_id"
     t.boolean  "draft",                default: false
     t.string   "notification_code"
-    t.integer  "notified_object_id"
     t.string   "notified_object_type"
+    t.integer  "notified_object_id"
     t.string   "attachment"
     t.datetime "updated_at",                           null: false
     t.datetime "created_at",                           null: false
     t.boolean  "global",               default: false
     t.datetime "expires"
+    t.index ["conversation_id"], name: "index_mailboxer_notifications_on_conversation_id"
+    t.index ["notified_object_id", "notified_object_type"], name: "index_mailboxer_notifications_on_notified_object_id_and_type"
+    t.index ["sender_id", "sender_type"], name: "index_mailboxer_notifications_on_sender_id_and_sender_type"
+    t.index ["type"], name: "index_mailboxer_notifications_on_type"
   end
 
-  add_index "mailboxer_notifications", ["conversation_id"], name: "index_mailboxer_notifications_on_conversation_id"
-  add_index "mailboxer_notifications", ["notified_object_id", "notified_object_type"], name: "index_mailboxer_notifications_on_notified_object_id_and_type"
-  add_index "mailboxer_notifications", ["sender_id", "sender_type"], name: "index_mailboxer_notifications_on_sender_id_and_sender_type"
-  add_index "mailboxer_notifications", ["type"], name: "index_mailboxer_notifications_on_type"
-
   create_table "mailboxer_receipts", force: :cascade do |t|
-    t.integer  "receiver_id"
     t.string   "receiver_type"
+    t.integer  "receiver_id"
     t.integer  "notification_id",                            null: false
     t.boolean  "is_read",                    default: false
     t.boolean  "trashed",                    default: false
@@ -85,20 +82,18 @@ ActiveRecord::Schema.define(version: 20160516135432) do
     t.boolean  "is_delivered",               default: false
     t.string   "delivery_method"
     t.string   "message_id"
+    t.index ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
+    t.index ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
   end
-
-  add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
-  add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
 
   create_table "profile_courtship_preferences", force: :cascade do |t|
     t.integer  "profile_id"
     t.integer  "courtship_preference_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.index ["courtship_preference_id"], name: "index_profile_courtship_preferences_on_courtship_preference_id"
+    t.index ["profile_id"], name: "index_profile_courtship_preferences_on_profile_id"
   end
-
-  add_index "profile_courtship_preferences", ["courtship_preference_id"], name: "index_profile_courtship_preferences_on_courtship_preference_id"
-  add_index "profile_courtship_preferences", ["profile_id"], name: "index_profile_courtship_preferences_on_profile_id"
 
   create_table "profile_photos", force: :cascade do |t|
     t.integer  "profile_id"
@@ -120,8 +115,8 @@ ActiveRecord::Schema.define(version: 20160516135432) do
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "age"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "name"
     t.date     "dob"
     t.string   "country"
@@ -149,9 +144,10 @@ ActiveRecord::Schema.define(version: 20160516135432) do
     t.text     "expectations"
     t.string   "profile_heading"
     t.string   "education"
+    t.string   "experience_with_courtship"
+    t.string   "religious_values"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
-
-  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
 
   create_table "user_actions", force: :cascade do |t|
     t.integer  "from_user_id"
@@ -180,9 +176,8 @@ ActiveRecord::Schema.define(version: 20160516135432) do
     t.boolean  "enable_message_notification"
     t.boolean  "enable_favourite_notification"
     t.boolean  "enable_viewed_by_notification"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end
