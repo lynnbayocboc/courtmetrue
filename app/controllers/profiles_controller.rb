@@ -1,12 +1,12 @@
 class ProfilesController < ApplicationController
   include Wicked::Wizard
-  steps :basic_info, :personal_info, :aditional_info, :profile_photos
+  steps :basic_info
 
   before_action :get_user
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
   def finish_wizard_path
-    wizard_path(:profile_photos)
+    wizard_path(:basic_info)
   end
 
   def show
