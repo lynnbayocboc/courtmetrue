@@ -6,7 +6,7 @@ class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
   def finish_wizard_path
-    wizard_path(:basic_info)
+    myprofile_path
   end
 
   def show
@@ -14,12 +14,7 @@ class ProfilesController < ApplicationController
 
     unless @profile
       @profile = @user.build_profile
-     if @profile.save
-       redirect_to @user
-     else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-     end
+      @profile.save
     end
 
     unless !@profile.has_uploaded_5_pics?

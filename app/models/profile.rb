@@ -7,7 +7,7 @@ class Profile < ApplicationRecord
 
   accepts_nested_attributes_for :profile_photos, :allow_destroy => true, :reject_if => :all_blank
   
-  validates :name, :age, :name, :dob, :country, :state, :city,
+  validates :name, :name, :dob, :country, :state, :city,
                                       :religion, :language, :ethnicity, :occupation, :income, :household,
                                       :height, :weight, :bodytype, :smoker, :drinker, :children, :wantkids,
                                       :selfbio, :ideal, :tandc,
