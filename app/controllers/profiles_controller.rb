@@ -6,7 +6,7 @@ class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
 
   def finish_wizard_path
-    myprofile_path
+    wizard_path(:basic_info)
   end
 
   def show
@@ -73,7 +73,7 @@ class ProfilesController < ApplicationController
                                       :height, :weight, :bodytype, :smoker, :drinker, :children, :wantkids,
                                       :selfbio, :ideal, :tandc,
                                       :gender, :status, :education, :profile_heading,
-                                      :expectations, courtship_preference_ids: [],
+                                      :expectations, :experience_with_courtship, :religious_values, courtship_preference_ids: [],
                                       profile_photos_attributes: [:id, :profile_id, :photo, :_destroy, :is_profile_pic])
     end
 

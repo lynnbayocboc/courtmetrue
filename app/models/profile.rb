@@ -4,17 +4,15 @@ class Profile < ApplicationRecord
   has_many :profile_photos
   has_many :profile_courtship_preferences
   has_many :courtship_preferences, through: :profile_courtship_preferences
-
-  accepts_nested_attributes_for :profile_photos, :allow_destroy => true, :reject_if => :all_blank
   
-  validates :name, :name, :dob, :country, :state, :city,
-                                      :religion, :language, :ethnicity, :occupation, :income, :household,
-                                      :height, :weight, :bodytype, :smoker, :drinker, :children, :wantkids,
-                                      :selfbio, :ideal, :tandc,
-                                      :gender, :status, :education, :profile_heading,
-                                      :expectations, presence: true
-  # validates_presence_of Profile.attribute_names.map(&:to_sym)
-  # validates_presence_of Service.attribute_names.map(&:to_sym)
+  validates_presence_of :name, :dob, :country, :state, :city,
+                        :religion, :language, :ethnicity, :occupation, :income, :household,
+                        :height, :weight, :bodytype, :smoker, :drinker, :children, :wantkids,
+                        :selfbio, :ideal, :tandc,
+                        :gender, :status, :education, :profile_heading,
+                        :expectations
+  accepts_nested_attributes_for :profile_photos, :allow_destroy => true, :reject_if => :all_blank
+
 
   def male?
     self.gender == "Male"

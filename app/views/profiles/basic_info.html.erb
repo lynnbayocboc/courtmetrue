@@ -12,7 +12,7 @@
 	                                                  datetime: :multi_select
 	                                                } do |f| %>
 	                                                
-	                                                
+	            <% if false %>                                    
 	               <% if @profile.errors.any? %>
                   <div id="error_explanation">
                     <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -24,10 +24,11 @@
                     </ul>
                   </div>
                 <% end %>
+              <% end %>
 	                                                
 	          	<fieldset>
 	              <div class="tab-pane fade in active" id="home">
-	                <%= f.input :name, autofocus: true, placeholder: "Name" %>
+	                <%= f.input :name, label: false, placeholder: "Name", input_html: { class: "form-control", required: true } %>
 	                <%= f.input :dob,
 	                        start_year: Date.today.year - 90,
 	                        end_year: Date.today.year - 12,
@@ -60,11 +61,10 @@
 	                <%= f.input :children, label: 'Do you have children?', collection: [:Yes, :No] %>
 	                <%= f.input :wantkids, label: 'Do you want to have a children?', collection: [:Yes, :No, :Maybe] %>
 	                <%= f.input :experience_with_courtship, label: 'Do you have courtship experience?', collection: [:"New to Courtship", :"Experienced with Courtship"] %>
+	                
 	                <%= f.input :religious_values, label: "Religious Values", collection: [:'Choice of spiritual', :"Religious", :"Not Religious"] %>
 	                <%= f.input :profile_heading, label: 'Your Profile Heading' %>
-                  <% if @profile.male? %>
-                    <%= f.input :expectations, label: 'Tell us your expectations' %>
-                  <% else %>
+                  <% unless @profile.male? %>
                     <label class="select optional control-label" for="profile_smoker">
                       Courtship Preferences
                     </label>
@@ -80,7 +80,19 @@
                          as: :boolean,
                          checked_value: true,
                          unchecked_value: false %>
-                   
+                   <br>
+                   <div class="container">
+                      <div class="row" >
+                        <div class="col-md-1">
+                        <img src="/assets/profile-pic-icon.png" class="pull-left"> 
+                        </div>
+                     <div>
+                          Your Profile Picture
+                      </div>
+                      </div>
+                    </div>
+                    <br>
+                    <hr>
                    <fieldset>
                 <div class="tab-pane fade in active" id="home">
                   <div class="">
@@ -130,3 +142,5 @@
 	  </div>
 	</section>
 </div>
+
+<%= link_to "Back to my profile", myprofile_path, class: "btn btn-info" %>
