@@ -6,11 +6,11 @@ class Profile < ApplicationRecord
   has_many :courtship_preferences, through: :profile_courtship_preferences
   
   validates_presence_of :name, :dob, :country, :state, :city,
-                        :religion, :language, :ethnicity, :occupation, :income, :household,
+                        :religion, :language, :ethnicity, :occupation, :household,
                         :height, :weight, :bodytype, :smoker, :drinker, :children, :wantkids,
                         :selfbio, :ideal, :tandc,
-                        :gender, :status, :education, :profile_heading,
-                        :expectations
+                        :gender, :status, :education, :profile_heading
+                        
   accepts_nested_attributes_for :profile_photos, :allow_destroy => true, :reject_if => :all_blank
 
 
@@ -35,7 +35,7 @@ class Profile < ApplicationRecord
 
   def finish_personal_info?
     if  self.ethnicity.blank? || self.occupation.blank? ||
-        self.income.blank? || self.household.blank? ||
+        self.household.blank? ||
         self.height.blank? || self.weight.blank? ||
         self.bodytype.blank? || self.smoker.blank? ||
         self.drinker.blank? || self.children.blank? ||
@@ -51,9 +51,6 @@ class Profile < ApplicationRecord
     unless self.profile_heading.blank? || self.selfbio.blank? ||
         self.ideal.blank?
       completed = true
-      if self.expectations.blank?
-        completed = false if self.male?
-      end
     end
     completed
   end

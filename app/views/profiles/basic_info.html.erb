@@ -12,7 +12,8 @@
 	                                                  datetime: :multi_select
 	                                                } do |f| %>
 	                                                
-	            <% if false %>                                    
+	              
+	              <% if false %>                   
 	               <% if @profile.errors.any? %>
                   <div id="error_explanation">
                     <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -24,10 +25,11 @@
                     </ul>
                   </div>
                 <% end %>
-              <% end %>
-	                                                
+                 <% end %>
+        
 	          	<fieldset>
-	              <div class="tab-pane fade in active" id="home">
+	              <div class="tab-pane fade in active" id="home"
+	                <%= f.label "Name" %>
 	                <%= f.input :name, label: false, placeholder: "Name", input_html: { class: "form-control", required: true } %>
 	                <%= f.input :dob,
 	                        start_year: Date.today.year - 90,
