@@ -11,22 +11,32 @@
 	                                                  file: :horizontal_file_input,
 	                                                  datetime: :multi_select
 	                                                } do |f| %>
+	                                                
+	                                                
+	               <% if @profile.errors.any? %>
+                  <div id="error_explanation">
+                    <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this user from being saved:</h2>
+              
+                    <ul>
+                    <% @profile.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                    <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+	                                                
 	          	<fieldset>
 	              <div class="tab-pane fade in active" id="home">
 	                <%= f.input :name, autofocus: true, placeholder: "Name" %>
-	              
-
 	                <%= f.input :dob,
 	                        start_year: Date.today.year - 90,
 	                        end_year: Date.today.year - 12,
 	                        discard_day: true,
 	                        order: [:month, :year],
-	                        label: "Date of birth"
-	                %>
+	                        label: "Date of birth" %>
 	                <%= f.input :country %>
 	                <%= f.input :state, label: 'State/Province' %>
 	                <%= f.input :city %>
-
 	                <%= f.input :gender,
 	                            collection: [[:Male, "Male"], [:Female, "Female"]],
 	                            label_method: :last,
@@ -38,25 +48,20 @@
 	                <%# f.input :language, collection: [:English, :Tagalog, :Spanish, :Chinese, :German, :French] %>
 	                <%= f.label "Language"%>
 	                <%= f.select :language, options_for_select(languages), {}, {class: 'form-control'}  %>
-	   
-                   
-                     <%= f.input :ethnicity, collection: [:Asian, :Caucasian, :Hispanic, :Arabs, :Persians, :Other] %>
+                  <%= f.input :ethnicity, collection: [:Asian, :Caucasian, :Hispanic, :Arabs, :Persians, :Other] %>
 	                <%= f.input :education, label: 'Education', collection: [:"Graduate Degree", :"Bachelors Degree", :"Vocational", :"High School"] %>
-
 	                <%= f.input :occupation %>
 	                <%= f.input :household, label: 'Living Situation' , collection: [:Alone, :Housemates, :family] %>
 	                <%= f.input :height, input_html: { type: 'number', min: '1', max: '200', value: f.object.height || '1' }, :label => "Height(in centimeters)" %>
 	                <%= f.input :weight, input_html: { type: 'number', min: '1', max: '200', value: f.object.weight || '1' }, :label => "Weight(in kilograms)"%>
-	               
 	                <%= f.input :bodytype, label: 'Body Type' , collection: [:Slim, :Petite, :Athletic, :Medium, :Overweight] %>
 	                <%= f.input :smoker, label: 'Do you smoke?', collection: [:Yes, :No] %>
 	                <%= f.input :drinker, label: 'Do you drink?', collection: [:"Not At All", :"Occasional Drinker", :"Heavy Drinker"] %>
 	                <%= f.input :children, label: 'Do you have children?', collection: [:Yes, :No] %>
-	             
 	                <%= f.input :wantkids, label: 'Do you want to have a children?', collection: [:Yes, :No, :Maybe] %>
 	                <%= f.input :experience_with_courtship, label: 'Do you have courtship experience?', collection: [:"New to Courtship", :"Experienced with Courtship"] %>
 	                <%= f.input :religious_values, label: "Religious Values", collection: [:'Choice of spiritual', :"Religious", :"Not Religious"] %>
-	                 <%= f.input :profile_heading, label: 'Your Profile Heading' %>
+	                <%= f.input :profile_heading, label: 'Your Profile Heading' %>
                   <% if @profile.male? %>
                     <%= f.input :expectations, label: 'Tell us your expectations' %>
                   <% else %>
@@ -71,12 +76,10 @@
                   <% end %>
                   <%= f.input :selfbio, label: 'Tell something about your self', as: :text %>
                   <%= f.input :ideal, label: 'Describe you ideal partner', as: :text %>
-                  
-                                <%= f.input :tandc, label: 'Accept terms and conditions?',
-                                       as: :boolean,
-                                       checked_value: true,
-                                       unchecked_value: false
-                   %>
+                  <%= f.input :tandc, label: 'Accept terms and conditions?',
+                         as: :boolean,
+                         checked_value: true,
+                         unchecked_value: false %>
                    
                    <fieldset>
                 <div class="tab-pane fade in active" id="home">
@@ -114,8 +117,6 @@
                 </div>
                 <div class="clearfix"></div>
               </fieldset>
-                   
-                   
 	                <button type="submit" href="#profile" name="home_form" class="btn-submit btn btn-success btn-outline-rounded green btnNext">
 	                	Submit Profile <span class="glyphicon glyphicon-send"></span>
 	                </button>

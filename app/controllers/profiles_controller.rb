@@ -14,7 +14,12 @@ class ProfilesController < ApplicationController
 
     unless @profile
       @profile = @user.build_profile
-      @profile.save
+     if @profile.save
+       redirect_to @user
+     else
+        format.html { render :new }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+     end
     end
 
     unless !@profile.has_uploaded_5_pics?
