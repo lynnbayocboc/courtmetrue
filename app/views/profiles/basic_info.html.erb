@@ -16,70 +16,78 @@
 	          	<fieldset>
 	                <%= f.label "Name" %>
 	                <%= f.input :name, label: false, placeholder: "Name", input_html: { class: "form-control" } %>
-	                <p id="name" style="color:red; display: none;" >please enter name</p>
+	                <p id="name" style="color:red; display: none;" >Please enter name</p>
 	                <%= f.input :dob,
 	                        start_year: Date.today.year - 90,
 	                        end_year: Date.today.year - 12,
-	                        discard_day: true,
-	                        order: [:month, :year],
+	                        order: [:day, :month, :year],:include_blank => true,
 	                        label: "Date of birth"  %>
+	                 <p id="dob" style="color:red; display: none;" >Please enter date of birth</p>
+	         
+	                        <%#  f.input :dob, label: "Date of Birth", as: :string, start_year: Time.now.year - 90, end_year: Time.now.year - 8, order: [:day, :month, :year] %>
 	                <%= f.input :country  %>
-	                 <p id="country" style="color:red; display: none;" >please enter country</p>
+	                 <p id="country" style="color:red; display: none;" >Please choose country</p>
 	                <%= f.input :state, label: 'State/Province'  %>
-	                <p id="state" style="color:red; display: none;" >please enter state</p>
+	                <p id="state" style="color:red; display: none;" >Please enter state/province</p>
 	                <%= f.input :city  %>
-	                <p id="city" style="color:red; display: none;" >please enter city</p>
+	                <p id="city" style="color:red; display: none;" >Please enter city</p>
 	                <%= f.input :gender,
 	                            collection: [[:Male, "Male"], [:Female, "Female"]],
 	                            label_method: :last,
 	                            value_method: :first,
 	                            as: :radio_buttons,
 	                            item_wrapper_class: 'radio-inline'  %>
-	                <p id="gender" style="color:red; display: none;" >please choose gender</p>            
+	                <p id="gender" style="color:red; display: none;" >Please choose gender</p>            
 	                <%= f.input :status, label: 'Marital status' , collection: [:Single, :Divorce, :Widow], as: :radio_buttons, :item_wrapper_class => 'radio-inline'  %>
-	                <p id="status" style="color:red; display: none;" >please choose status</p>
+	                <p id="status" style="color:red; display: none;" >Please choose status</p>
 	                <%= f.input :religion, collection: [:Baha, :Bhudist, :"Christian - Catholic", :"Christian - Other", :"Christian - Protestant", :Hindu, :Islam, :Jainism, :Jewish, :Parsi, :Shintoism, :Sikhism, :Taoism, :Other, :"No Religion"]  %>
-	                <p id="religion" style="color:red; display: none;" >please choose religion</p>
+	                <p id="religion" style="color:red; display: none;" >Please choose religion</p>
+	                 <%= f.input :religious_values, label: "Religious Values", collection: [:"Not Religious", :"Religious", :"Very Religious"]  %>
+	                 <p id="religious" style="color:red; display: none;" >Please choose religious values</p>
 	                <br>
 	                <%# f.input :language, collection: [:English, :Tagalog, :Spanish, :Chinese, :German, :French] %>
 	                 <%= f.label "Language" %>
-	                 <%= f.select :language, options_for_select(["English", "Tagalog", "Cebauano", "Chinese", "Thai", "French", "German", "Armenian", "Arabic", "Spanish", "Japanese"], :selected => f.object.language), {}, :class => 'form-control' %>
-	                  <p id="language" style="color:red; display: none;" >please choose language</p>
+	                 <%= f.select :language, options_for_select(["", "English", "Tagalog", "Cebauano", "Chinese", "Thai", "French", "German", "Armenian", "Arabic", "Spanish", "Japanese"], :selected => f.object.language), {}, :class => 'form-control' %>
+	                  <p id="language" style="color:red; display: none;" >Please choose language</p>
 	                <%# f.input :language, collection: [:English, :Filipino] %>
                   <%# f.language_select("language", [ "English", "Spanish", "French" ], nil, nil)  %>
                   <%= f.input :ethnicity, collection: [:"Arab (Middle Eastern)", :Asian, :Black, :"Caucasian(White)", :"Hispanic/Latino", :Indian, :Mixed, :"Pacific Islander", :Other] %>
-	                <p id="ethnicity" style="color:red; display: none;" >please choose ethnicity</p>
+	                <p id="ethnicity" style="color:red; display: none;" >Please choose ethnicity</p>
 	                <%= f.input :education, label: 'Education', collection: [:"Primary(Elementary) School",:"Middle School/Junior High", :"High School", :"Vocational College", :"Bachelors Degree", :"Masters Degree", :"Phd or Doctorate"]  %>
-	                <p id="education" style="color:red; display: none;" >please choose education</p>
+	                <p id="education" style="color:red; display: none;" >Please choose education</p>
 	                <%= f.input :occupation %>
-	                <p id="occupation" style="color:red; display: none;" >please enter occupation</p>
+	                <p id="occupation" style="color:red; display: none;" >Please enter occupation</p>
 	                <%= f.input :household, label: 'Living Situation' , collection: [:Alone, :Housemates, :family]  %>
-	                 <p id="household" style="color:red; display: none;" >please choose one</p>
+	                 <p id="household" style="color:red; display: none;" >Please choose living situation</p>
 	                <%# f.input :height, input_html: { type: 'number', min: '1', max: '200', value: f.object.height || '1' }, :label => "Height(in centimeters)"  %>
                 <br>
                  <%= f.label "Height"%>
-                 <%= f.select :height, options_for_select((140..500).map {|i| "#{i} cm"}, :selected => @profile.height), {}, class: "form-control" %>
+                  <%= f.select :height, ((140..500).map {|i| "#{i} cm" }), { :selected => @profile.height, :include_blank => true}, class: "form-control" %>
+                  <p id="height" style="color:red; display: none;" >Please choose height</p>
+                  <br>
+                  <%# f.select :height, options_for_select((140..500).map {|i| "#{i} cm"}, :selected => @profile.height || ""), {}, class: "form-control" %>
 	                <%# f.input :weight, input_html: { type: 'number', min: '1', max: '200', value: f.object.weight || '1' }, :label => "Weight(in kilograms)"  %>
 	                <%= f.label "Weight"%>
-	                <%= f.select :weight, options_for_select((40..500).map {|i| "#{i} kg" }, :selected => @profile.weight), {}, class: "form-control" %>
+	                <%= f.select :weight, ((0..500).map {|i| "#{i} kg" }), { :selected => @profile.weight, :include_blank => true}, class: "form-control" %>
+	                <p id="weight" style="color:red; display: none;" >Please choose weight</p>
+	                <%# f.select :weight, options_for_select((40..500).map {|i| "#{i} kg" }, :selected => @profile.weight, :prompt => "Please select"), {}, class: "form-control" %>
 	                <%= f.input :bodytype, label: 'Body Type' , collection: [:Slim, :Athletic, :Average, :"Few Extra Pounds", :"Full Figured", :"Large and Lovely"]  %>
-	                 <p id="bodytype" style="color:red; display: none;" >please choose one</p>
+	                 <p id="bodytype" style="color:red; display: none;" >Please choose body type</p>
 	                <%= f.input :smoker, label: 'Do you smoke?', collection: [:Yes, :No]  %>
-	                 <p id="smoker" style="color:red; display: none;" >please answer</p>
+	                 <p id="smoker" style="color:red; display: none;" >Please answer</p>
 	                <%= f.input :drinker, label: 'Do you drink?', collection: [:"Not At All", :"Occasional Drinker", :"Heavy Drinker"]  %>
-	                 <p id="drinker" style="color:red; display: none;" >please choose your answer</p>
+	                 <p id="drinker" style="color:red; display: none;" >Please answer</p>
 	                <%= f.input :children, label: 'Do you have children?', collection: [:Yes, :No]  %>
-	                 <p id="children" style="color:red; display: none;" >please choose your answer</p>
+	                 <p id="children" style="color:red; display: none;" >Please answer</p>
 	                <%= f.input :wantkids, label: 'Do you want to have a children?', collection: [:Yes, :No, :Maybe]  %>
-	                 <p id="wantkids" style="color:red; display: none;" >please choose your answer</p>
+	                 <p id="wantkids" style="color:red; display: none;" >Please answer</p>
 	                <%= f.input :experience_with_courtship, label: 'Do you have courtship experience?', collection: [:"New to Courtship", :"Experienced with Courtship"]  %>
-	                 <p id="experience" style="color:red; display: none;" >please choose your answer</p>
-	                <%= f.input :religious_values, label: "Religious Values", collection: [:"Religious", :"Not Religious"]  %>
-	                 <p id="religious" style="color:red; display: none;" >please choose your answer</p>
+	                 <p id="experience" style="color:red; display: none;" >Please answer</p>
+	               
 	                <br>
 	                <%= f.label :profile_heading%>
-	                <%= f.text_area :profile_heading, label: 'Your Profile Heading', :rows => 5, class: "form-control", :maxlength => 51, id: "text_area"  %>
-                  <p id="heading" style="color:red; display: none;" >please fill this up</p>
+	                <%= f.text_area :profile_heading, label: 'Your Profile Heading', :rows => 5, class: "form-control", :maxlength => 50, id: "text_area"  %>
+                  <p id="heading" style="color:red; display: none;" >Please enter profile heading </p>
                   <br>
                   <% unless @profile.male? %>
                     <label class="select optional control-label" for="profile_smoker">
@@ -92,9 +100,9 @@
                     <%= collection_check_boxes(:profile, :courtship_preference_ids, CourtshipPreference.all, :id, :name)  %>
                   <% end %>
                   <%= f.input :selfbio, label: 'Tell something about your self', as: :text  %>
-                  <p id="selfbio" style="color:red; display: none;" >please fill this up</p>
+                  <p id="selfbio" style="color:red; display: none;" >Please tell something about yourself</p>
                   <%= f.input :ideal, label: 'Describe you ideal partner', as: :text  %>
-                  <p id="ideal" style="color:red; display: none;" >please fill this up</p>
+                  <p id="ideal" style="color:red; display: none;" >Please describe your ideal partner</p>
           
                    <br>
                    <div class="container">
@@ -170,7 +178,7 @@
 
 <script>
 $( "#text_area" ).on('input', function() {
-    if ($(this).val().length>50) {
+    if ($(this).val().length>=50) {
         alert('Your profile heading: Maximum 50 characters. ');       
     }
 });
@@ -220,6 +228,63 @@ function validateForm() {
   var profile_ideal = document.getElementById("profile_ideal").value;
   
   var profile_terms = $('#profile_tandc:checkbox:checked').length > 0;
+  
+   var profile_weight = document.getElementById("profile_weight");
+  var profile_weight_value = profile_weight.options[profile_weight.selectedIndex].value;
+  
+  var profile_height = document.getElementById("profile_height");
+  var profile_height_value = profile_height.options[profile_height.selectedIndex].value;
+  
+    var profile_language = document.getElementById("profile_language");
+  var profile_language_value = profile_language.options[profile_language.selectedIndex].value;
+  
+      var profile_dob_3i = document.getElementById("profile_dob_3i");
+    var profile_dob_3i_value = profile_dob_3i.options[profile_dob_3i.selectedIndex].value;
+    
+         var profile_dob_2i = document.getElementById("profile_dob_2i");
+    var profile_dob_2i_value = profile_dob_2i.options[profile_dob_2i.selectedIndex].value;
+    
+         var profile_dob_1i = document.getElementById("profile_dob_1i");
+    var profile_dob_1i_value = profile_dob_1i.options[profile_dob_1i.selectedIndex].value;
+   
+  var birthday = 0; 
+  if (profile_dob_3i_value == "") {
+    birthday += 1;
+  } 
+  if (profile_dob_2i_value == "") {
+    birthday += 1;
+  } 
+    if (profile_dob_1i_value == "") {
+    birthday += 1;
+  } 
+  
+  if (birthday > 0) {
+  document.getElementById('dob').style.display = 'unset';
+    x += 1;
+  } else {
+    document.getElementById('dob').style.display = 'none';
+  }
+  
+    if (profile_language_value == "") {
+  document.getElementById('language').style.display = 'unset';
+    x += 1;
+  } else {
+    document.getElementById('language').style.display = 'none';
+  }
+  
+  if (profile_height_value == "") {
+  document.getElementById('height').style.display = 'unset';
+    x += 1;
+  } else {
+    document.getElementById('height').style.display = 'none';
+  }
+  
+  if (profile_weight_value == "") {
+    document.getElementById('weight').style.display = 'unset';
+    x += 1;
+  } else {
+    document.getElementById('weight').style.display = 'none';
+  }
   
   if (profile_terms == false) {
     document.getElementById('tandc').style.display = 'unset';
@@ -391,7 +456,7 @@ function validateForm() {
   }
   
   if(x > 0) {
-     alert("Please check your information provided");
+     alert("Please complete your profile to use the website.");
     return false;
    
   } else {
