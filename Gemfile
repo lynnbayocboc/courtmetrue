@@ -56,3 +56,4 @@ gem 'kaminari'
 # gem 'mandrill_mailer' # fails because dependent on json-1.8.3
 gem 'pry'
 gem 'countries_and_languages', :require => 'countries_and_languages/rails'
+gem 'language-select'

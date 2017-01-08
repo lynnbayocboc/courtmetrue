@@ -11,9 +11,9 @@ class ProfilesController < ApplicationController
 
   def show
     @current_step = params[:id]
-
+    
     unless @profile
-      @profile = @user.build_profile
+      @profile =  @user.build_profile
       @profile.save
     end
 
@@ -54,6 +54,7 @@ class ProfilesController < ApplicationController
       flash[:alert] = "You can not upload more than 5 photos"
     else
       @profile.update(profile_params)
+      flash[:notice] = "Profile updated"
       render_wizard @profile
     end
   end

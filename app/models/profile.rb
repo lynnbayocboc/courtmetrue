@@ -5,11 +5,11 @@ class Profile < ApplicationRecord
   has_many :profile_courtship_preferences
   has_many :courtship_preferences, through: :profile_courtship_preferences
   
-  validates_presence_of :name, :dob, :country, :state, :city,
-                        :religion, :language, :ethnicity, :occupation, :household,
-                        :height, :weight, :bodytype, :smoker, :drinker, :children, :wantkids,
-                        :selfbio, :ideal, :tandc,
-                        :gender, :status, :education, :profile_heading
+  # validates_presence_of :name, :dob, :country, :state, :city,
+  #                       :religion, :language, :ethnicity, :occupation, :household,
+  #                       :height, :weight, :bodytype, :smoker, :drinker, :children, :wantkids,
+  #                       :selfbio, :ideal, :tandc,
+  #                       :gender, :status, :education, :profile_heading
                         
   accepts_nested_attributes_for :profile_photos, :allow_destroy => true, :reject_if => :all_blank
 

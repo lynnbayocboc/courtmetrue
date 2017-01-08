@@ -29,7 +29,7 @@
                 <% if user %>
                   <% if user.profile.profile_pic.present? %>
                     <%= link_to image_tag(user.profile.profile_pic), user, {:class => 'img-responsive'} %>
-                  <% else %>
+                  <%else %>
                     <%= link_to image_tag("nopicture.png"), user, {:class => 'img-responsive'} %>
                   <% end %>
 
