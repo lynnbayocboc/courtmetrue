@@ -72,7 +72,7 @@ class Profile < ApplicationRecord
   end
 
   def profile_pic
-    self.profile_photos.first.try(:photo).try(:url, :thumb)
+    self.profile_photos.where(is_profile_pic: true).first.try(:photo).try(:url, :thumb)
   end
 
   def address
