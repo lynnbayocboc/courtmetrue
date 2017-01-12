@@ -4,7 +4,7 @@ class Profile < ApplicationRecord
   has_many :profile_photos
   has_many :profile_courtship_preferences
   has_many :courtship_preferences, through: :profile_courtship_preferences
-  
+  has_many :pictures, :dependent => :destroy
   # validates_presence_of :name, :dob, :country, :state, :city,
   #                       :religion, :language, :ethnicity, :occupation, :household,
   #                       :height, :weight, :bodytype, :smoker, :drinker, :children, :wantkids,
@@ -12,6 +12,12 @@ class Profile < ApplicationRecord
   #                       :gender, :status, :education, :profile_heading
                         
   accepts_nested_attributes_for :profile_photos, :allow_destroy => true, :reject_if => :all_blank
+  
+   has_attached_file :photo,
+    :path => ":rails_root/public/images/:id/:filename",
+    :url  => "/images/:id/:filename"
+
+  do_not_validate_attachment_file_type :photo
 
 
   def male?

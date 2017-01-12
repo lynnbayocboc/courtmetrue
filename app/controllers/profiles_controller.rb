@@ -12,11 +12,14 @@ class ProfilesController < ApplicationController
   def show
     @current_step = params[:id]
     
+    
+    
     unless @profile
       @profile =  @user.build_profile
       @profile.save
     end
-
+    
+    @pictures = @profile.pictures
     unless !@profile.has_uploaded_5_pics?
       @profile.profile_photos.new
     end
@@ -49,6 +52,12 @@ class ProfilesController < ApplicationController
   end
 
   def update
+    byebug
+    if params[:images]
+      params[:images].each { |image|
+        @profile.pictures.create(image: image)
+      }
+    end
     unless @profile.has_uploaded_5_pics?
       render_wizard @profile
       flash[:alert] = "You can not upload more than 5 photos"
