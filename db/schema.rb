@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170111232535) do
+ActiveRecord::Schema.define(version: 20170112014531) do
 
   create_table "courtship_preferences", force: :cascade do |t|
     t.string   "name"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 20170111232535) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.boolean  "is_profile_pic"
   end
 
   create_table "profile_courtship_preferences", force: :cascade do |t|

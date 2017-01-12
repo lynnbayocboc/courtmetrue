@@ -14,9 +14,10 @@ Rails.application.routes.draw do
   end
   resources :courtship_preferences
   resources :profiles
-  resources :profile_photos do
+  resources :pictures do
     member do
       get "set-as-profile-picture" => "profile_photos#set_as_profile_picture"
+      delete "destroy-photo" => "profile_photos#destroy"
     end
   end
   
