@@ -1,20 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
-
-    <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag :modernizr %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Court Me True" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Court Me True" %>">
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
   </head>
-
   <body>
-
-    <%= yield %>
-
+    <header>
+      <%= render 'layouts/navigation' %>
+    </header>
+    <main role="main">
+      <%= render 'layouts/incomplete_profile_notification' if user_signed_in? %>
+      <%= render 'layouts/messages' %>
+      <%= yield %>
+    </main>
+    <footer class="text-center">
+      <% if user_signed_in? %>
+        <%= render 'layouts/footer_sign_in' %>
+      <% else %>
+        <%= render 'layouts/footer' %>
+      <% end %>
+    </footer>
   </body>
 </html>

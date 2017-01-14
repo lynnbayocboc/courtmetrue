@@ -59,7 +59,7 @@ class ProfilesController < ApplicationController
     
     if @images > 5
       render_wizard @profile
-      flash[:alert] = "You can not upload more than 5 photos"
+      # flash[:alert] = "You can not upload more than 5 photos"
     else
       if params[:images]
         params[:images].each { |image|

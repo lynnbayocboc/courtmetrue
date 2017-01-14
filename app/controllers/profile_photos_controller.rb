@@ -3,8 +3,8 @@ class ProfilePhotosController < ApplicationController
 		
 		@profile_photo = Picture.find(params[:id])
 		
-		if current_user.profile.pictures.where(is_profile_pic: true).first.id
-			@previous = current_user.profile.pictures.where(is_profile_pic: true).first.id
+		if current_user.profile.pictures.find_by(is_profile_pic: true)
+			@previous = current_user.profile.pictures.find_by(is_profile_pic: true).id
 		end
 		
 		current_user.profile.pictures.update_all(is_profile_pic: false)
