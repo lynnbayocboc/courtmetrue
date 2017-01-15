@@ -85,15 +85,32 @@
 	                <%= f.text_area :profile_heading, label: 'Your Profile Heading', :rows => 5, class: "form-control", :maxlength => 50, id: "text_area"  %>
                   <p id="heading" style="color:red; display: none;" >Please enter profile heading </p>
                   <br>
-
-                   <div id="courtship" style="display:none;">
+  <% unless current_user.profile.gender == "Male" %>
+                    <div id="courtship">
+                  
                       <%= f.label "Courtship Preference" %>
                     <% if CourtshipPreference.all.empty? %>
                       <p>None found. Contact support.</p>
                     <% end %>
-                    <%= collection_check_boxes(:profile, :courtship_preference_ids, CourtshipPreference.all, :id, :name)  %>
+                    
+                      <%= collection_check_boxes(:profile, :courtship_preference_ids, CourtshipPreference.all, :id, :name) do |b| %>
+                        <div class="row">
+                          <%= b.label(class: "check_box") do %>
+                            <div class="col-xs-4">
+                              <%= b.check_box(class: "check_box") %>
+                            </div>
+                      
+                            <div class="col-xs-8">
+                              <%= b.object.name %>
+                            </div>       
+                          <% end %>
+                        </div>
+                      <% end %>
+                       <p id="courtship_preference" style="color:red; display: none;" >5 courtship preference required</p>
+                    
+                    <%# collection_check_boxes(:profile, :courtship_preference_ids, CourtshipPreference.all, :id, :name)  %>
                     </div>
-        
+        <% end %>
         
                   <%= f.input :selfbio, label: 'Tell something about your self', as: :text  %>
                   <p id="selfbio" style="color:red; display: none;" >Please tell something about yourself</p>
@@ -339,6 +356,8 @@ $( "#text_area" ).on('input', function() {
 
 
 function validateForm() {
+  
+
   var profile_name = document.getElementById("profile_name").value;
   var profile_country = document.getElementById("profile_country");
   var profile_country_value = profile_country.options[profile_country.selectedIndex].value;
@@ -403,6 +422,17 @@ function validateForm() {
     var profile_dob_1i_value = profile_dob_1i.options[profile_dob_1i.selectedIndex].value;
    
   var birthday = 0; 
+  
+    var checkbox_checked = $('input[name="profile[courtship_preference_ids][]"]:checked').length;
+  
+  if (checkbox_checked < 5) {
+    $("#courtship_preference").css("display", "unset");
+     x += 1;
+  } else {
+     $("#courtship_preference").css("display", "none");
+  }
+  
+  
   if (profile_dob_3i_value == "") {
     birthday += 1;
   } 

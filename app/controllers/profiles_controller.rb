@@ -54,8 +54,10 @@ class ProfilesController < ApplicationController
   def update
     
     @images_count = current_user.profile.pictures.count 
-    @params_images = params[:images].count
-    @images = @images_count + @params_images
+
+    @params_images = params[:images].count rescue 0
+    @images = @images_count + @params_images rescue 0
+
     
     if @images > 5
       render_wizard @profile
