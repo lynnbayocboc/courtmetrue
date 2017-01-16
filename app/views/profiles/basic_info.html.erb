@@ -85,10 +85,10 @@
 	                <%= f.text_area :profile_heading, label: 'Your Profile Heading', :rows => 5, class: "form-control", :maxlength => 50, id: "text_area"  %>
                   <p id="heading" style="color:red; display: none;" >Please enter profile heading </p>
                   <br>
-  <% unless current_user.profile.gender == "Male" %>
-                    <div id="courtship">
+ 
+                    <div id="courtship" <%= "style=display:none;" if current_user.profile.gender == "Male" %> >
                   
-                      <%= f.label "Courtship Preference" %>
+                      <%= f.label "Courtship Preferences" %>
                     <% if CourtshipPreference.all.empty? %>
                       <p>None found. Contact support.</p>
                     <% end %>
@@ -110,7 +110,6 @@
                     
                     <%# collection_check_boxes(:profile, :courtship_preference_ids, CourtshipPreference.all, :id, :name)  %>
                     </div>
-        <% end %>
         
                   <%= f.input :selfbio, label: 'Tell something about your self', as: :text  %>
                   <p id="selfbio" style="color:red; display: none;" >Please tell something about yourself</p>
@@ -225,6 +224,8 @@
 <script>
 
 $(function() {
+  
+  
   
   $('#profile_gender_male').click(function() {
     $("#courtship").css("display", "none");
@@ -342,8 +343,17 @@ $(function() {
 
 
 
+var checkbox_checked = $('input[name="profile[courtship_preference_ids][]"]:checked').length;
+var limit = 5;
+var profile_gender = $('input:radio[name="profile[gender]"]:checked').val();
 
-
+$('input[name="profile[courtship_preference_ids][]"]').on('change', function(evt) {
+  if ($('input[name="profile[courtship_preference_ids][]"]:checked').length > 5) {
+    
+     alert("5 courtship preference only");
+            this.checked = false;
+  }
+});
 
 
 
@@ -425,7 +435,7 @@ function validateForm() {
   
     var checkbox_checked = $('input[name="profile[courtship_preference_ids][]"]:checked').length;
   
-  if (checkbox_checked < 5) {
+  if (profile_gender == "Female" && checkbox_checked < 5) {
     $("#courtship_preference").css("display", "unset");
      x += 1;
   } else {
