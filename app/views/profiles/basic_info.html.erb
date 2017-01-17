@@ -74,7 +74,7 @@
       <p id="heading" style="color:red; display: none;" >Please enter profile heading </p>
       <br>
       <div id="courtship" <%= "style=display:none;" if current_user.profile.gender == "Male" %> >
-        <%= f.label "Courtship Preferences" %>
+        <%= f.label "Courtship Preferences(Choose your best top 5)" %>
         <% if CourtshipPreference.all.empty? %>
           <p>None found. Contact support.</p>
         <% end %>
@@ -92,7 +92,7 @@
             <% end %>
           </div>
         <% end %>
-        <p id="courtship_preference" style="color:red; display: none;" >5 courtship preference required</p>
+        <p id="courtship_preference" style="color:red; display: none;" >Choose at least 5 courtship preferences</p>
       </div>
 
       <%= f.input :selfbio, label: 'Tell something about your self', as: :text  %>
@@ -336,7 +336,7 @@ $('input[name="profile[courtship_preference_ids][]"]').on('change', function(evt
     
      alert("5 courtship preference only");
             this.checked = false;
-  }
+  } 
 });
 
 
