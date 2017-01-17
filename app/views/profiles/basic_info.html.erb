@@ -105,7 +105,7 @@
 <% if current_user.profile.pictures.count < 1 %>
   <div class="row">
     <%= file_field_tag "images[]", type: :file, class: "picture1" %>
-    <div class="target1 col-md-3" style="display:none; height: 220px; width: 220px; border: solid 1px black;">
+    <div class="target1 col-md-3" style="margin: 0px; margin-left: 3px; padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
       <div id="target1">
     </div>
     </div>
@@ -114,7 +114,7 @@
 
   <div class="row">
     <%= file_field_tag "images[]", type: :file, class: "picture2" %>
-     <div class="target2 col-md-3" style="display:none; height: 220px; width: 220px; border: solid 1px black;">
+     <div class="target2 col-md-3" style="margin: 0px; margin-left: 3px; padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
       <div id="target2">
     </div>
     </div>
@@ -123,7 +123,7 @@
 
   <div class="row">
     <%= file_field_tag "images[]", type: :file, class: "picture3" %>
-     <div class="target3 col-md-3" style="display:none; height: 220px; width: 220px; border: solid 1px black;">
+     <div class="target3 col-md-3" style="margin: 0px; margin-left: 3px; padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
       <div id="target3">
     </div>
     </div>
@@ -132,7 +132,7 @@
 
   <div class="row">
     <%= file_field_tag "images[]", type: :file, class: "picture4" %>
-     <div class="target4 col-md-3" style="display:none; height: 220px; width: 220px; border: solid 1px black;">
+     <div class="target4 col-md-3" style="margin: 0px; margin-left: 3px; padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
       <div id="target4">
     </div>
     </div>
@@ -141,7 +141,7 @@
 
   <div class="row">
     <%= file_field_tag "images[]", type: :file, class: "picture5" %>
-     <div class="target5 col-md-3" style="display:none; height: 220px; width: 220px; border: solid 1px black;">
+     <div class="target5 col-md-3" style="margin: 0px; margin-left: 3px; padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
       <div id="target5">
     </div>
     </div>
@@ -175,7 +175,7 @@
     			 <% while pics < 5  do %>
     			 <div class="row">
     			      <%= image_tag "nopicture.png", id: "nopicture#{pics}"%>
-    			   	 <div class="target<%= pics %> col-md-3 col-md-offset-5" style="display:none; height: 220px; width: 220px; border: solid 1px black;">
+    			   	 <div class="target<%= pics %> col-md-3 col-md-offset-5" style="padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
                 <div id="target<%= pics %>">
                 </div>
               </div>
@@ -226,8 +226,8 @@ $(function() {
     var reader = new FileReader();
     reader.onload = function(file) {
       var img = new Image();
-      img.style.width = '50%';
-      img.style.height = 'auto';
+      img.style.width = '220px';
+      img.style.height = '220px';
       console.log(file);
       img.src = file.target.result;
       $('#target1').html(img);
@@ -247,8 +247,8 @@ $(function() {
     var reader = new FileReader();
     reader.onload = function(file) {
       var img = new Image();
-      img.style.width = '50%';
-      img.style.height = 'auto';
+      img.style.width = '220px';
+      img.style.height = '220px';
       console.log(file);
       img.src = file.target.result;
       $('#target2').html(img);
@@ -267,8 +267,8 @@ $(function() {
     var reader = new FileReader();
     reader.onload = function(file) {
       var img = new Image();
-      img.style.width = '50%';
-      img.style.height = 'auto';
+       img.style.width = '220px';
+      img.style.height = '220px';
       console.log(file);
       img.src = file.target.result;
       $('#target3').html(img);
@@ -288,8 +288,8 @@ $(function() {
     var reader = new FileReader();
     reader.onload = function(file) {
       var img = new Image();
-      img.style.width = '50%';
-      img.style.height = 'auto';
+      img.style.width = '220px';
+      img.style.height = '220px';
       console.log(file);
       img.src = file.target.result;
       $('#target4').html(img);
@@ -310,8 +310,8 @@ $(function() {
     var reader = new FileReader();
     reader.onload = function(file) {
       var img = new Image();
-         img.style.width = '50%';
-      img.style.height = 'auto';
+      img.style.width = '220px';
+      img.style.height = '220px';
       console.log(file);
       img.src = file.target.result;
       $('#target5').html(img);
