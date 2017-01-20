@@ -1,57 +1,206 @@
-<div class="userProfile">
-  <section style="background:#efefe9;">
-    <div class="container">
-      <div class="row">
-        <div class="board">
-          <%= render "profile_board_inner" %>
-	      	<div class="tab-content">
-	      	  <%= simple_form_for @profile, url: wizard_path, method: :put, wrapper: :vertical_form,
-	                                                wrapper_mappings: {
-	                                                  check_boxes: :horizontal_radio_and_checkboxes,
-	                                                  radio_buttons: :horizontal_radio_and_checkboxes,
-	                                                  file: :horizontal_file_input,
-	                                                  datetime: :multi_select
-	                                                } do |f| %>
-	          	<fieldset>
-	              <div class="tab-pane fade in active" id="home">
-	                <%= f.input :name, autofocus: true, placeholder: "Name" %>
-	              
+<%= simple_form_for @profile, :html => { :onsubmit => "return validateForm()", :multipart => true }, url: wizard_path, method: :put, wrapper: :vertical_form,
+                                      wrapper_mappings: {
+                                        check_boxes: :horizontal_radio_and_checkboxes,
+                                        radio_buttons: :horizontal_radio_and_checkboxes,
+                                        file: :horizontal_file_input,
+                                        datetime: :multi_select
+                                      }  do |f| %>
+                                      
+	<fieldset>
+	  <h2>Basic Information</h2>
+      <%= f.label "Name" %>
+      <%= f.input :name, label: false, placeholder: "Name", input_html: { class: "form-control" } %>
+      <p id="name" style="color:red; display: none;" >Please enter name</p>
+      <%= f.input :dob,
+              start_year: Date.today.year - 90,
+              end_year: Date.today.year - 12,
+              order: [:day, :month, :year],:include_blank => true,
+              label: "Date of birth"  %>
+      <p id="dob" style="color:red; display: none;" >Please enter date of birth</p>
+      <%= f.input :country  %>
+      <p id="country" style="color:red; display: none;" >Please choose country</p>
+      <%= f.input :state, label: 'State/Province'  %>
+      <p id="state" style="color:red; display: none;" >Please enter state/province</p>
+      <%= f.input :city  %>
+      <p id="city" style="color:red; display: none;" >Please enter city</p>
+      <%= f.input :gender,
+                  collection: [[:Male, "Male"], [:Female, "Female"]],
+                  label_method: :last,
+                  value_method: :first,
+                  as: :radio_buttons,
+                  item_wrapper_class: 'radio-inline'   %>
+      <p id="gender" style="color:red; display: none;" >Please choose gender</p>            
+      <%= f.input :status, label: 'Marital status' , collection: [:Single, :Divorce, :Widow], as: :radio_buttons, :item_wrapper_class => 'radio-inline'  %>
+      <p id="status" style="color:red; display: none;" >Please choose status</p>
+      <%= f.input :religion, collection: [:Baha, :Bhudist, :"Christian - Catholic", :"Christian - Other", :"Christian - Protestant", :Hindu, :Islam, :Jainism, :Jewish, :Parsi, :Shintoism, :Sikhism, :Taoism, :Other, :"No Religion"]  %>
+      <p id="religion" style="color:red; display: none;" >Please choose religion</p>
+      <%= f.input :religious_values, label: "Religious Values", collection: [:"Not Religious", :"Religious", :"Very Religious"]  %>
+      <p id="religious" style="color:red; display: none;" >Please choose religious values</p>
+      <br>
+      <%= f.label "Language" %>
+      <%= f.select :language, options_for_select(["", "English", "Tagalog", "Cebauano", "Chinese", "Thai", "French", "German", "Armenian", "Arabic", "Spanish", "Japanese", "Other"], :selected => f.object.language), {}, :class => 'form-control' %>
+      <p id="language" style="color:red; display: none;" >Please choose language</p>
+      <%= f.input :ethnicity, collection: [:"Arab (Middle Eastern)", :Asian, :Black, :"Caucasian(White)", :"Hispanic/Latino", :Indian, :Mixed, :"Pacific Islander", :Other] %>
+      <p id="ethnicity" style="color:red; display: none;" >Please choose ethnicity</p>
+      <%= f.input :education, label: 'Education', collection: [:"Primary(Elementary) School",:"Middle School/Junior High", :"High School", :"Vocational College", :"Bachelors Degree", :"Masters Degree", :"Phd or Doctorate"]  %>
+      <p id="education" style="color:red; display: none;" >Please choose education</p>
+      <%= f.input :occupation %>
+      <p id="occupation" style="color:red; display: none;" >Please enter occupation</p>
+      <%= f.input :household, label: 'Living Situation' , collection: [:Alone, :Housemates, :family]  %>
+      <p id="household" style="color:red; display: none;" >Please choose living situation</p>
+      <br>
+      <%= f.label "Height"%>
+      <%= f.select :height, ((140..500).map {|i| "#{i} cm" }), { :selected => @profile.height, :include_blank => true}, class: "form-control" %>
+      <p id="height" style="color:red; display: none;" >Please choose height</p>
+      <br>
+      <%= f.label "Weight"%>
+      <%= f.select :weight, ((40..500).map {|i| "#{i} kg" }), { :selected => @profile.weight, :include_blank => true}, class: "form-control" %>
+      <p id="weight" style="color:red; display: none;" >Please choose weight</p>
+      <%= f.input :bodytype, label: 'Body Type' , collection: [:Slim, :Athletic, :Average, :"Few Extra Pounds", :"Full Figured", :"Large and Lovely"]  %>
+       <p id="bodytype" style="color:red; display: none;" >Please choose body type</p>
+      <%= f.input :smoker, label: 'Do you smoke?', collection: [:Yes, :No]  %>
+       <p id="smoker" style="color:red; display: none;" >Please answer</p>
+      <%= f.input :drinker, label: 'Do you drink?', collection: [:"Not At All", :"Occasional Drinker", :"Heavy Drinker"]  %>
+       <p id="drinker" style="color:red; display: none;" >Please answer</p>
+      <%= f.input :children, label: 'Do you have children?', collection: [:Yes, :No]  %>
+       <p id="children" style="color:red; display: none;" >Please answer</p>
+      <%= f.input :wantkids, label: 'Do you want to have a children?', collection: [:Yes, :No, :Maybe]  %>
+       <p id="wantkids" style="color:red; display: none;" >Please answer</p>
+      <%= f.input :experience_with_courtship, label: 'Do you have courtship experience?', collection: [:"New to Courtship", :"Experienced with Courtship"]  %>
+       <p id="experience" style="color:red; display: none;" >Please answer</p>
+      <br>
+      <%= f.label :profile_heading%>
+      <%= f.text_area :profile_heading, label: 'Your Profile Heading', :rows => 5, class: "form-control", :maxlength => 50, id: "text_area"  %>
+      <p id="heading" style="color:red; display: none;" >Please enter profile heading </p>
+      <br>
+      <div id="courtship" <%= "style=display:none;" if current_user.profile.gender == "Male" %> >
+        <%= f.label "Courtship Preferences(Choose your best top 5)" %>
+        <% if CourtshipPreference.all.empty? %>
+          <p>None found. Contact support.</p>
+        <% end %>
+        
+        <%= collection_check_boxes(:profile, :courtship_preference_ids, CourtshipPreference.all, :id, :name) do |b| %>
+          <div class="row">
+            <%= b.label(class: "check_box") do %>
+              <div class="col-xs-4">
+                <%= b.check_box(class: "check_box") %>
+              </div>
+        
+              <div class="col-xs-8">
+                <%= b.object.name %>
+              </div>       
+            <% end %>
+          </div>
+        <% end %>
+        <p id="courtship_preference" style="color:red; display: none;" >Choose at least 5 courtship preferences</p>
+      </div>
 
-	                <%= f.input :dob,
-	                        start_year: Date.today.year - 90,
-	                        end_year: Date.today.year - 12,
-	                        discard_day: true,
-	                        order: [:month, :year],
-	                        label: "Date of birth"
-	                %>
-	                <%= f.input :country %>
-	                <%= f.input :state, label: 'State/Province' %>
-	                <%= f.input :city %>
+      <%= f.input :selfbio, label: 'Tell something about your self', as: :text  %>
+      <p id="selfbio" style="color:red; display: none;" >Please tell something about yourself</p>
+      <%= f.input :ideal, label: 'Describe you ideal partner', as: :text  %>
+      <p id="ideal" style="color:red; display: none;" >Please describe your ideal partner</p>
 
-	                <%= f.input :gender,
-	                            collection: [[:Male, "Male"], [:Female, "Female"]],
-	                            label_method: :last,
-	                            value_method: :first,
-	                            as: :radio_buttons,
-	                            item_wrapper_class: 'radio-inline' %>
-	                <%= f.input :status, label: 'Marital status' , collection: [:Single, :Divorce, :Widow], as: :radio_buttons, :item_wrapper_class => 'radio-inline' %>
-	                <%= f.input :religion, collection: [:Protestant, :Hindu, :Bhudist, :Catholic, :Islam, :Other] %>
-	                <%= f.input :language, collection: [:English, :Tagalog, :Spanish, :Chinese, :German, :French] %>
-	                 <%= f.input :tandc, label: 'Accept terms and conditions?',
-                                       as: :boolean,
-                                       checked_value: true,
-                                       unchecked_value: false
-                   %>
-	                <button type="submit" href="#profile" name="home_form" class="btn-submit btn btn-success btn-outline-rounded green btnNext">
-	                	Next <span class="glyphicon glyphicon-send"></span>
-	                </button>
-	              </div>
-	              <div class="clearfix"></div>
-	            </fieldset>
-	          <% end %>
-	        </div>
-	      </div>
-		  </div>
-	  </div>
-	</section>
-</div>
+<h3>Upload Photos</h3>
+
+<% if current_user.profile.pictures.count < 1 %>
+  <div class="row">
+    <%= file_field_tag "images[]", type: :file, class: "picture1" %>
+    <div class="target1 col-md-3" style="margin: 0px; margin-left: 3px; padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
+      <div id="target1">
+    </div>
+    </div>
+    <br>
+  </div>
+
+  <div class="row">
+    <%= file_field_tag "images[]", type: :file, class: "picture2" %>
+     <div class="target2 col-md-3" style="margin: 0px; margin-left: 3px; padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
+      <div id="target2">
+    </div>
+    </div>
+   <br>
+  </div>  
+
+  <div class="row">
+    <%= file_field_tag "images[]", type: :file, class: "picture3" %>
+     <div class="target3 col-md-3" style="margin: 0px; margin-left: 3px; padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
+      <div id="target3">
+    </div>
+    </div>
+     <br>
+  </div>
+
+  <div class="row">
+    <%= file_field_tag "images[]", type: :file, class: "picture4" %>
+     <div class="target4 col-md-3" style="margin: 0px; margin-left: 3px; padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
+      <div id="target4">
+    </div>
+    </div>
+     <br>
+  </div>
+
+  <div class="row">
+    <%= file_field_tag "images[]", type: :file, class: "picture5" %>
+     <div class="target5 col-md-3" style="margin: 0px; margin-left: 3px; padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
+      <div id="target5">
+    </div>
+    </div>
+     <br>
+  </div>
+  
+<% end %>
+    <br>
+  <center>
+     <% @pictures.each do |picture|  %>
+     <div id="profile-pic">
+     	<%= "Your Profile Picture" if picture.is_profile_pic %>
+     </div>
+     	<div id="<%= picture.id %>-picture" style="display:none;">Your Profile Picture</div>
+     	<%= image_tag picture.image(:medium) %>
+     	<br>
+     	
+     
+     		<%= link_to "Set as profile picture", set_as_profile_picture_picture_path(picture.id), :class => 'setAsProfilePicture', remote: true  %>
+     	<%= link_to "Delete", destroy_photo_picture_path(picture.id),
+      :data => { :confirm => "Are you sure?" },
+      :method => :delete
+    	%>
+    	<br>
+    	<br>
+     <% end %>
+  </center>
+     <center>
+       <%if @pictures.count > 0%>
+    		 	<% pics = @pictures.count %>
+    			 <% while pics < 5  do %>
+    			 <div class="row">
+    			      <%= image_tag "nopicture.png", id: "nopicture#{pics}"%>
+    			   	 <div class="target<%= pics %> col-md-3 col-md-offset-5" style="padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
+                <div id="target<%= pics %>">
+                </div>
+              </div>
+              </div>
+              <br>
+    			   <%= file_field_tag "images[]", type: :file, class: "picture#{pics}" %>
+    			 <% pics += 1 %>
+        
+    			<% end %>
+  			<% end %>
+			</center>
+
+        <%= f.input :tandc, label: 'Yes, I Agree to the terms and conditions.',
+         as: :boolean,
+         checked_value: true,
+         unchecked_value: false  %>
+          <p id="tandc" style="color:red; display: none;" >You must agree to the terms and conditions</p>
+             
+    </div>
+    <div class="clearfix"></div>
+  </fieldset>
+      <button type="submit" href="#profile" name="home_form" class="btn-submit btn btn-success btn-outline-rounded green btnNext">
+      	Submit Profile <span class="glyphicon glyphicon-send"></span>
+      </button>
+    </div>
+    <div class="clearfix"></div>
+  </fieldset>
+<% end %>

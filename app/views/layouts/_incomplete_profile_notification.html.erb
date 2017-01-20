@@ -1,3 +1,4 @@
+<% if false %>
 <% if !user_has_filled_full_profile? %>
 	<div class="alert alert-danger">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -7,10 +8,13 @@
 	<% if profile_has_not_atleast_1_pic? %>
 			<div class="alert alert-danger">
 				<div style="float: right; margin: -6px;">
-		    <a href="<%= profile_path(:profile_photos) %>" class="btn btn-primary">Upload photos</a>
+			<% if false %>		
+		    <a href="<% profile_path(:profile_photos) %>" class="btn btn-primary">Upload photos</a>
 		    <button type="button" class="btn btn-warning" data-dismiss="alert" aria-hidden="true">Skip</button>
+		    <% end %>
 		    </div>
 		    Your profile will more attract members if you have pictures ect..
 		  </div>
 	<% end %>
+<% end %>
 <% end %>
