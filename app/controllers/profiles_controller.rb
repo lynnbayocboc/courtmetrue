@@ -44,8 +44,13 @@ class ProfilesController < ApplicationController
   end
 
   def myprofile
+    byebug
     if user_signed_in?
-      @photos = @user.profile.profile_photos
+      if current_user.profile.profile_photos.count > 1
+        @photos = @user.profile.profile_photos 
+      else  
+      
+      end
     else 
       redirect_to root_path, alert: "You need to sign in first"
     end
