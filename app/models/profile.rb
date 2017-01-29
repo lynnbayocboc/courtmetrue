@@ -78,7 +78,7 @@ class Profile < ApplicationRecord
   end
 
   def profile_pic
-    self.pictures.find_by(is_profile_pic: true).image(:thumb)
+    self.pictures.find_by(is_profile_pic: true)
   end
 
   def address

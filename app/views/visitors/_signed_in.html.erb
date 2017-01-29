@@ -2,8 +2,12 @@
   <div class="container" style="background:#efefe9;">
     <div class="row">
       <div class="col-sm-3 col-xs-12 text-center">
-        <% if @profile.profile_pic.present? %>
-          <%= image_tag current_user.profile.profile_pic, class: 'img-responsive' %>
+        <% if @profile.pictures.present? %>
+          <% if @profile.profile_pic.present? %>
+            <%= image_tag current_user.profile.profile_pic, class: 'img-responsive' %>
+          <% else %>
+            <%= image_tag current_user.profile.pictures.first.image(:thumb), class: 'img-responsive' %>
+          <% end %>
         <% else %>
           <%= image_tag "nopicture.png", class: 'img-responsive'%>
         <% end %>
@@ -26,11 +30,17 @@
           <div class="row">
             <% group.each do |user| %>
               <div class="col-sm-4 col-xs-12 text-center">
-                  <% if user.profile.pictures.find_by(is_profile_pic: true) %>
-                    <%= link_to image_tag(user.profile.profile_pic), user, {:class => 'img-responsive'} %>
-                  <% else %>
-                    <%= link_to image_tag("nopicture.png"), user, {:class => 'img-responsive'} %>
-                  <% end %>
+                  <% if user %>
+                    <% if user.profile.pictures.present? %>
+                      <% if user.profile.pictures.find_by(is_profile_pic: true) %>
+                        <%= link_to image_tag(user.profile.profile_pic), user, {:class => 'img-responsive'} %>
+                      <% else %>
+                        <%= link_to image_tag(user.profile.pictures.first.image(:thumb)), user, {:class => 'img-responsive'} %>
+                      <% end %>
+                    <% else %>
+                      <%= link_to image_tag("nopicture.png"), user, {:class => 'img-responsive'} %>
+                    <% end %>
+                
                   <span>
                     
                     <%= link_to user.profile.name, user %>
@@ -42,6 +52,7 @@
                     <%= user.profile.city %>
                   </span>
               </div>
+            <% end %>
             <% end %>
           </div>
         <% end %>
