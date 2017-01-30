@@ -10,6 +10,7 @@ class ProfilesController < ApplicationController
   end
 
   def show
+    @pictures = current_user.profile.profile_photos
     @current_step = params[:id]
 
     unless @profile
@@ -49,13 +50,27 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    unless @profile.has_uploaded_5_pics?
+    
+    @images_count = current_user.profile.profile_photos.count 
+
+    @params_images = params[:images].count rescue 0
+    @images = @images_count + @params_images rescue 0
+
+    
+    if @images > 5
       render_wizard @profile
-      flash[:alert] = "You can not upload more than 5 photos"
+      # flash[:alert] = "You can not upload more than 5 photos"
     else
+      if params[:images]
+        params[:images].each { |image|
+          @profile.profile_photos.create(photo: image)
+        }
+      end
       @profile.update(profile_params)
+      flash[:notice] = "Profile updated"
       render_wizard @profile
     end
+    
   end
 
   private

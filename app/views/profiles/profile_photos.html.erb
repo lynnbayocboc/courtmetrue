@@ -28,7 +28,7 @@
                             <% end %>
                             <label class="add-photo-btn"> Select Picture
                               <span>
-                                <%= p.input :photo, :multiple => true, as: :file, label: false %>
+                                <%= file_field_tag "images[]", type: :file, class: "picture#{pics}" %>
                               </span>
                             </label>
                             <%= p.check_box :_destroy, class: "removePhoto" %>

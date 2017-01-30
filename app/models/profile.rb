@@ -52,7 +52,7 @@ class Profile < ApplicationRecord
   end
 
   def has_uploaded_5_pics?
-    self.profile_photos.count < 6
+    self.profile_photos.count < 5
   end
 
   def has_atleast_1_pic?

@@ -1,13 +1,13 @@
 class ProfilePhotosController < ApplicationController
 	def set_as_profile_picture
 		
-		@profile_photo = Picture.find(params[:id])
+		@profile_photo = ProfilePhoto.find(params[:id])
 		
-		if current_user.profile.pictures.find_by(is_profile_pic: true)
-			@previous = current_user.profile.pictures.find_by(is_profile_pic: true).id
+		if current_user.profile.profile_photos.find_by(is_profile_pic: true)
+			@previous = current_user.profile.profile_photos.find_by(is_profile_pic: true).id
 		end
 		
-		current_user.profile.pictures.update_all(is_profile_pic: false)
+		current_user.profile.profile_photos.update_all(is_profile_pic: false)
 		@profile_photo.update(is_profile_pic: true)
 
 	  respond_to do |format|
@@ -16,7 +16,7 @@ class ProfilePhotosController < ApplicationController
 	end
 	
 	def destroy
-			@profile_photo = Picture.find(params[:id])
+			@profile_photo = ProfilePhoto.find(params[:id])
 			@profile_photo.destroy
 			
 			redirect_to(:back)
