@@ -11,15 +11,12 @@ class ProfilesController < ApplicationController
 
   def show
     @current_step = params[:id]
-    
-    
-    
+
     unless @profile
-      @profile =  @user.build_profile
+      @profile = @user.build_profile
       @profile.save
     end
-    
-    @pictures = @profile.pictures
+
     unless !@profile.has_uploaded_5_pics?
       @profile.profile_photos.new
     end
@@ -44,51 +41,20 @@ class ProfilesController < ApplicationController
   end
 
   def myprofile
-    byebug
     if user_signed_in?
-      if current_user.profile.profile_photos.count > 1
-        @photos = @user.profile.profile_photos 
-      else  
-      
-      end
+      @photos = @user.profile.profile_photos
     else 
       redirect_to root_path, alert: "You need to sign in first"
     end
   end
 
   def update
-    
-    @images_count = current_user.profile.pictures.count 
-
-    @params_images = params[:images].count rescue 0
-    @images = @images_count + @params_images rescue 0
-
-    
-    if @images > 5
+    unless @profile.has_uploaded_5_pics?
       render_wizard @profile
-      # flash[:alert] = "You can not upload more than 5 photos"
+      flash[:alert] = "You can not upload more than 5 photos"
     else
-      if params[:images]
-        params[:images].each { |image|
-          @profile.pictures.create(image: image)
-        }
-      end
       @profile.update(profile_params)
-      flash[:notice] = "Profile updated"
       render_wizard @profile
-    end
-    
-
-
-  end
-  
-  def set_as_profile_picture
-    @profile_photo = ProfilePhoto.find(params[:id])
-    current_user.profile.profile_photos.update_all(is_profile_pic: false)
-    @profile_photo.update(is_profile_pic: true)
-    
-    respond_to do |format|
-      format.js
     end
   end
 
@@ -102,12 +68,12 @@ class ProfilesController < ApplicationController
     end
 
     def profile_params
-      params.require(:profile).permit(:name, :dob, :country, :state, :city,
+      params.require(:profile).permit(:religious_values, :experience_with_courtship, :age, :name, :dob, :country, :state, :city,
                                       :religion, :language, :ethnicity, :occupation, :income, :household,
                                       :height, :weight, :bodytype, :smoker, :drinker, :children, :wantkids,
                                       :selfbio, :ideal, :tandc,
                                       :gender, :status, :education, :profile_heading,
-                                      :expectations, :experience_with_courtship, :religious_values, courtship_preference_ids: [],
+                                      :expectations, courtship_preference_ids: [],
                                       profile_photos_attributes: [:id, :profile_id, :photo, :_destroy, :is_profile_pic])
     end
 

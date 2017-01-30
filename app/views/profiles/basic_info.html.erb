@@ -102,91 +102,46 @@
 
 <h3>Upload Photos</h3>
 
-<% if current_user.profile.pictures.count < 1 %>
-  <div class="row">
-    <%= file_field_tag "images[]", type: :file, class: "picture1" %>
-    <div class="target1 col-md-3" style="margin: 0px; margin-left: 3px; padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
-      <div id="target1">
-    </div>
-    </div>
-    <br>
-  </div>
-
-  <div class="row">
-    <%= file_field_tag "images[]", type: :file, class: "picture2" %>
-     <div class="target2 col-md-3" style="margin: 0px; margin-left: 3px; padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
-      <div id="target2">
-    </div>
-    </div>
-   <br>
-  </div>  
-
-  <div class="row">
-    <%= file_field_tag "images[]", type: :file, class: "picture3" %>
-     <div class="target3 col-md-3" style="margin: 0px; margin-left: 3px; padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
-      <div id="target3">
-    </div>
-    </div>
-     <br>
-  </div>
-
-  <div class="row">
-    <%= file_field_tag "images[]", type: :file, class: "picture4" %>
-     <div class="target4 col-md-3" style="margin: 0px; margin-left: 3px; padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
-      <div id="target4">
-    </div>
-    </div>
-     <br>
-  </div>
-
-  <div class="row">
-    <%= file_field_tag "images[]", type: :file, class: "picture5" %>
-     <div class="target5 col-md-3" style="margin: 0px; margin-left: 3px; padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
-      <div id="target5">
-    </div>
-    </div>
-     <br>
-  </div>
-  
+<div class="files"> 
+<%= f.fields_for :profile_photos, :html => { :class => "upload", :multipart => true } do |p| %>
+  <%= p.file_field :photo %>
+  <div>Upload files</div>
 <% end %>
-    <br>
-  <center>
-     <% @pictures.each do |picture|  %>
-     <div id="profile-pic">
-     	<%= "Your Profile Picture" if picture.is_profile_pic %>
-     </div>
-     	<div id="<%= picture.id %>-picture" style="display:none;">Your Profile Picture</div>
-     	<%= image_tag picture.image(:medium) %>
-     	<br>
-     	
-     
-     		<%= link_to "Set as profile picture", set_as_profile_picture_picture_path(picture.id), :class => 'setAsProfilePicture', remote: true  %>
-     	<%= link_to "Delete", destroy_photo_picture_path(picture.id),
-      :data => { :confirm => "Are you sure?" },
-      :method => :delete
-    	%>
-    	<br>
-    	<br>
-     <% end %>
-  </center>
-     <center>
-       <%if @pictures.count > 0%>
-    		 	<% pics = @pictures.count %>
-    			 <% while pics < 5  do %>
-    			 <div class="row">
-    			      <%= image_tag "nopicture.png", id: "nopicture#{pics}"%>
-    			   	 <div class="target<%= pics %> col-md-3 col-md-offset-5" style="padding: 0px; display:none; height: 222px; width: 220px; border: solid 1px black;">
-                <div id="target<%= pics %>">
+
+<table class="upload_files"></table>
+<table class="download_files"></table>
+</div>
+
+        <fieldset>
+                <div class="tab-pane fade in active" id="home">
+                  <div class="">
+                    <div class="row">
+                      <%= f.fields_for :profile_photos do |p| %>
+                        <%= p.hidden_field :is_profile_pic, value: true if @profile.first_photo? %>
+                        <div class="col-xs-6 col-md-3 thumb">
+                          <span class="thumbnail">
+                            <img src="/assets/set-as-profile-pic-icon.png" class="currentProfilePic" id="currentProfilePic-<%= p.object.id %>" style="display: <%= p.object.is_profile_pic? ? 'block' : 'none' %>" />
+                            <% if p.object.photo.blank? %>
+                              <%= image_tag p.object.photo(:thumb), class: "img-responsive" %>
+                            <% else %>
+                              <%= image_tag p.object.photo(:thumb) %>
+                            <% end %>
+                            <label class="add-photo-btn"> Select Picture
+                              <span>
+                                <%= p.input :photo, :multiple => true, as: :file, label: false %>
+                              </span>
+                            </label>
+                            <%= p.check_box :_destroy, class: "removePhoto" %>
+                          </span>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                  <br>
                 </div>
-              </div>
-              </div>
-              <br>
-    			   <%= file_field_tag "images[]", type: :file, class: "picture#{pics}" %>
-    			 <% pics += 1 %>
-        
-    			<% end %>
-  			<% end %>
-			</center>
+                </div>
+                <div class="clearfix"></div>
+              </fieldset>
 
         <%= f.input :tandc, label: 'Yes, I Agree to the terms and conditions.',
          as: :boolean,

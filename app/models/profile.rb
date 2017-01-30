@@ -4,21 +4,8 @@ class Profile < ApplicationRecord
   has_many :profile_photos
   has_many :profile_courtship_preferences
   has_many :courtship_preferences, through: :profile_courtship_preferences
-  has_many :pictures, :dependent => :destroy
-  # validates_presence_of :name, :dob, :country, :state, :city,
-  #                       :religion, :language, :ethnicity, :occupation, :household,
-  #                       :height, :weight, :bodytype, :smoker, :drinker, :children, :wantkids,
-  #                       :selfbio, :ideal, :tandc,
-  #                       :gender, :status, :education, :profile_heading
-                        
+
   accepts_nested_attributes_for :profile_photos, :allow_destroy => true, :reject_if => :all_blank
-  
-   has_attached_file :photo,
-    :path => ":rails_root/public/images/:id/:filename",
-    :url  => "/images/:id/:filename"
-
-  do_not_validate_attachment_file_type :photo
-
 
   def male?
     self.gender == "Male"
@@ -41,7 +28,7 @@ class Profile < ApplicationRecord
 
   def finish_personal_info?
     if  self.ethnicity.blank? || self.occupation.blank? ||
-        self.household.blank? ||
+        self.income.blank? || self.household.blank? ||
         self.height.blank? || self.weight.blank? ||
         self.bodytype.blank? || self.smoker.blank? ||
         self.drinker.blank? || self.children.blank? ||
@@ -57,6 +44,9 @@ class Profile < ApplicationRecord
     unless self.profile_heading.blank? || self.selfbio.blank? ||
         self.ideal.blank?
       completed = true
+      if self.expectations.blank?
+        completed = false if self.male?
+      end
     end
     completed
   end
@@ -78,7 +68,7 @@ class Profile < ApplicationRecord
   end
 
   def profile_pic
-    self.pictures.find_by(is_profile_pic: true)
+    self.profile_photos.first.try(:photo).try(:url, :thumb)
   end
 
   def address
