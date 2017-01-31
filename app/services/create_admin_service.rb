@@ -4,6 +4,7 @@ class CreateAdminService
         user.password = Rails.application.secrets.admin_password
         user.password_confirmation = Rails.application.secrets.admin_password
         user.admin!
+        user.save!(validate: false)
       end
       profile = user.build_profile
       profile.name = 'Admin User'

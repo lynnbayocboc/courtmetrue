@@ -6,12 +6,13 @@ namespace :dummy  do
         u.password = 'foobar01'
         u.password_confirmation = 'foobar01'
         u.last_sign_in_at = Time.now
+        u.save!(validate: false)
       end
       p "user #{user.errors.full_messages}"
       profile = user.build_profile
       profile.name = Faker::Name.name
       profile.dob = Date.today - rand(20..28).years
-      profile.save
+      profile.save!(validate: false)
       profile_photo = ProfilePhoto.new
       uri = URI.parse(Faker::Avatar.image)
       uri.scheme = 'https'
@@ -21,7 +22,8 @@ namespace :dummy  do
       profile_photo.is_profile_pic = true
       profile_photo.photo =  uri
       profile_photo.profile = profile
-      profile_photo.save
+      profile_photo.save!(validate: false)
+      
     end
   end
 end
