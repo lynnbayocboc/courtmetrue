@@ -1,15 +1,18 @@
 class ProfilePhoto < ApplicationRecord
-  belongs_to :profile
-
   has_attached_file :photo,
-    :styles => {
-      :thumb => "100x100!",
-      :small  => "150x150!",
-      :medium => "220x220!" },
-    :path => ":rails_root/public/images/:id/:filename",
-    :url  => "/images/:id/:filename"
-
-  do_not_validate_attachment_file_type :photo
+                    :processors => [:watermark],
+                     styles: {
+                              :medium => {
+                                :geometry       => "300x300!",
+                                :watermark_path => "#{Rails.root}/public/images/watermark.png",
+                                :position => "Center"
+                                         },
+                                thumb: "171x180!",
+                                active_photo: "149x149!",
+                                conversation_thumb: "50x50!"
+                                 }, default_url: "missing.jpg"
+  validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
+  belongs_to :profile
 
   scope :active_profile_pic, -> { where(is_profile_pic: true).first }
 end

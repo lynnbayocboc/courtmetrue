@@ -157,7 +157,8 @@
           <%= "Your Profile Picture" if picture.is_profile_pic %>
         </div>
         <div id="<%= picture.id %>-picture" style="display:none;">Your Profile Picture</div>
-          <%= image_tag picture.photo.url %>
+          <%= image_tag picture.photo.url(:thumb) %>
+          
         <br>
         
         <%= link_to "Set as profile picture", set_as_profile_picture_picture_path(picture.id), :class => 'setAsProfilePicture', remote: true  %>
