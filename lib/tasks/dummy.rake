@@ -12,16 +12,16 @@ namespace :dummy  do
       profile.name = Faker::Name.name
       profile.dob = Date.today - rand(20..28).years
       profile.save
-      profile_photo = ProfilePhoto.new
-      uri = URI.parse(Faker::Avatar.image)
-      uri.scheme = 'https'
-      p "url #{uri}"
+      # profile_photo = ProfilePhoto.new
+      # uri = URI.parse(Faker::Avatar.image)
+      # uri.scheme = 'https'
+      # p "url #{uri}"
       # p "url gsub #{url.gsub("­http","htt­ps")}"
       # url = url.gsub("­http","htt­ps")
-      profile_photo.is_profile_pic = true
-      profile_photo.photo =  uri
-      profile_photo.profile = profile
-      profile_photo.save
+      # profile_photo.is_profile_pic = true
+      # profile_photo.photo =  uri
+      # profile_photo.profile = profile
+      # profile_photo.save
     end
   end
 end
