@@ -21,7 +21,14 @@
           <% if current_user.profile.gender == "female" %>
             <li role="presentation">
               <a href="#requests" aria-controls="requests" role="tab" data-toggle="tab">
-                Courtship Requests
+                Who wants to court me
+              </a>
+            </li>
+          <% end %>
+          <% if current_user.profile.gender == "male" %>
+            <li role="presentation">
+              <a href="#who_said_yes" aria-controls="who_said_yes" role="tab" data-toggle="tab">
+                Who said yes
               </a>
             </li>
           <% end %>
@@ -119,10 +126,46 @@
         <% end %>
       </div>
       
-         <div role="tabpanel" class="tab-pane" id="requests">
+      <div role="tabpanel" class="tab-pane" id="requests">
         <div class="row">
 
           <% @courtship_requests.each do |user| %>
+            <div class="col-xs-6 col-sm-4 col-md-3">
+              <div class="thumbnail">
+                <div class="caption">
+                  <h4>
+                    <%= user.profile ? user.profile.name : "" %>
+                  </h4>
+                  <p>
+                    <%= user.profile ? user.profile.full_address : "" %>
+                  </p>
+                  <p>
+                    <a href="<%= accept_courtship_request_path(user) %>" class="label label-info">
+                      Accept 
+                    </a>
+                    <a href="<%= user_path(user) %>" class="label label-danger">
+                      View
+                    </a>
+                  </p>
+                </div>
+                <% unless user.profile_photos.active_profile_pic.blank? %>
+                  <%= link_to image_tag(user.profile_photos.active_profile_pic.photo.url(:thumb)), user_path(user) %>
+                <% else %>
+                  <%= link_to user_path(user) do %>
+                    <img src="/assets/nopicture.png">
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+      
+            <div role="tabpanel" class="tab-pane" id="who_said_yes">
+        <div class="row">
+
+          <% @who_said_yes.each do |user| %>
             <div class="col-xs-6 col-sm-4 col-md-3">
               <div class="thumbnail">
                 <div class="caption">
