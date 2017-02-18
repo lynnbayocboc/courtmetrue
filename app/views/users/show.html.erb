@@ -4,15 +4,29 @@
 
       <div class="row profile_icons">
         <div class="col-md-4">
-          <%= link_to new_user_conversation_path(@user), class: "sendUserMessage" do %>
-            <i class="glyphicon glyphicon-envelope"></i>
+          
+          <% if current_user.friends_with?(@user) %>
+            <%= link_to new_user_conversation_path(@user), class: "sendUserMessage" do %>
+              <i class="glyphicon glyphicon-envelope"></i>
+            <% end %>
           <% end %>
+          
           <% if @user == current_user %>
             <%= link_to "Edit my profile", profile_path(:basic_info) %>
           <% else %>
             <span id="favourite">
               <%= link_to raw("<i class='glyphicon #{@is_favourite == 1 ? 'glyphicon-heart' : 'glyphicon-heart-empty'}'></i>"), mark_as_favourite_path(params[:id], :is_favourite => @is_favourite == 1 ? false : true), title: "Unfavorite user", :remote=> true  %>
             </span>  
+          <% end %>
+          
+          <% if current_user.profile.gender == "male" %>
+            <% unless current_user.friends_with?(@user) %>
+              <span id="favourite">
+                <%= link_to courtship_request_path, title: "Court user" do %>
+                  <span class="glyphicon glyphicon-thumbs-up"></span>
+                <% end %>
+              </span>
+            <% end %>
           <% end %>
 
           <span id="has_block">

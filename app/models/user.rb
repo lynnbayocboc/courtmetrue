@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   acts_as_messageable
+  has_friendship
 
   enum role: [:user, :vip, :admin]
   enum gender_types: [:male, :female]

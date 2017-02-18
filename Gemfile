@@ -59,3 +59,4 @@ gem 'countries_and_languages', :require => 'countries_and_languages/rails'
 gem 'language-select'
 gem 'rmagick', '2.13.2'
 gem "jquery-fileupload-rails"
+gem 'has_friendship'

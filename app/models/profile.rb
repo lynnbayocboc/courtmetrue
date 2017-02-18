@@ -8,11 +8,11 @@ class Profile < ApplicationRecord
   accepts_nested_attributes_for :profile_photos, :allow_destroy => true, :reject_if => :all_blank
 
   def male?
-    self.gender == "Male"
+    gender == "Male"
   end
 
   def female?
-    self.gender == "Female"
+    gender == "Female"
   end
 
   def finish_basic_info?

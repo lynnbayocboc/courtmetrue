@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   post 'contact', to: 'contacts#process_form'
   get 'myprofile'   => 'profiles#myprofile', as: 'myprofile'
 
+  get 'users/:id/courtship_request' => 'courtships#courtship_request', as:'courtship_request'
+  get 'users/:id/accept_courtship_request' => 'courtships#accept_courtship_request', as:'accept_courtship_request'
+  
   resources :conversations, except: [:index, :new, :create] do
     resources :messages
   end

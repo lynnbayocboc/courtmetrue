@@ -9,6 +9,9 @@ class InterestsController < ApplicationController
     @who_favourited_me_users = User.where("id in (?)", who_favourited_me)
     who_viewed_me_users_ids = ProfileView.where(:to_user_id => @user.id).pluck(:from_user_id)
     @who_viewed_me_users = User.where("id in (?)", who_viewed_me_users_ids)
+    
+    @courtship_requests = @user.requested_friends
+    
   end
 
 end
